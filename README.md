@@ -7,7 +7,7 @@ NL Net Buddy is a free Windows app that rides alongside NetLogger while you work
 - **Live HUD** — a thin strip pinned to the top of your screen that ranks which checked-in stations are worth working right now.
 - **OMISS Award Hunter** — tracks the OMISS award certificates from your log and tells you, in real time, which check-ins advance them, plus an offline dashboard of every award.
 - **Logging sync** — copies each new NetLogger contact into N3FJP ACLog, Ham Radio Deluxe / N1MM, and K1ALF's OMISS Awards Tracker, so you never log twice.
-- **Rig control (CAT)** — join a net and your radio follows to the net frequency and sideband (through ACLog).
+- **Rig control (CAT)** — join a net and your radio follows to the net frequency and sideband (through ACLog or Omni-Rig).
 
 By **N6WWW**.
 
@@ -20,6 +20,13 @@ By **N6WWW**.
 ## Formerly "OMISS Award Hunter"
 
 NL Net Buddy is the new name for the app previously called **OMISS Award Hunter** — same app, same author. The OMISS award features are now one part of a broader NetLogger companion. If you already run OMISS Award Hunter, it will point you here automatically on its next update check, and your settings carry over.
+
+## Support
+
+NL Net Buddy is free and built by just N6WWW, a low-vision / blind ham. If you like it and it's useful, support makes a big difference! Thank you and 73s!
+
+- **PayPal:** [paypal.me/n6www](https://paypal.me/n6www)
+- **Cash App:** [$NmX69](https://cash.app/$NmX69)
 
 ---
 
