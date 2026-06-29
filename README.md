@@ -23,10 +23,22 @@ NL Net Buddy is the new name for the app previously called **OMISS Award Hunter*
 
 ## Support
 
-NL Net Buddy is free and built by just N6WWW, a low-vision / blind ham. If you like it and it's useful, support makes a big difference! Thank you and 73s!
+NL Net Buddy and Ham Bites are free, built by N6WWW — a blind ham — for the community. If they're useful to you, donations go toward building a fully blind-accessible ham station so I can keep operating and making tools like these. 73, and thank you!
+
+Donations are appreciated but never expected. Everything I create I do with my heart and love for the hobby. Let me know if you use it and like it!
 
 - **PayPal:** [paypal.me/n6www](https://paypal.me/n6www)
 - **Cash App:** [$NmX69](https://cash.app/$NmX69)
+- **Email:** [n6www@yahoo.com](mailto:n6www@yahoo.com)
+
+### Ham Bites — my other free project
+
+Ham Bites is a free study/presentation system for clubs and groups, covering every US license class (Tech / General / Extra). My [QRZ page](https://www.qrz.com/db/N6WWW) is the easiest place to find it all — Ham Bites links, the accessibility story, and the donation links in one spot.
+
+- **QRZ:** [qrz.com/db/N6WWW](https://www.qrz.com/db/N6WWW)
+- **Tech Bites:** [archive.org/details/tech_bites](https://archive.org/details/tech_bites)
+- **General Bites:** [archive.org/details/general_bites](https://archive.org/details/general_bites)
+- **Extra Bites:** [archive.org/details/extra_bites](https://archive.org/details/extra_bites)
 
 ---
 
