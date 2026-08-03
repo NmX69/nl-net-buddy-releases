@@ -2,7 +2,7 @@
 
 **A companion for [NetLogger](https://www.netlogger.org/) — featuring the OMISS Award Hunter platform.**
 
-NL Net Buddy is a free Windows app that rides alongside NetLogger while you work HF nets. It watches the live check-in list and helps you get the most out of every net:
+NL Net Buddy is a free Windows 10+ app that rides alongside NetLogger while you work HF nets. It watches the live check-in list and helps you get the most out of every net:
 
 - **Live HUD** — a thin strip pinned to the top of your screen that ranks which checked-in stations are worth working right now.
 - **OMISS Award Hunter** — tracks the OMISS award certificates from your log and tells you, in real time, which check-ins advance them, plus an offline dashboard of every award.
@@ -14,6 +14,8 @@ By **N6WWW**.
 ## Download
 
 **[⬇ Download the latest version](../../releases/latest)** — grab the `NL_Net_Buddy_Setup_*.exe`, run it, and follow the prompts. It installs for your user only (no administrator password needed).
+
+> **Requires Windows 10 or later.** On Windows 7 or 8 the installer itself runs, but the app will not start -- those versions are missing a system component that current Python needs. There is no workaround; a Windows 7 build is not planned unless there is real demand.
 
 > The installer is unsigned, so Windows SmartScreen may warn "unknown publisher." Click **More info → Run anyway** to install.
 
