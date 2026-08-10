@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>NL Net Buddy — User Guide</title>
+<style>
+  :root {
+    --bg: #ffffff;
+    --fg: #000000;
+    --line: #000000;
+    --accent: #cfe8ff;      /* light blue, never grey */
+    --accent-dark: #9fd0ff;
+    --code-bg: #eef6ff;
+    --link: #0033aa;
+  }
+  body.dark {
+    --bg: #000000;
+    --fg: #ffffff;
+    --line: #ffffff;
+    --accent: #003a66;
+    --accent-dark: #00598f;
+    --code-bg: #10263a;
+    --link: #7fb8ff;
+  }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    background: var(--bg);
+    color: var(--fg);
+    font-family: "Segoe UI", Arial, sans-serif;
+    font-size: 19px;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0 0 80px 0;
+  }
+  .wrap { max-width: 900px; margin: 0 auto; padding: 0 24px; }
+  h1 {
+    font-size: 34px;
+    margin: 28px 0 4px 0;
+    border-bottom: 5px solid var(--line);
+    padding-bottom: 10px;
+  }
+  h2 {
+    font-size: 26px;
+    margin: 40px 0 12px 0;
+    border-bottom: 3px solid var(--line);
+    padding-bottom: 6px;
+  }
+  h3 { font-size: 22px; margin: 26px 0 8px 0; }
+  p, li { font-size: 19px; }
+  a { color: var(--link); }
+  strong { font-weight: 700; }
+  code, kbd {
+    background: var(--code-bg);
+    border: 2px solid var(--line);
+    border-radius: 4px;
+    padding: 1px 6px;
+    font-family: Consolas, "Courier New", monospace;
+    font-size: 17px;
+  }
+  .subtitle { font-size: 20px; font-weight: 700; margin: 8px 0 0 0; }
+
+  /* Callout for "this changed, re-learn it" notes. Uses the accent BLUE, never grey, and keeps
+     full-contrast body text on it in both themes -- a tinted panel must not cost legibility. */
+  .note {
+    background: var(--accent);
+    color: var(--fg);
+    border-left: 8px solid var(--line);
+    padding: 12px 16px;
+    margin: 16px 0;
+  }
+
+  /* Dark-mode toggle button */
+  .topbar {
+    position: sticky;
+    top: 0;
+    background: var(--bg);
+    border-bottom: 3px solid var(--line);
+    z-index: 5;
+  }
+  .topbar .wrap { display: flex; align-items: center; justify-content: space-between; padding-top: 12px; padding-bottom: 12px; }
+  .topbar .name { font-size: 20px; font-weight: 700; }
+  button.toggle {
+    background: var(--accent);
+    color: var(--fg);
+    border: 3px solid var(--line);
+    border-radius: 6px;
+    font-size: 18px;
+    font-weight: 700;
+    padding: 8px 16px;
+    cursor: pointer;
+  }
+  button.toggle:hover { background: var(--accent-dark); }
+
+  /* Table of contents */
+  nav.toc {
+    border: 3px solid var(--line);
+    border-radius: 8px;
+    padding: 14px 20px;
+    margin: 24px 0;
+    background: var(--accent);
+  }
+  nav.toc strong { font-size: 19px; }
+  nav.toc ol { margin: 8px 0 0 0; padding-left: 26px; }
+  nav.toc li { margin: 4px 0; }
+
+  /* Feature table */
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    margin: 16px 0;
+    border: 4px solid var(--line);
+  }
+  th, td {
+    border: 2px solid var(--line);
+    padding: 10px 12px;
+    text-align: left;
+    vertical-align: top;
+  }
+  th {
+    background: var(--accent-dark);
+    font-size: 19px;
+    font-weight: 700;
+  }
+  tbody tr:nth-child(even) { background: var(--accent); }
+  td .area { font-weight: 700; }
+  ul.tight { margin: 6px 0 0 0; padding-left: 20px; }
+  ul.tight li { margin: 2px 0; }
+
+  hr { border: none; border-top: 3px solid var(--line); margin: 36px 0; }
+  .footer { font-style: italic; margin-top: 36px; }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="wrap">
+    <span class="name">NL Net Buddy — User Guide</span>
+    <button class="toggle" id="darkToggle" onclick="toggleDark()">Dark mode</button>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <h1>NL Net Buddy — User Guide</h1>
+  <p class="subtitle">Version 3.3.1 · by N6WWW — a companion for NetLogger, featuring the OMISS Award Hunter platform</p>
+
+  <nav class="toc">
+    <strong>Contents</strong>
+    <ol>
+      <li><a href="#what">What it is</a></li>
+      <li><a href="#features">Feature list at a glance</a></li>
+      <li><a href="#start">Getting started</a></li>
+      <li><a href="#hud">Using the HUD (live net)</a></li>
+      <li><a href="#netcontrol">Running a net (net-control tools &amp; leader keys)</a></li>
+      <li><a href="#scripts">Net Preamble / Scripts</a></li>
+      <li><a href="#logtools">Tools that tidy your log</a></li>
+      <li><a href="#messenger">Net Buddy Messenger (chat with the net)</a></li>
+      <li><a href="#dashboard">Using the dashboard (offline review)</a></li>
+      <li><a href="#apply">Applying for an award</a></li>
+      <li><a href="#sync">Syncing to your logging program</a></li>
+      <li><a href="#hrdsync">Ham Radio Deluxe (HRD Sync)</a></li>
+      <li><a href="#k1alf">Syncing to K1ALF</a></li>
+      <li><a href="#qrz">Syncing to QRZ.com</a></li>
+      <li><a href="#perks">Supporter perks</a></li>
+      <li><a href="#tips">Tips &amp; troubleshooting</a></li>
+      <li><a href="#support">Support</a></li>
+    </ol>
+  </nav>
+
+  <h2 id="what">What it is</h2>
+  <p>NL Net Buddy is a Windows companion for <strong>NetLogger</strong>. Its headline feature — the <strong>OMISS Award Hunter</strong> platform — is for chasing <strong>OMISS</strong> operating awards.</p>
+  <p>NL Net Buddy is built from a few <strong>feature groups</strong>: the headline <strong>OMISS Award Hunter</strong> (the award-tracking platform described next), plus <strong>logging sync</strong> (ACLog / UDP Log Sync / K1ALF), <strong>rig control</strong> (your radio follows the net, via ACLog or Omni-Rig), and <strong>on-air tools</strong> (AIM status macros, a net-control panel, leader-key shortcuts, and the net preamble/scripts). Each has its own section below.</p>
+  <p>The <strong>OMISS Award Hunter</strong> platform does two things:</p>
+  <ol>
+    <li><strong>Live HUD</strong> — while you are checked into an OMISS net in <strong>NetLogger</strong>, a thin strip pins to the top of your screen and watches the check-in list. It tells you, right now, <strong>which stations are worth working</strong> to move your awards forward.</li>
+    <li><strong>Dashboard</strong> — an offline web page that shows <strong>every OMISS award</strong> (well over 100 of them): what you have finished, what you are close to, and what you can apply for. It can fill out your award application and proof log as a ready-to-send PDF.</li>
+  </ol>
+  <p>Everything is computed from your own NetLogger log. No internet is needed to use it (it only goes online to check the roster and to look for program updates).</p>
+  <p><strong>More than one net.</strong> NL Net Buddy follows whichever net you check into. Besides OMISS it supports the <strong>WASA</strong> (Worked All States &amp; Awards) net and the <strong>USTNET</strong> (United States Traffic Net), each with its own award set: the HUD <strong>auto-detects</strong> the net you&rsquo;re on and ranks for it, and the dashboard has a <strong>net dropdown</strong> to switch between nets. Each net brings its own awards; OMISS is unchanged.</p>
+
+  <p><strong>USTNET awards (new in 3.1.0).</strong> Eleven of USTNET&rsquo;s awards are tracked from your log: Worked All 50 States (the certificate, the rosewood plaque, and the multi-band plaque), 48 Continental States, WAS QRP, the 400 CLUB, Worked All Joe&rsquo;s, Alaska and Hawaii, West Coast, Christmas, and 12 Days of UST. The other eleven appear under <strong>Not Tracked</strong> with the reason. Eight of those need a USTNET member roster this app can read &mdash; the six service-branch awards, Veterans Day, and ACEs all turn on who served in which branch, and that is not in a contact log. Three can never come from a log at all: The Great Round-Up is earned by recruiting members, TOP OP of the Month is a peer vote, and the Certificate of Participation Experience depends on your serving as relay.</p>
+
+  <p>A few USTNET rules are stricter than their OMISS or WASA namesakes, so check these before you apply:</p>
+  <ul>
+    <li><strong>&ldquo;On one band&rdquo;</strong> means <em>one single band</em> carries all fifty states. Fifty states spread across 40m and 20m earns the multi-band plaque instead. The dashboard shows your best band and what that band still needs.</li>
+    <li><strong>The 400 CLUB&rsquo;s &ldquo;100 block&rdquo;</strong> is a fixed hundred (400&ndash;499, 500&ndash;599). Members 480 to 504 span two blocks and complete neither.</li>
+    <li><strong>Alaska and Hawaii</strong> must both be worked in <em>one net session</em>.</li>
+    <li><strong>Christmas and 12 Days of UST</strong> are scored per season &mdash; contacts from different years don&rsquo;t add together.</li>
+  </ul>
+
+  <h2 id="features">Feature list at a glance</h2>
+  <table>
+    <thead>
+      <tr><th>Area</th><th>Feature</th><th>What it does</th></tr>
+    </thead>
+    <tbody>
+      <tr><td class="area">HUD</td><td>Ranked stations (WORK row)</td><td>Lists the check-ins to work, ordered by how many priority / total awards the contact applies to.</td></tr>
+      <tr><td class="area">HUD</td><td>Priority awards (PRIORITY row)</td><td>Shows which of your favorite awards each check-in fills.</td></tr>
+      <tr><td class="area">HUD</td><td>Close awards (CLOSE row)</td><td>Based on those checked in, lists the non-priority awards closest to completion.</td></tr>
+      <tr><td class="area">HUD</td><td>Zulu clock</td><td>Live UTC time on the left of the strip (since the HUD covers NetLogger&rsquo;s clock).</td></tr>
+      <tr><td class="area">HUD</td><td>White lines (green)</td><td>A station shows GREEN when you have never worked them <strong>on this net</strong> &mdash; per net, not per band. The 40m net and the 40m Late net are different nets, so someone you have worked on the one is still a white line on the other.</td></tr>
+      <tr><td class="area">Tools</td><td>RL &amp; Band Remarks</td><td>Writes each OMISS contact&rsquo;s Red Line number and the bands you still needed with them into Remarks, keyed on OM# so a call change adds up. Your own remark is kept.</td></tr>
+      <tr><td class="area">Tools</td><td>Find &amp; mark duplicates</td><td>Finds the same contact logged twice and marks the copies you choose, so they sort to the top of the Remarks column. Nothing is deleted. There is an undo.</td></tr>
+      <tr><td class="area">Tools</td><td>QRZ Dupe Scanner</td><td>Compares your QRZ logbook against your NetLogger log and copies a group&rsquo;s log ids for you to paste into QRZ&rsquo;s search box.</td></tr>
+      <tr><td class="area">HUD</td><td>Click for details</td><td>Click a station to see its award value and bands still needed.</td></tr>
+      <tr><td class="area">HUD</td><td>Double-click to jump</td><td>Jumps NetLogger to that station&rsquo;s line, highlights it green (F4), and parks the cursor in the RST SENT box for immediate logging.</td></tr>
+      <tr><td class="area">HUD</td><td>AIM macro buttons</td><td>One-press status posts to AIM. You can:
+        <ul class="tight">
+          <li><strong>CI</strong> — Check In with OM#</li>
+          <li><strong>CO</strong> — Check Out &amp; 73s</li>
+          <li><strong>UA</strong> — Unavailable</li>
+          <li><strong>BK</strong> — Back from UA</li>
+          <li><strong>LC</strong> — Request a last call</li>
+          <li><strong>WW</strong> — Working</li>
+          <li><strong>BTN</strong> — Back to Net</li>
+          <li><strong>C*</strong> — Custom (right-click to edit)</li>
+        </ul>
+      </td></tr>
+      <tr><td class="area">HUD</td><td>Net-control panel</td><td>Announcement buttons, shown only when you run the net. 10 fully customizable message buttons &mdash; edit both the message and the button name (right-click the button).</td></tr>
+      <tr><td class="area">HUD</td><td>Message variables</td><td>Custom and net-control buttons can auto-fill your call, line number, the NCS name, Zulu time, and more.</td></tr>
+      <tr><td class="area">HUD</td><td>Gear menu (⚙)</td><td>One dropdown for Config (Settings), this User Guide, About &amp; Share, and the OMISS Net Schedule.</td></tr>
+      <tr><td class="area">HUD</td><td>OMISS Net Schedule</td><td>Today &amp; tomorrow&rsquo;s OMISS nets in LOCAL <em>and</em> UTC, with the scheduled NCS, an ON-AIR / countdown tag, and your own nets highlighted.</td></tr>
+      <tr><td class="area">HUD</td><td>Pink / Select-Net</td><td>Jump NetLogger to the active pink line, or pop its net selector, without moving the HUD off NetLogger&rsquo;s own buttons. <strong>Right-click</strong> it to <strong>Stop Monitoring</strong> (leave the net) &mdash; it can never trigger &ldquo;Close Net.&rdquo;</td></tr>
+      <tr><td class="area">Nets</td><td>Multiple nets (OMISS + WASA + USTNET)</td><td>Follows whichever net you check into and shows that net&rsquo;s awards. The dashboard has a net dropdown to switch nets.</td></tr>
+      <tr><td class="area">HUD</td><td>About &amp; Share</td><td>A ready-to-send &ldquo;tell a friend&rdquo; message plus donate / QRZ links.</td></tr>
+      <tr><td class="area">HUD</td><td>Auto-update</td><td>When a newer version is out, it offers to download, install, and relaunch for you — one click.</td></tr>
+      <tr><td class="area">Dashboard</td><td>All awards in one list</td><td>Every award and certificate, grouped and searchable.</td></tr>
+      <tr><td class="area">Dashboard</td><td>Progress bars</td><td>How far along each award is, and what is still needed.</td></tr>
+      <tr><td class="area">Dashboard</td><td>Proof log (LOG button)</td><td>The contacts that count toward an award.</td></tr>
+      <tr><td class="area">Dashboard</td><td>Favorites (FAV button)</td><td>Pick the awards you are chasing; sends them to the HUD. This defines your &ldquo;Priority&rdquo; awards for the HUD.</td></tr>
+      <tr><td class="area">Dashboard</td><td>Dark mode</td><td>Flips the whole page to white-on-black.</td></tr>
+      <tr><td class="area">Dashboard</td><td>Per-band / per-year views</td><td>Breaks awards down by band and by year.</td></tr>
+      <tr><td class="area">Applications</td><td>Print App &amp; Log</td><td>Fills the official OMISS application PDF + proof log.</td></tr>
+      <tr><td class="area">Applications</td><td>Copy email</td><td>Copies a ready-to-send submission email.</td></tr>
+      <tr><td class="area">HUD</td><td>Net Buddy Messenger</td><td>Chat directly with the other stations on your net &mdash; no server, no accounts, nothing to set up. Starts with Net Buddy as the <strong>NBM</strong> chip; turn auto-start off in Gear &rarr; Config &rarr; HUD.</td></tr>
+      <tr><td class="area">Sync</td><td>ACLog / N3FJP sync</td><td>Pushes new NetLogger contacts into your logging program.</td></tr>
+      <tr><td class="area">Sync</td><td>ACLog comment handling</td><td>Choose what goes in ACLog&rsquo;s comment when a contact syncs: keep NetLogger&rsquo;s remark, a Formatted line (Red&nbsp;Line&nbsp;# + OM#), or Auto-fill from ACLog&rsquo;s prior comment.</td></tr>
+      <tr><td class="area">Sync</td><td>Reconcile with ACLog</td><td>Audits your whole NetLogger log against ACLog and lists (and can push) any contacts ACLog is missing.</td></tr>
+      <tr><td class="area">Sync</td><td>UDP Log Sync (WSJT-X)</td><td>Sends new contacts to a logger that listens for the WSJT-X datagram — on its own or alongside ACLog. <strong>Proven with ACLog.</strong> Not for Ham Radio Deluxe or N1MM, which read a different format.</td></tr>
+      <tr><td class="area">Sync</td><td>HRD Sync</td><td>Sends new contacts to <strong>Ham Radio Deluxe</strong> Logbook, the way WSJT-X does. In HRD: Tools &rarr; QSO Forwarding &rarr; UDP Receive, tick &ldquo;UDP9/ADIF &hellip; (eg. WSJT-X)&rdquo;, then enter that port here. The port and the format must both match the channel you enabled.</td></tr>
+      <tr><td class="area">Sync</td><td>K1ALF sync (ALF button)</td><td>Pushes your OMISS contacts to K1ALF&rsquo;s online OMISS Awards Tracker.</td></tr>
+      <tr><td class="area">Sync</td><td>QRZ Logbook Sync</td><td>Uploads new NetLogger contacts to your QRZ.com logbook (needs a paid QRZ subscription with logbook / XML access).</td></tr>
+      <tr><td class="area">Rig</td><td>Rig control (CAT)</td><td>Moves your rig to the net frequency through ACLog, Omni-Rig, or Hamlib (rigctld) &mdash; join a net and the radio follows.</td></tr>
+      <tr><td class="area">Net control</td><td>Leader keys (Ctrl+;)</td><td>A one-press &ldquo;which-key&rdquo; menu. Punctuation and Space run the windows and logging (Check&nbsp;In, Last&nbsp;Call, Status, Goodbye/73, Preamble, Restore, History); the letters post your AIM status messages. Press <strong>?</strong> for the full list.</td></tr>
+      <tr><td class="area">Net control</td><td>Status box</td><td>Acts on a recent AIM sender: set/unset Availability (U/A), Check&nbsp;Out, Waiting&nbsp;Room, add to the Last&nbsp;Call list, or Goodbye/73 &mdash; then focus lands back in AIM.</td></tr>
+      <tr><td class="area">Net control</td><td>Honest status writes</td><td>If a status change doesn&rsquo;t reach the net you get three low beeps and a message naming what didn&rsquo;t happen, so you can do that one by hand.</td></tr>
+      <tr><td class="area">Net control</td><td>Check-in history lookup</td><td><strong>Ctrl+;</strong> then <strong>H</strong> &mdash; look up a check-in with no OM number to see whether they&rsquo;ve been on before, and post the answer to AIM.</td></tr>
+      <tr><td class="area">Net control</td><td>Net Preamble / Scripts</td><td>The Net Start / Preamble / Closing scripts for the detected net, auto-filled live (call, band, freq, Zulu time, relays, newcomers, schedule). Big readable font; press <strong>P</strong> on the leader menu.</td></tr>
+      <tr><td class="area">Support</td><td>Supporter perks</td><td>Custom 73 / check-in / away / check-out messages, AIM word alerts, a courtesy 73 on check-out, and an always-on net-control panel.</td></tr>
+      <tr><td class="area">Support</td><td>Debug Helper</td><td>One-click zip-and-reveal of your logs, so it&rsquo;s easy to send them in if something needs troubleshooting.</td></tr>
+      <tr><td class="area">Setup</td><td>Find my log</td><td>Locates NetLogger&rsquo;s hidden Contacts.adi file for you.</td></tr>
+      <tr><td class="area">Setup</td><td>Fast NetLogger connection</td><td>Reads the check-in list and sends your posts through NetLogger directly &mdash; quicker, and with no windows flashing on screen. On by default; turn it off for the older screen-reading mode.</td></tr>
+    </tbody>
+  </table>
+
+  <h2 id="start">Getting started</h2>
+
+  <h3>1. Install and open</h3>
+  <p>Run <strong>NL_Net_Buddy_Setup.exe</strong> and follow the prompts. It installs for your user only (no administrator password needed). Then open <strong>NL Net Buddy</strong> from the Start menu. When a newer version comes out, the app updates itself (see Tips) — no need to re-download.</p>
+
+  <h3>2. First-time setup</h3>
+  <p>Click the <strong>⚙</strong> gear button on the HUD and choose <strong>Config</strong> to open Settings. (The same gear menu also has this User Guide, About &amp; Share, the OMISS Net Schedule, the OMISS NCS Scripts, and the Debug Helper.) Settings has eight tabs: <strong>Setup, HUD, Applications, ACLog, Rig, UDP Log Sync, QRZ Sync,</strong> and <strong>K1ALF</strong>. Every tab scrolls if it&rsquo;s tall, and Save / Close always stay visible at the bottom.</p>
+  <p><strong>Setup tab</strong> (do this first):</p>
+  <ul>
+    <li><strong>NetLogger log</strong> — click <strong>Find my log</strong> to locate your <code>Contacts.adi</code> automatically, or <strong>Browse…</strong> to pick it yourself.</li>
+    <li><strong>Callsign</strong> — your call.</li>
+    <li><strong>OM number</strong> — your OMISS member number.</li>
+    <li><strong>Refresh every [N] seconds</strong> — how often the HUD re-checks the net (default 30).</li>
+    <li><strong>Fast NetLogger connection — recommended</strong> — leave this <strong>on</strong> (the default). NL Net Buddy then talks to NetLogger directly, so reading the check-in list and posting your check-ins, status, and AIM messages are quick and don&rsquo;t flash any windows on your screen. Turn it off only if you want the older screen-reading mode.</li>
+  </ul>
+  <p>Click <strong>Save</strong>. That is all you need to start hunting.</p>
+  <p><strong>Applications tab</strong> (only needed for printing award applications):</p>
+  <ul>
+    <li>Your name as it appears on certificates, mailing address, email, and any prior calls.</li>
+    <li>Check <strong>Request PRINTED award</strong> if you want a mailed certificate; leave it unchecked for the free electronic one.</li>
+  </ul>
+
+  <h2 id="hud">Using the HUD (live net)</h2>
+  <p>The HUD is the strip across the top of your screen. Read it left to right.</p>
+  <ul>
+    <li><strong>Zulu clock</strong> — the red UTC time on the far left.</li>
+    <li><strong>WORK row</strong> — the stations worth working, best first. Format is <code>#line  call  bands  awards</code>. <strong>Yellow</strong> means working that station <em>finishes</em> an award. <strong>Green</strong> means you have never worked them. (This row is <strong>hidden by default</strong> so the strip stays focused on your favorite awards; turn it on in Settings → HUD by unchecking <strong>Hide the WORK line</strong>.)</li>
+    <li><strong>PRIORITY row</strong> — which of your favorite awards each check-in fills, with how many contacts you still need.</li>
+    <li><strong>CLOSE row</strong> — the three awards you are closest to finishing that a check-in can advance right now.</li>
+  </ul>
+  <p><strong>To see details:</strong> single-click any station. The panel shows which awards it advances and which bands you still need with that station.</p>
+  <p><strong>To work a station:</strong> double-click it. The HUD jumps NetLogger to that station&rsquo;s row and drops your cursor in the RST Sent box so you can type the report.</p>
+  <p><strong>Buttons under the strip:</strong></p>
+  <ul>
+    <li><strong>Hide 30s</strong> — minimize the HUD for 30 seconds; it pops back on its own. Handy for reaching NetLogger's menus or net selector along the top of the screen without losing the HUD. (To keep it down, use the window's own minimize button.)</li>
+    <li><strong>Dash</strong> — build and open the dashboard.</li>
+    <li><strong>Pink</strong> / <strong>Next</strong> — <em>(when you're in a net)</em> jump NetLogger's check-in list to the active <strong>pink</strong> line (<strong>Pink</strong>) or the <strong>green</strong> &ldquo;needed next&rdquo; line (<strong>Next</strong>) — so you don't have to move the HUD off NetLogger's own arrow buttons to reach them. <strong>Right-click</strong> the Pink / Select-Net button to <strong>Stop Monitoring</strong> (leave the net you&rsquo;re on). It invokes NetLogger&rsquo;s &ldquo;Stop Monitoring&rdquo; button <em>by name</em>, so it can <strong>never</strong> trigger &ldquo;Close Net&rdquo; — closing a net stays a deliberate manual action.</li>
+    <li><strong>⚙</strong> (gear) — a dropdown menu: <strong>Config</strong> (Settings), <strong>OMISS Net Schedule</strong>, <strong>OMISS NCS Scripts</strong>, <strong>WASA Scripts &amp; Schedule</strong>, <strong>User Guide</strong> (this page), <strong>About &amp; Share</strong>, <strong>Debug Helper</strong>, and <strong>Supporter Perks</strong>.</li>
+    <li><strong>ALF</strong> — push your new OMISS contacts to K1ALF&rsquo;s online awards tracker (second row, below the gear button — see below).</li>
+  </ul>
+
+  <h3>Gear menu (⚙)</h3>
+  <p>The gear button on the HUD opens a small dropdown:</p>
+  <ul>
+    <li><strong>Config</strong> — open Settings.</li>
+    <li><strong>OMISS Net Schedule</strong> — a pop-up listing every OMISS net for today and tomorrow, with the time shown in <strong>both your local time and UTC</strong>, the scheduled net-control op, special-night notes, and an <strong>ON AIR</strong> / countdown / &ldquo;no net&rdquo; tag. If you&rsquo;re the scheduled NCS, your net is highlighted. It reads the live schedule, so seasonal bands (the high bands, 160m in winter) and holiday nets are already filtered to what&rsquo;s actually on.</li>
+    <li><strong>OMISS NCS Scripts</strong> — the ready-to-read net-opening scripts, auto-filled from the live net (see <a href="#scripts">its own section</a>). You can also open this with the leader key <strong>Ctrl+;</strong> then <strong>P</strong>.</li>
+    <li><strong>WASA Scripts &amp; Schedule</strong> — the same net-opening scripts and schedule for the WASA net.</li>
+    <li><strong>User Guide</strong> — open this page in your browser.</li>
+    <li><strong>About &amp; Share</strong> — an editable &ldquo;tell a friend&rdquo; message you can copy or post in AIM, plus clickable donate and QRZ links. If you like NL Net Buddy, this is the easy way to spread the word.</li>
+    <li><strong>Debug Helper</strong> — one-click tools to zip your logs and show you the file, so it&rsquo;s easy to send them in if something ever needs troubleshooting (see <a href="#tips">Tips &amp; troubleshooting</a>).</li>
+    <li><strong>Supporter Perks</strong> — the perks panel (see <a href="#perks">Supporter perks</a>). For supporters it&rsquo;s the editor; for everyone else it&rsquo;s a preview of what supporting unlocks.</li>
+  </ul>
+
+  <h3>AIM status buttons</h3>
+  <p>You get a small grid of one-press buttons that post a status line to the net&rsquo;s IM window — for example check-in, check-out, listening, or working. Right-click the custom button to edit its message. They&rsquo;re <strong>shown by default</strong>; to hide them, clear <strong>Enable AIM macro buttons</strong> in Settings → HUD and restart.</p>
+
+  <p class="tight"><em>Running a net?</em> The net-control announcement panel, the leader key, and the Status box each have their own section below (<a href="#netcontrol">Running a net</a>).</p>
+
+  <h3>Message variables</h3>
+  <p>The custom AIM button (<strong>C*</strong>) and every <strong>net-control button</strong> can include variables in curly braces. When you press the button, each one is filled in automatically. Variables are <strong>not</strong> case-sensitive, and the list is shown right in the edit box when you right-click a button.</p>
+  <ul>
+    <li><code>{My_CS}</code> — your callsign</li>
+    <li><code>{My_OM}</code> — your OM number</li>
+    <li><code>{My_Line}</code> — your line number on the current check-in list</li>
+    <li><code>{NCS_Name}</code> — the net-control operator&rsquo;s name (from check-in line 1)</li>
+    <li><code>{NCS_CS}</code> — the net-control operator&rsquo;s callsign</li>
+    <li><code>{NCS_Rem}</code> — the remark on check-in line 1</li>
+    <li><code>{Time_UTC}</code> — the current time in Zulu, e.g. <code>1432Z</code></li>
+  </ul>
+  <p>For example, a button set to <code>Thanks {NCS_Name}! #{My_Line} {My_CS} 73</code> might post <code>Thanks Bob! #14 N6WWW 73</code>.</p>
+
+  <h2 id="netcontrol">Running a net (net-control tools &amp; leader keys)</h2>
+  <p>These tools help when you are the <strong>net-control operator (NCS)</strong> or <strong>logger</strong>. Most are driven by a single <strong>leader key</strong> so you can keep your hands on the radio and your eyes off the mouse.</p>
+
+  <h3>The leader key (Ctrl+;)</h3>
+  <p>Press <strong>Ctrl+;</strong> (hold Ctrl, tap the semicolon) anywhere, then tap one key for the action you want. You&rsquo;ll hear a short beep when it&rsquo;s armed and again when the action fires. <strong>If you forget the keys, press <code>?</code></strong> and a menu pops up showing every one of them &mdash; that menu is always the final word, and it can never go out of date the way a printed list can.</p>
+
+  <p>There are two groups. <strong>Windows and logging live on the punctuation keys and Space</strong>, and each one mirrors its direct Ctrl shortcut &mdash; the same second key whether you hold Ctrl or press <code>;</code> first, so there is only one thing to remember:</p>
+  <ul>
+    <li><strong>/</strong> — <strong>Check In</strong>: type a call (or paste one from AIM) into NetLogger&rsquo;s first empty Call Sign box. Same as <strong>Ctrl+/</strong>.</li>
+    <li><strong>.</strong> — <strong>Last Call</strong>: add the current line to the Last-Call list. Same as <strong>Ctrl+.</strong></li>
+    <li><strong>Space</strong> — <strong>Status box</strong> (see below). Same as <strong>Ctrl+Space</strong>.</li>
+    <li><strong>G</strong> — <strong>Goodbye / 73</strong>: post a 73 to a recent AIM sender. Same as <strong>Ctrl+G</strong>.</li>
+    <li><strong>P</strong> — <strong>Preamble / Net Scripts</strong> (see the next section).</li>
+    <li><strong>R</strong> — <strong>Restore</strong>: bring all the windows to the front and put the cursor back in AIM.</li>
+    <li><strong>H</strong> — <strong>History</strong>: look up a check-in who has <strong>no OM number</strong>, to see whether they have been on the net before and under what number. You can post the answer straight to AIM.</li>
+  </ul>
+
+  <p><strong>The letters post your own status to the net chat</strong> &mdash; the same messages as the macro buttons on the HUD:</p>
+  <ul>
+    <li><strong>I</strong> — Check-<strong>I</strong>n message (CI)</li>
+    <li><strong>O</strong> — Check-<strong>O</strong>ut message (CO)</li>
+    <li><strong>A</strong> — <strong>A</strong>vailability (U/A or BK)</li>
+    <li><strong>L</strong> — <strong>L</strong>ast-Call message (LC)</li>
+    <li><strong>W</strong> — <strong>W</strong>orking, taking your turn (WW)</li>
+    <li><strong>B</strong> — <strong>B</strong>TN message</li>
+    <li><strong>C</strong> — <strong>C</strong>ustom message (C*)</li>
+  </ul>
+
+  <p class="note"><strong>If you learned the old letters:</strong> Check In, Last Call and Status used to be <strong>C</strong>, <strong>L</strong> and <strong>S</strong>. They are now <strong>/</strong>, <strong>.</strong> and <strong>Space</strong>. <strong>C</strong> and <strong>L</strong> still do something &mdash; they post your Custom and Last-Call <em>messages</em> &mdash; so re-learn these rather than find out mid-net.</p>
+
+  <p><strong>If these keys clash with another program</strong>, you can switch them all off: Settings &rarr; <strong>HUD</strong> &rarr; clear <strong>Enable keyboard shortcuts</strong>. That turns off the whole set &mdash; the Ctrl+; leader, Ctrl+Space Status, Ctrl+G goodbye, Ctrl+. Last-Call and Ctrl+/ Check-In &mdash; so the other app gets them back. Restart the HUD to apply. Everything stays reachable with the mouse.</p>
+
+  <h3>The Status box (Ctrl+Space, or Ctrl+; then Space)</h3>
+  <p>Pick a recent AIM sender from the list, then press one key to act on them. <strong>Every action here works on the AIM sender</strong> &mdash; the left-hand keys keep your right hand free to scroll:</p>
+  <ul>
+    <li><strong>A</strong> — <strong>Availability</strong>: set or unset their <strong>U/A</strong> (unavailable)</li>
+    <li><strong>C</strong> — <strong>Check Out</strong> (or back in)</li>
+    <li><strong>W</strong> — send them to the <strong>Waiting Room</strong> (check in, then U/A). Double-clicking the name does this too.</li>
+    <li><strong>L</strong> — add them to the <strong>Last-Call list</strong></li>
+    <li><strong>G</strong> — <strong>Goodbye / 73</strong> to them</li>
+  </ul>
+  <p>Because it now includes Goodbye, an NCS or logger can run just about every net-control action from this one box &mdash; just keep tapping <strong>Ctrl+Space</strong>. Tick <strong>Stay open until Esc</strong> and the box stays up as you work, refreshing live as new AIM messages arrive and keeping your keyboard focus put after each action, so you can act on several stations in a row without reopening it. Note that <em>opening</em> the Status box needs net-control privileges (see below); if you don&rsquo;t have them, say goodbye with <strong>Ctrl+G</strong> (or <strong>Ctrl+;</strong> then <strong>G</strong>) instead &mdash; that path works for anyone.</p>
+  <p>After any action, focus lands back in the AIM input box so you can keep typing.</p>
+  <p><strong>Anyone can open the leader menu and its <code>?</code> help</strong> &mdash; nothing is hidden. But the actions that <em>edit the check-in list</em> need net-control privileges: <strong>Status box, Check-In, and Last Call</strong> only run if your own check-in shows you as net control <code>(nc)</code> or logger <code>(log)</code>. If you&rsquo;re not, those just beep and decline. <strong>Goodbye / 73 (Ctrl+G, or Ctrl+; then G) works for anyone.</strong></p>
+
+  <h3>The dedicated Check-In and Last-Call boxes</h3>
+  <p>The Status box is the fast path for changing a sender&rsquo;s status, but the <strong>dedicated Check-In and Last-Call boxes</strong> (<strong>Ctrl+/</strong> and <strong>Ctrl+.</strong>, or the leader key then <strong>/</strong> and <strong>.</strong>) do more:</p>
+  <ul>
+    <li><strong>Last-Call box</strong> &mdash; you can type a <strong>line number directly</strong>, so you don&rsquo;t have to go through AIM at all. And if there&rsquo;s <strong>no Last-Call list yet</strong>, it offers to <strong>create one</strong> for you.</li>
+    <li><strong>Check-In box</strong> &mdash; type a <strong>call sign or an OM number</strong> directly. There&rsquo;s a checkbox to choose whether new check-ins start as <strong>Unavailable (F7)</strong> or not:
+      <ul>
+        <li>Leave it <strong>off</strong> to add someone <strong>live</strong> during check-ins or an on-the-air pass.</li>
+        <li>Turn it <strong>on</strong> to add someone <strong>UA</strong> mid-net &mdash; that&rsquo;s how they land in the <strong>Waiting Room</strong>.</li>
+      </ul>
+    </li>
+    <li><strong>Shift-Enter = check in the message <em>text</em>, not the sender.</strong> In the Check-In box, plain <strong>Enter</strong> checks in whoever <em>sent</em> the selected AIM message. But <strong>Shift-Enter</strong> checks in the <strong>call sign or OM number written <em>inside</em> the message</strong> instead. So when a <strong>relay posts someone&rsquo;s OM number</strong>, select the relay&rsquo;s message and press <strong>Shift-Enter</strong> &mdash; the <strong>posted OM number</strong> gets added to the bottom of the check-in list, not the relay.</li>
+  </ul>
+
+  <h3>Net-control announcement panel</h3>
+  <p>When your own check-in shows you as NCS, Logger, or Relay, a panel of <strong>announcement buttons</strong> appears automatically (10 buttons; right-click any to edit its label or message). These are just AIM chat macros &mdash; no special privilege needed. Supporters can turn on <strong>&ldquo;Always show the NCS panel&rdquo;</strong> in Supporter Perks, handy if your role isn&rsquo;t auto-detected.</p>
+
+  <h2 id="scripts">Net Preamble / Scripts</h2>
+  <p>Open it from the <strong>gear menu</strong> (📋 OMISS NCS Scripts) or with the leader key <strong>Ctrl+;</strong> then <strong>P</strong>. It shows the full net-opening script for whichever net you&rsquo;re on &mdash; <strong>Net Start</strong>, <strong>Preamble</strong>, and <strong>Closing</strong> &mdash; ready to read on the air.</p>
+  <p>Everything variable is <strong>filled in live</strong> and shown in <strong>bold yellow</strong> so it jumps out as you read: your call, name, and OM number; the band, frequency, and current Zulu time; the <strong>relays and loggers</strong> checked in (with names); the <strong>newcomers</strong>; and the net&rsquo;s meeting time and next session, pulled from the live OMISS schedule.</p>
+  <p>It&rsquo;s built to be easy to read on air:</p>
+  <ul>
+    <li><strong>A- / A+</strong> in the title bar shrink or grow the font (your choice is remembered).</li>
+    <li><strong>CAPS</strong> toggles the whole script to all-capitals and back (also remembered), in case that reads easier for you.</li>
+    <li><strong>N / P / C</strong> jump to the Net Start, Preamble, or Closing section; the <strong>arrow keys</strong> scroll a line at a time and Page&nbsp;Up/Down move by page.</li>
+    <li><strong>Copy all</strong> copies the whole script to the clipboard.</li>
+  </ul>
+  <p>Everyone gets the standard OMISS script. (The wording follows the OMISS Net Control Guidelines, which call the script &ldquo;recommended&rdquo; and allow personal style.)</p>
+
+  <h2 id="logtools">Tools that tidy your log</h2>
+  <p>Under the gear menu, <strong>&#129520;&nbsp;Tools</strong> holds jobs that write into your NetLogger log&rsquo;s <strong>Remarks</strong> column. They all work the same way: they show you exactly what they propose to change, you untick anything you want left alone, and only then do they write.</p>
+  <p><strong>Before any change is written, Net Buddy makes a numbered backup of your log beside it and checks it byte for byte.</strong> If anything about that backup is not right, nothing is written at all. It also re-checks the log at the last moment and refuses if NetLogger has logged a QSO since you looked &mdash; so it can never overwrite a contact you just made. Backups are numbered (<code>&hellip;.nnbrlbak001</code>, <code>002</code> &hellip;), so an older one is still there if you want it.</p>
+  <ul>
+    <li><strong>OMISS Tools &rarr; RL &amp; Band Remarks</strong> puts each OMISS contact&rsquo;s Red Line number and the bands you still needed with that member in front of your remark, like <code>RL: 47, Need 10/12/160 =&gt; QRP 5W</code>. It is keyed on OM#, not callsign, so a member who has changed call still adds up. Everything after the <code>=&gt;</code> is yours and is never touched. Both numbers describe <em>the day of that contact</em>, so an old QSO still reads correctly. Running it again changes nothing unless something has actually changed.</li>
+    <li><strong>NetLogger Tools &rarr; Find &amp; mark duplicates</strong> looks for the same station recorded twice on one band and date, on the same net, within half an hour. Tick the copies you want gone and it puts <strong>!!DUPE</strong> in front of their remarks. <strong>It never deletes anything.</strong> Click the Remarks column heading in NetLogger&rsquo;s contact list and the marked rows gather at the top, where you delete the ones you want.</li>
+    <li><strong>NetLogger Tools &rarr; Clear duplicate marks</strong> takes the marks off again. It finds them by the mark itself, so it still works after you have already deleted some.</li>
+    <li><strong>QRZ Tools &rarr; Dupe Scanner</strong> compares your QRZ logbook against your NetLogger log and shows contacts QRZ is holding twice. It changes nothing at either end. Each group has a <strong>[copy ids]</strong> link: click it, then paste into the search box to the <em>left</em> of <strong>Filter</strong> at the top of your QRZ logbook list. QRZ then shows just those QSOs side by side, so you can compare them and delete the one you do not want.</li>
+  </ul>
+
+  <h2 id="messenger">Net Buddy Messenger (chat with the net)</h2>
+  <p><strong>Net Buddy Messenger</strong> lets you chat directly with the other stations on your net. There is no server, no account and nothing to set up: it finds everyone else on the same net by itself, and takes your callsign from NetLogger &mdash; so the callsign you show other people is the one you are checked in with.</p>
+  <p>It starts with Net Buddy and sits as a small <strong>NBM</strong> chip on your desktop. <strong>Click the chip</strong> to open the directory of everyone on your net, then <strong>click a name</strong> to open a chat. Type and press <strong>Enter</strong> (or click <strong>Send</strong>).</p>
+  <ul>
+    <li><strong>&mdash; Bubble</strong> shrinks a chat to a small draggable bubble; click the bubble to bring the chat back.</li>
+    <li>A new message arrives as a <strong>flashing bubble</strong> and marks the sender <strong>&#9679;&nbsp;NEW</strong> in the directory. It never opens a window over what you are doing.</li>
+    <li><strong>+ Add</strong> brings another station into the same chat, so a private chat becomes a small group. Everyone already in it sees who was added.</li>
+    <li>Your own callsign is pinned at the top of the directory, marked <strong>(you)</strong>, so you can see what everyone else sees for you.</li>
+    <li>A <strong>&#9733;</strong> marks supporters.</li>
+    <li><strong>Two tabs: Net and Global.</strong> <strong>Net</strong> is the people here with you. <strong>Global</strong> is everyone running Net Buddy Messenger anywhere, with <strong>the net each of them is on</strong> shown in amber beside their call. Each tab carries its own count, so you can see there is activity elsewhere without switching. Hover a line to see the whole thing if the net name is long.</li>
+    <li><strong>Global is for finding where people are.</strong> You may know a dozen operators from one net and have no idea which others they frequent &mdash; this shows you, so you can go and join them. You can start a chat with anyone in the Global list, even if you share no net at all.</li>
+    <li>Being listed there means your callsign and current net are visible to other Net Buddy Messenger users. Net membership is already public &mdash; NetLogger shows the check-in list to everyone on the net &mdash; so this is the on-air equivalent of announcing where you are.</li>
+    <li>When someone leaves a chat because they moved to another net, the chat says so <em>and names the net they went to</em>, rather than going quiet.</li>
+    <li><strong>Right-click the chip &rarr; Minimize</strong> tucks it onto the taskbar; click its taskbar button to bring it back. <strong>Quit</strong> now stays quit.</li>
+  </ul>
+  <p><strong>Emoji.</strong> Type emoticons the ordinary way &mdash; <code>:)</code>, <code>;)</code>, <code>:D</code>, <code>&lt;3</code> &mdash; or use the <strong>Emoji</strong> button beside the message box to pick one. Everyone can send them; having them <em>arrive as colour pictures</em> rather than as text is a <strong>supporter perk</strong>.</p>
+
+  <p><strong>Settings.</strong> Your callsign and name come from NetLogger and aren&rsquo;t editable here, so nobody can put someone else&rsquo;s call on a message. You can set the <strong>font size</strong> (restart to apply) and choose whether the Messenger <strong>keeps on top of other windows</strong> (on by default).</p>
+
+  <p><strong>Alert sound.</strong> Tick <strong>Alert sounds</strong> to be told when a message arrives, then pick which one from the <strong>Alert sound</strong> menu: <strong>Chime</strong>, <strong>Ping</strong>, <strong>Morse R (roger)</strong>, <strong>Knock</strong> or <strong>Blip</strong>. Press <strong>&#9654; Test</strong> beside the menu to hear one straight away &mdash; you don&rsquo;t have to save first. The sounds travel with the program, so they are the same on every machine and need nothing installed.</p>
+
+  <p><strong>Don&rsquo;t want it running?</strong> Turn off auto-start in <strong>Gear &rarr; Config &rarr; HUD</strong> (restart to apply). You can also run the Messenger on its own, without the HUD.</p>
+  <p><strong>A convenience chat, not a secure channel.</strong> Messages are encrypted between you and the other station, but they travel through a free public relay and callsigns are not verified. Say nothing there you would not say on the air.</p>
+
+  <h2 id="dashboard">Using the dashboard (offline review)</h2>
+  <p>Click <strong>Dash</strong> on the HUD (or open it any time). It is a web page that works offline.</p>
+  <p><strong>At the top</strong> you see big clickable numbers: how many award <strong>families</strong> and <strong>certificates</strong> you have, how many you can <strong>apply for</strong>, how many are <strong>close</strong>, how many are <strong>claimed</strong>, and how many are <strong>in progress</strong>.</p>
+  <p><strong>The award list:</strong> every award is a box you can open. Inside, each certificate shows a progress bar, a have/need count, and what is still missing. Each line has:</p>
+  <ul>
+    <li><strong>LOG</strong> — shows the exact contacts that count toward that certificate. Use <strong>Print / Save PDF</strong> to keep a copy.</li>
+    <li><strong>+ FAV</strong> — marks the award as a favorite you are chasing.</li>
+    <li><strong>claimed</strong> (a checkbox at the end of every <em>finished</em> certificate) — tick it to mark that certificate as already claimed/awarded; it turns green and reads <strong>CLAIMED</strong>. Untick to move it back to <strong>APPLY</strong> (apply for). Your tick saves instantly. Certificates your omiss.net record already shows as issued come pre-ticked and locked. This is how you tell the dashboard about awards you already hold that your omiss.net record doesn't list yet — for example a higher Membership tier or an endorsement. (The checkbox appears when you open the dashboard with the <strong>Dash</strong> button, the normal way.)</li>
+  </ul>
+  <p><strong>Details</strong> expands an award in place to show the full rules, per-band progress, and (for yearly awards) a per-year picker.</p>
+  <p><strong>Tools at the top of the page:</strong></p>
+  <ul>
+    <li><strong>Dark mode</strong> — switch to white-on-black.</li>
+    <li><strong>Export FAVs</strong> — only needed if you opened the dashboard file by hand. When you open it with the <strong>Dash</strong> button, your favorites save automatically and the HUD picks them up on its next scan — nothing to export.</li>
+    <li><strong>Search box</strong> — type to filter the awards.</li>
+    <li><strong>Net dropdown</strong> — if you check into more than one net (OMISS, WASA, USTNET), switch which net&rsquo;s awards the page shows. It appears only when you have awards on more than one net.</li>
+  </ul>
+
+  <h2 id="apply">Applying for an award</h2>
+  <p>When a certificate is finished (or ready to claim), open the dashboard and click <strong>Print App &amp; Log</strong> on that certificate.</p>
+  <p>The program fills out the <strong>official OMISS application form</strong>, builds your <strong>proof log</strong> of qualifying contacts, and merges them into <strong>one PDF</strong> shown in your browser.</p>
+  <p>The proof log is tailored to each award, so it carries the exact columns the OMISS checker looks for &mdash; for example the service branch and first-responder role on the Military &amp; First Responder awards, the president on the US Presidents awards, and the call district (sorted by district) on the Call District award. That&rsquo;s what keeps a submission from coming back as &ldquo;incomplete.&rdquo;</p>
+  <ul>
+    <li><strong>Print / Save PDF</strong> — save the PDF to your computer.</li>
+    <li><strong>Copy email</strong> — copies a ready-to-send email; paste it into your mail program, attach the PDF, and send it to the OMISS awards manager.</li>
+  </ul>
+  <p>Your name and address come from Settings → Applications, so fill those in once.</p>
+
+  <h2 id="sync">Syncing to your logging program (ACLog / N3FJP)</h2>
+  <p>If you also keep a log in <strong>N3FJP ACLog</strong>, the HUD can copy each new NetLogger contact into it so you do not have to log twice.</p>
+  <p><strong>In ACLog first:</strong> open Settings → Application Program Interface and turn on <strong>TCP API Enabled (Server)</strong>.</p>
+  <p><strong>Then in NL Net Buddy:</strong> open Settings → ACLog and check <strong>Sync new contacts to my logging program</strong>. Set the host and port (usually <code>127.0.0.1</code> and <code>1100</code>). Use <strong>Test connection</strong> to confirm ACLog is reachable.</p>
+  <p>Useful Sync buttons:</p>
+  <ul>
+    <li><strong>Hold new QSOs [N] minutes</strong> — waits before syncing, so you can fix a QSO first.</li>
+    <li><strong>Sync from [date]</strong> — contacts before this date are not sent automatically.</li>
+    <li><strong>Back-sync…</strong> — send older contacts you logged before turning sync on.</li>
+    <li><strong>Mark log synced</strong> — mark everything as already-synced without sending it.</li>
+    <li><strong>Tag synced contacts</strong> — adds a marker (default <code>[NL]</code>) in ACLog so you can find them later.</li>
+  </ul>
+  <p><strong>Comment handling</strong> (Settings → ACLog) chooses what goes in ACLog&rsquo;s comment field for each synced contact:</p>
+  <ul>
+    <li><strong>None</strong> (default) — carry NetLogger&rsquo;s Remarks plus the sync tag, exactly as before.</li>
+    <li><strong>Formatted</strong> — compose a tidy comment from the contact: <code>RL: N - CLUB - OM# - remark - tag</code>. The <strong>Red Line number</strong> (RL) is how many times you&rsquo;ve worked that callsign. No ACLog lookup — instant.</li>
+    <li><strong>Auto-fill from ACLog</strong> — look up the call&rsquo;s most recent ACLog contact, carry its comment (and power) forward, then re-stamp the current Red Line number and tag. Fills in what an API insert would otherwise leave bare, so synced rows match your hand-logged ones.</li>
+  </ul>
+  <p>The HUD never locks or interferes with NetLogger, and if ACLog is closed it simply does nothing — it will not error.</p>
+
+  <h3>Reconcile with ACLog (find contacts ACLog is missing)</h3>
+  <p>Routine sync handles <em>new</em> contacts going forward, but if sync was off for a while, or you started using ACLog after you&rsquo;d already logged some nets, ACLog can be missing older contacts. <strong>Reconcile</strong> finds them.</p>
+  <p>On the <strong>ACLog</strong> settings tab, click <strong>Reconcile with ACLog…</strong>. With ACLog running (TCP API on), the modal reads your <strong>whole NetLogger log</strong> and your <strong>whole ACLog log</strong>, then lists every NetLogger contact that isn&rsquo;t in ACLog yet. It&rsquo;s a big read, so it can take a few seconds on a large log.</p>
+  <ul>
+    <li><strong>Start</strong> — run the compare. Leave <strong>From date</strong> blank to check your entire log, or set a date to check only contacts on/after it.</li>
+    <li><strong>Push N to ACLog</strong> — appears once there are results. It asks you to confirm, then sends only the missing contacts and marks them synced so routine sync won&rsquo;t send them again.</li>
+  </ul>
+  <p>Nothing is sent until you click Push. It&rsquo;s safe to run any time, and it only ever <em>adds</em> what&rsquo;s missing — it never changes or removes anything in ACLog. (If ACLog can&rsquo;t be fully read, it tells you and won&rsquo;t offer to push, so a partial read can never create duplicates.)</p>
+
+  <h3>Keeping NetLogger&rsquo;s OMISS club profile current</h3>
+  <p>NL Net Buddy downloads the OMISS roster it needs for the award rules. When NetLogger is installed, it also quietly copies that same roster into NetLogger&rsquo;s own OMISS club profile, so you never have to &ldquo;download club profile&rdquo; in NetLogger before a net — just run the HUD and NetLogger&rsquo;s profile stays current. It makes a one-time backup of your existing profile first, and does nothing if NetLogger isn&rsquo;t installed.</p>
+
+  <h3>Rig control — let the radio follow the net (CAT)</h3>
+  <p>If your radio is computer-controlled (through ACLog or Omni-Rig), the HUD can <strong>move it to the net frequency for you</strong>. Join a net in NetLogger and the radio follows; switch from 40m to 20m and it follows again — including the correct sideband (and it switches you out of CW if you were on CW).</p>
+  <p>NL Net Buddy never touches your radio or a COM port directly. It only reads the frequency NetLogger already shows and asks your rig-control program to move the rig, so there is no conflict over the serial port.</p>
+  <p><strong>Pick a backend (Settings → Rig tab), off by default — you choose one:</strong></p>
+  <ul>
+    <li><strong>ACLog</strong> — if ACLog already controls your rig. Make sure ACLog's <strong>rig interface</strong> is on (it's showing your live frequency) and its <strong>TCP API</strong> is enabled (same as for sync). Uses the ACLog host/port from the ACLog tab.</li>
+    <li><strong>Omni-Rig</strong> — drives the radio directly, so it works with <strong>any logging program or none</strong>. Install <strong>Omni-Rig</strong> (the free CAT proxy by VE3NEA) and set your radio in its dialog, then pick Omni-Rig here (Rig 1 or Rig 2).</li>
+    <li><strong>Hamlib (rigctld)</strong> — the other direct-drive option, also good with <strong>any logging program or none</strong>. Run <strong>Hamlib&rsquo;s <code>rigctld</code></strong> for your radio (it can even share a port another Hamlib app already opened), then pick Hamlib here and set its TCP <strong>port</strong> (default <code>4532</code>).</li>
+  </ul>
+  <p>Use <strong>Test rig connection</strong> on the Rig tab to confirm your choice is reachable (it reads the rig back without moving it).</p>
+  <ul>
+    <li><strong>It only moves the rig when the net <em>changes</em>.</strong> While you're in one net you can tune around freely — work a split, chase a weak signal — and the HUD will <strong>not</strong> snap you back. Coming back to a net that's already running won't grab your VFO either.</li>
+    <li><strong>QSY button</strong> — once rig control is on, a <strong>QSY</strong> button appears next to <strong>Dash</strong>. Press it to snap the rig to the <em>current</em> net's frequency and mode on demand. That's your &ldquo;put me back on the net frequency&rdquo; button.</li>
+    <li><strong>Off-frequency alert</strong> — if your rig drifts off the net frequency (you bumped the VFO, tuned to an adjacent station, or the net itself moved), the <strong>QSY button turns bold red</strong> so you can tap it to jump back. If the <em>net</em> moved — a change you didn't make — you also get a quick double-beep; tuning off on purpose stays silent.</li>
+    <li>If your rig-control program isn't running, or no rig is ready, the QSY simply does nothing and tells you so on the status line — it never errors.</li>
+  </ul>
+
+  <h3>UDP Log Sync (works with almost any logger)</h3>
+  <p>If your logging program isn&rsquo;t ACLog, <strong>UDP Log Sync</strong> can still feed it your contacts. It speaks the <strong>WSJT-X</strong> &ldquo;QSO logged&rdquo; message &mdash; the same one FT8 uses &mdash; which many loggers know how to receive. This is <strong>proven with ACLog</strong>; others that document a WSJT-X UDP listener (Log4OM, DXKeeper, CQRLog&hellip;) should work but are not confirmed here. <strong>Ham Radio Deluxe and N1MM Logger+ do NOT read this format</strong> &mdash; use the separate <strong>HRD Sync</strong> tab for Ham Radio Deluxe, and N1MM&rsquo;s own ADIF import for N1MM.</p>
+  <p>Turn on <strong>Send new contacts via UDP Log Sync</strong> in Settings → <strong>UDP Log Sync</strong>, and set the host and port to match your logger (the WSJT-X default is <code>127.0.0.1</code> and port <code>2237</code>). In your logger, enable its <strong>WSJT-X / UDP</strong> listener on that same host and port, then click <strong>Test UDP sync</strong> on the tab. It&rsquo;s an <strong>independent</strong> sync target with its own record &mdash; use it on its own (instead of ACLog) or alongside ACLog &mdash; and it has its own <strong>Test / Back-sync / Mark-synced / Reset</strong> buttons.</p>
+  <p>Because this is a one-way message, there&rsquo;s no confirmation the other program received it, so the status shows it as <strong>unverified</strong> rather than a confirmed connection. That is a property of the format, not a fault &mdash; treat a successful test as &ldquo;sent&rdquo;, and check your logger to confirm it arrived.</p>
+
+  <h2 id="hrdsync">Ham Radio Deluxe (HRD Sync)</h2>
+  <p>Ham Radio Deluxe has its <strong>own tab</strong> &mdash; use it instead of UDP Log Sync above.</p>
+  <p><strong>Set it up in two places, and the port must match in both.</strong> Do HRD first.</p>
+
+  <p><strong>1. In Ham Radio Deluxe:</strong></p>
+  <ol>
+    <li>Open <strong>HRD Logbook</strong> &mdash; the Logbook window, not the rig control window.</li>
+    <li><strong>Tools &rarr; QSO Forwarding</strong>, then the <strong>UDP Receive</strong> tab.</li>
+    <li>Tick <strong>&ldquo;UDP9/ADIF &hellip; (eg. WSJT-X)&rdquo;</strong>.</li>
+    <li><strong>Note the port number</strong> shown beside it &mdash; usually <strong>2333</strong>. Read the real number off the screen rather than assuming.</li>
+    <li><strong>OK</strong> to save, and leave HRD Logbook open. It only listens while it is running.</li>
+  </ol>
+
+  <p><strong>2. In Net Buddy:</strong></p>
+  <ol>
+    <li><strong>Gear &rarr; Config &rarr; HRD Sync</strong>.</li>
+    <li>Tick <strong>Send new contacts to Ham Radio Deluxe Logbook</strong>.</li>
+    <li><strong>Host:</strong> <code>127.0.0.1</code> when HRD runs on the same PC.</li>
+    <li><strong>Port:</strong> the number you noted in step 4 above.</li>
+    <li><strong>Save.</strong></li>
+  </ol>
+
+  <p class="note"><strong>The mistake almost everyone makes.</strong> HRD has <em>two</em> receive channels and they are not interchangeable &mdash; the <strong>format</strong> and the <strong>port</strong> must both match the one you turned on. <strong>UDP9/ADIF</strong> (plain ADIF, usually port <strong>2333</strong>) is what Net Buddy sends by default, so leave the ADIF-XML checkbox <em>unticked</em>. <strong>UDP5/ADIF-XML</strong> (usually port <strong>52001</strong>) is a different format &mdash; use it only if plain ADIF will not work, and then you must tick <strong>Use the ADIF-XML / N1MM channel instead</strong> in Net Buddy <em>and</em> enter 52001. Ticking UDP9 in HRD while entering 52001 in Net Buddy sends the right format to the wrong door: nothing arrives, and nothing reports an error.</p>
+
+  <p><strong>If contacts still don&rsquo;t land:</strong></p>
+  <ul>
+    <li><strong>Is HRD Logbook actually open?</strong> Having rig control open is not enough.</li>
+    <li><strong>Do the ports match exactly?</strong> Read HRD&rsquo;s number again rather than trusting 2333.</li>
+    <li><strong>Windows Firewall</strong> can block local UDP &mdash; allow HRD if you are prompted.</li>
+    <li><strong>Test with Back-sync</strong> instead of waiting for a new QSO &mdash; it pushes contacts you already have, so you get an answer immediately.</li>
+    <li><strong>Check HRD&rsquo;s log really refreshed.</strong> Close and reopen the log view before deciding nothing arrived; a grid that has not repainted looks exactly like a sync that failed.</li>
+  </ul>
+
+  <p>It must be that box in HRD, not one of the others on that screen. The tab has its own <strong>Test</strong> and <strong>Back-sync</strong> buttons and keeps its own record, separate from ACLog and UDP Log Sync. <strong>Back-sync</strong> moves contacts you already have into HRD Logbook.</p>
+  <p><strong>N1MM Logger+ cannot be fed this way.</strong> Use N1MM&rsquo;s own ADIF import instead.</p>
+
+  <h2 id="k1alf">Syncing to K1ALF (OMISS Awards Tracker)</h2>
+  <p>If you track your awards on <strong>K1ALF&rsquo;s OMISS Awards Tracker</strong> (the website at k1alf.com), the HUD can upload your OMISS contacts to it for you — no more exporting a CSV and importing it by hand.</p>
+  <p><strong>Set it up once:</strong> open Settings → <strong>K1ALF</strong>, tick <strong>Enable K1ALF sync</strong>, and enter your K1ALF <strong>website callsign and password</strong>, then click <strong>Test login</strong>. Your password is stored <strong>encrypted by Windows</strong> (Credential Manager) — never in plain text. You can also set whether your station is <strong>Base / Mobile / Portable</strong> for the contacts you upload. (Until you tick <strong>Enable K1ALF sync</strong>, pressing the ALF button just sends you to this screen.)</p>
+  <p><strong>To sync:</strong> press the <strong>ALF</strong> button on the HUD (just below the gear button). The first time, it asks you to confirm. It then:</p>
+  <ul>
+    <li>figures out where K1ALF&rsquo;s copy of your log left off (it remembers this afterward, so it only checks the website once),</li>
+    <li>uploads <strong>only the contacts that are new</strong> since then (in batches if there are a lot), and</li>
+    <li>tells you how many it sent — shown in the <strong>sync line under the buttons</strong> (e.g. <strong>K1ALF +5 ✓</strong>) for a couple of minutes.</li>
+  </ul>
+  <p>It only ever <strong>adds</strong> contacts, and K1ALF removes duplicates on its end, so it is safe to press again. Please use it considerately — K1ALF&rsquo;s site is a free, in-beta project that Kevin runs (and pays for) himself. If anything ever looks off, you can still export from NetLogger and import to K1ALF by hand the usual way.</p>
+  <p><strong>If your K1ALF log ever gets wiped:</strong> the <strong>Resend entire log</strong> button on the Settings → K1ALF tab re-uploads your whole OMISS log (it asks you to confirm first). Normal syncs send only what&rsquo;s new; this one ignores that and sends everything, to rebuild your K1ALF log from scratch. Use it sparingly.</p>
+
+  <h2 id="qrz">Syncing to QRZ.com (Logbook)</h2>
+  <p>If you keep a logbook on <strong>QRZ.com</strong>, NL Net Buddy can upload your NetLogger contacts to it automatically &mdash; the same &ldquo;log once&rdquo; idea as ACLog and UDP Log Sync, just aimed at QRZ.</p>
+  <p><strong>You need a paid QRZ subscription</strong> &mdash; the tier that turns on the XML / logbook data feature. A free account&rsquo;s key will not work. Your <strong>Logbook API Key</strong> is on QRZ under <strong>My Logbook → Settings → API</strong>.</p>
+  <p><strong>Set it up once:</strong> open Settings → <strong>QRZ Sync</strong>, tick <strong>Upload new contacts to my QRZ.com logbook</strong>, paste your <strong>API Key</strong>, and click <strong>Test QRZ key</strong> to confirm it. Your key is stored <strong>encrypted by Windows</strong> (Credential Manager), never in plain text.</p>
+  <p>Once it&rsquo;s on, new NetLogger contacts upload on their own. QRZ Sync is an <strong>independent</strong> target with its own record, so it runs on its own or right alongside ACLog / UDP / K1ALF, and it has its own <strong>Back-sync…</strong> (send older contacts you logged before turning it on), <strong>Mark log synced</strong>, and <strong>Reset record</strong> buttons.</p>
+
+  <h2 id="perks">Supporter perks</h2>
+  <p>NL Net Buddy is free. If you choose to <strong>support it</strong> (see <a href="#support">Support</a> below), a small thank-you unlocks a few extra touches. Open them any time under the gear menu &rarr; <strong>Supporter Perks</strong>. For a non-supporter that window shows a <strong>locked preview</strong> of everything supporting unlocks; once you&rsquo;re recognized, the <em>same</em> window becomes the <strong>editor</strong> where you switch each perk on and set its text.</p>
+  <p>Everything below is configured in <strong>gear &rarr; Supporter Perks</strong>:</p>
+  <ul>
+    <li><strong>Custom 73 / goodbye messages</strong> — enter up to three; NL Net Buddy rotates through them so your sign-off isn&rsquo;t identical every time. Use the variables <code>{name}</code> and <code>{call}</code> &mdash; e.g. <code>73 {name} {call}! Take care!</code>. These are what the <strong>Goodbye / 73</strong> action sends.</li>
+    <li><strong>Custom check-in (CI) message</strong> — replaces the default check-in announcement on the <strong>CI</strong> button. Use <code>{My_OM}</code> for your OM# (it becomes your callsign on non-OMISS nets) &mdash; e.g. <code>{My_OM} CI &mdash; good evening everyone!</code>.</li>
+    <li><strong>Custom &ldquo;unavailable&rdquo; (U/A) message</strong> — tick <em>&ldquo;Ask me for a custom U/A away message when I press the UA button.&rdquo;</em> Then each time you press <strong>UA</strong>, a small box pops up for a one-off away message. <strong>Leave it blank and press Enter to send the usual</strong> <code>#&lt;line&gt; U/A - &lt;call&gt;</code>; type something to send that instead.</li>
+    <li><strong>Custom check-out (CO) message</strong> — tick <em>&ldquo;Ask me for a custom check-out message when I press the CO button.&rdquo;</em> Then pressing <strong>CO</strong> pops a box for a custom check-out line. Just like U/A, <strong>blank + Enter sends the usual check-out</strong>; type something to send your own.</li>
+    <li><strong>AIM word alerts</strong> — tick the alert box and list the words to watch for (comma-separated &mdash; e.g. your call and your name). NL Net Buddy beeps when any of them is mentioned in AIM chat, and ignores your own posts so you never trip your own alert.</li>
+    <li><strong>A courtesy 73</strong> — when you check another station out from the Status box (<strong>CO</strong>), NL Net Buddy also posts a quick 73 to them in AIM. <strong>CO is a toggle:</strong> press it on someone who&rsquo;s <em>already</em> checked out and it puts them back on the net &mdash; and the courtesy message becomes a warm &ldquo;welcome back&rdquo; instead of the 73.</li>
+    <li><strong>Status-change auto messaging</strong> — off by default; tick it to have NL Net Buddy post a short courtesy AIM whenever you set a station&rsquo;s status from the Status box (U/A, Waiting Room, Last Call). Some operators love the feedback, others find it chatty &mdash; your call.</li>
+    <li><strong>Always-on net-control panel</strong> — tick <em>&ldquo;Always show the NCS panel&rdquo;</em> to keep the announcement buttons visible even when your role isn&rsquo;t auto-detected.</li>
+    <li>A warm <strong>thank-you</strong> on the idle status line in place of the donation note.</li>
+  </ul>
+  <p>Recognition is a purely local check &mdash; nothing about your log leaves your computer for it. After you support and let me know your call, it lights up on your next launch (or press <strong>&ldquo;I just supported &mdash; check now&rdquo;</strong> in the perks preview to unlock it right away).</p>
+
+  <h2 id="tips">Tips &amp; troubleshooting</h2>
+  <ul>
+    <li><strong>Dates are UTC.</strong> Awards that depend on a single day use the Zulu (UTC) day, not your local day.</li>
+    <li><strong>Three low beeps</strong> mean a status change (check-out, U/A, Waiting Room) did not reach the net. The status line names which one and, where it applies, the line number &mdash; do that one by hand in NetLogger. If you are not the logger or NCS on that net, it tells you so instead.</li>
+    <li><strong>Roster:</strong> the program downloads the OMISS roster the first time it needs it, so the military and first-responder awards work. This happens automatically.</li>
+    <li><strong>Updates:</strong> when a newer version is out, NL Net Buddy lets you know on launch and offers to update — one click downloads, installs, and relaunches it for you. (You can always skip and keep using the current version.)</li>
+    <li><strong>Debug Helper</strong> (gear menu &rarr; 🛠 Debug Helper) — if something ever misbehaves and I ask for your logs, this makes it one click: <strong>Zip NL Contacts &amp; Debug Logs</strong> bundles them into a single file and pops open the folder with that file highlighted, so you can just attach it to an email &mdash; no hunting for files. There&rsquo;s also <strong>Zip Debug Logs only</strong>, buttons to open your logs / NetLogger folders, and a <strong>Detailed debugging</strong> switch that keeps more history if I ask you to turn it on.</li>
+  </ul>
+
+  <h2 id="support">Support</h2>
+  <p>NL Net Buddy and Ham Bites are free, built by N6WWW &mdash; a blind ham &mdash; for the community. If they're useful to you, donations go toward building a fully blind-accessible ham station so I can keep operating and making tools like these. 73, and thank you!</p>
+  <p>Donations are appreciated but never expected. Everything I create I do with my heart and love for the hobby. Let me know if you use it and like it!</p>
+  <ul>
+    <li><strong>PayPal:</strong> <a href="https://paypal.me/n6www">paypal.me/n6www</a></li>
+    <li><strong>Cash App:</strong> <a href="https://cash.app/$NmX69">$NmX69</a></li>
+    <li><strong>Contact:</strong> my <a href="https://www.qrz.com/db/N6WWW">QRZ page (N6WWW)</a> &mdash; email and everything else is there.</li>
+  </ul>
+
+  <h3>Ham Bites &mdash; my other free project</h3>
+  <p>Ham Bites is a free study/presentation system for clubs and groups, covering every US license class (Tech / General / Extra). My QRZ page is the easiest place to find it all &mdash; Ham Bites links, the accessibility story, and the donation links in one spot:</p>
+  <ul>
+    <li><strong>QRZ:</strong> <a href="https://www.qrz.com/db/N6WWW">qrz.com/db/N6WWW</a></li>
+    <li><strong>Tech Bites:</strong> <a href="https://archive.org/details/tech_bites">archive.org/details/tech_bites</a></li>
+    <li><strong>General Bites:</strong> <a href="https://archive.org/details/general_bites">archive.org/details/general_bites</a></li>
+    <li><strong>Extra Bites:</strong> <a href="https://archive.org/details/extra_bites">archive.org/details/extra_bites</a></li>
+  </ul>
+
+  <hr>
+  <p class="footer">NL Net Buddy is an independent tool by N6WWW, a companion for NetLogger. Its OMISS Award Hunter feature's award rules were checked against the official OMISS award descriptions. Thanks to K1ALF &mdash; his awards site is still the best, and was used to validate many of them.</p>
+
+</div>
+
+<script>
+  function toggleDark() {
+    document.body.classList.toggle('dark');
+    var on = document.body.classList.contains('dark');
+    document.getElementById('darkToggle').textContent = on ? 'Light mode' : 'Dark mode';
+    try { localStorage.setItem('oah_help_dark', on ? '1' : '0'); } catch (e) {}
+  }
+  // Remember the user's choice across visits.
+  try {
+    if (localStorage.getItem('oah_help_dark') === '1') {
+      document.body.classList.add('dark');
+      document.getElementById('darkToggle').textContent = 'Light mode';
+    }
+  } catch (e) {}
+</script>
+
+</body>
+</html>
