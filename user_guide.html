@@ -143,7 +143,7 @@
 <div class="wrap">
 
   <h1>NL Net Buddy — User Guide</h1>
-  <p class="subtitle">Version 3.3.1 · by N6WWW — a companion for NetLogger, featuring the OMISS Award Hunter platform</p>
+  <p class="subtitle">Version 3.4.0 · by N6WWW — a companion for NetLogger, featuring the OMISS Award Hunter platform</p>
 
   <nav class="toc">
     <strong>Contents</strong>
@@ -242,6 +242,7 @@
       <tr><td class="area">Sync</td><td>K1ALF sync (ALF button)</td><td>Pushes your OMISS contacts to K1ALF&rsquo;s online OMISS Awards Tracker.</td></tr>
       <tr><td class="area">Sync</td><td>QRZ Logbook Sync</td><td>Uploads new NetLogger contacts to your QRZ.com logbook (needs a paid QRZ subscription with logbook / XML access).</td></tr>
       <tr><td class="area">Rig</td><td>Rig control (CAT)</td><td>Moves your rig to the net frequency through ACLog, Omni-Rig, or Hamlib (rigctld) &mdash; join a net and the radio follows.</td></tr>
+      <tr><td class="area">Net control</td><td>TURN button (Ctrl+; then N)</td><td>Moves the pink line to the next available station, posts their turn on AIM and names who is up next, with that station&rsquo;s monitor status ({ON} / {OFF} / {X}). Skips UA / CO / NR / PASS. Jump out of order and resume where you left off. Works on the Last Call list too.</td></tr>
       <tr><td class="area">Net control</td><td>Leader keys (Ctrl+;)</td><td>A one-press &ldquo;which-key&rdquo; menu. Punctuation and Space run the windows and logging (Check&nbsp;In, Last&nbsp;Call, Status, Goodbye/73, Preamble, Restore, History); the letters post your AIM status messages. Press <strong>?</strong> for the full list.</td></tr>
       <tr><td class="area">Net control</td><td>Status box</td><td>Acts on a recent AIM sender: set/unset Availability (U/A), Check&nbsp;Out, Waiting&nbsp;Room, add to the Last&nbsp;Call list, or Goodbye/73 &mdash; then focus lands back in AIM.</td></tr>
       <tr><td class="area">Net control</td><td>Honest status writes</td><td>If a status change doesn&rsquo;t reach the net you get three low beeps and a message naming what didn&rsquo;t happen, so you can do that one by hand.</td></tr>
@@ -328,6 +329,24 @@
 
   <h2 id="netcontrol">Running a net (net-control tools &amp; leader keys)</h2>
   <p>These tools help when you are the <strong>net-control operator (NCS)</strong> or <strong>logger</strong>. Most are driven by a single <strong>leader key</strong> so you can keep your hands on the radio and your eyes off the mouse.</p>
+
+  <h3>The TURN button &mdash; advance the net</h3>
+  <p><strong>TURN</strong> (where the old &ldquo;Next&rdquo; button was, beside <strong>Pink</strong>) does the whole handoff in one press: it moves the <strong>pink line</strong> to whoever is up, posts on AIM that it is their turn, and names the station after them so nobody is caught out. <strong>Ctrl+;</strong> then <strong>N</strong> does the same thing. NCS and loggers only.</p>
+  <p><strong>It knows who to skip.</strong> A station marked <strong>UA</strong>, <strong>CO</strong> or <strong>NR</strong>, or carrying the word <strong>PASS</strong> in their Remarks, is stepped over and the next available station is called instead. PASS must be a word on its own, in capitals &mdash; a town called Passaic is not a pass.</p>
+  <p>The button also shows the next station&rsquo;s <strong>monitor status</strong>, and the AIM line tags it too:</p>
+  <ul>
+    <li><strong>{ON}</strong> &mdash; green. On monitor right now.</li>
+    <li><strong>{OFF}</strong> &mdash; yellow. Was on monitor, has since dropped off.</li>
+    <li><strong>{X}</strong> &mdash; grey. Never on monitor at all.</li>
+  </ul>
+  <p>This <strong>never skips anybody</strong>. Someone off monitor may still be sitting at the radio &mdash; it just tells you how hard to try before handing it to a relay. The decision stays yours.</p>
+  <p><strong>Going out of order.</strong> Right-click TURN &mdash; or press <strong>Ctrl+;</strong> then <strong>J</strong> &mdash; for two choices:</p>
+  <ul>
+    <li><strong>Jump and return from</strong> &mdash; go to that line, then carry on where the list would have gone. On line 30, jump to 6 for a station back from U/A; work them, and the next turn is still 31. Forward works the same way: a priority call to line 55, then back.</li>
+    <li><strong>MOVE pink line to</strong> &mdash; go there and simply continue from that point.</li>
+  </ul>
+  <p><strong>It runs into the Last Call list too.</strong> Once the check-ins are done, TURN keeps going and announces <strong>IT&rsquo;S YOUR LAST CALL!</strong>, showing both line numbers &mdash; the entry&rsquo;s own line and the station&rsquo;s original check-in line &mdash; so nobody has to hunt for themselves. For this to work, <strong>each Last Call line must end in the station&rsquo;s check-in number</strong>, like <code>&hellip; #31</code>. Entries written by Net Buddy already do.</p>
+  <p class="note">Every press re-reads the net from the server before it does anything. So if you move the pink line by hand, or somebody checks in during last calls, or a station checks out mid-turn, TURN simply picks up from wherever the net actually is. You never have to put it back on track.</p>
 
   <h3>The leader key (Ctrl+;)</h3>
   <p>Press <strong>Ctrl+;</strong> (hold Ctrl, tap the semicolon) anywhere, then tap one key for the action you want. You&rsquo;ll hear a short beep when it&rsquo;s armed and again when the action fires. <strong>If you forget the keys, press <code>?</code></strong> and a menu pops up showing every one of them &mdash; that menu is always the final word, and it can never go out of date the way a printed list can.</p>
