@@ -1,0 +1,9 @@
+{
+  "version": "0.3.1",
+  "host_api": 1,
+  "url": "https://raw.githubusercontent.com/NmX69/nl-net-buddy-releases/main/games/nbg-0.3.1.dat",
+  "sha256": "aba068e41a3b8614804fc8d5ab47de13e9918f5205c9079810823537ec51d527",
+  "sig": "55f78377f61ee1dc485664a1be105db669c868c6de265b1e4ca7dfaaefad071fa7850fea57d28f38f7c19934d8a90cb5092b5214cb540438a73d959c045f2c01",
+  "size": 88285,
+  "released": "2026-08-16"
+}
