@@ -1,10 +1,10 @@
 {
-  "version": "0.4.3",
+  "version": "0.4.4",
   "host_api": 1,
-  "url": "https://raw.githubusercontent.com/NmX69/nl-net-buddy-releases/main/games/nbg-0.4.3.dat",
-  "sha256": "73a0c40fed2846e83249afc2808486c9ea0fb1f117338c2520f72144c7bed7ae",
-  "raw_sha256": "0bac5e640594487494370f7129466e9ca3f353338d9d3922afb59418a73685f7",
-  "sig": "b7f2f9bcc88a921722ed12644676a12c00f8c0b63abdfedc75255089e2c550282af5de10b13588a87bd348de138698994f02f6e627627c315087a61d88012809",
-  "size": 126678,
-  "released": "2026-08-20"
+  "url": "https://raw.githubusercontent.com/NmX69/nl-net-buddy-releases/main/games/nbg-0.4.4.dat",
+  "sha256": "868503a6a6368ef26c3b3841303e03710078af5e833d689f377bb80331addcfd",
+  "raw_sha256": "3ad04cf6e0df0a6a1f54dcd693b2a54b9721fbe0e36f82f42648bfbc32cf030b",
+  "sig": "039e5503203a5f7c64e626c2c164e0968c95cf2643657cf559713079ab779e1bd56e7f0c4efebfd95acafccd06a9c3f450d5cb5875a523b61a83fd82c274f00f",
+  "size": 127268,
+  "released": "2026-08-25"
 }
