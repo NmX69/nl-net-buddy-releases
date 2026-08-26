@@ -1,14 +1,21 @@
 {
   "format": 1,
-  "version": "3.5.4",
+  "version": "3.5.5",
   "abi": "9cab3fd71defc0650505f041f16aa6ab27cc4a955367e5baa825690b2ea58f8c",
   "patches": [
     {
+      "from": "3.5.4",
+      "url": "https://github.com/NmX69/nl-net-buddy-releases/releases/download/v3.5.5/3.5.4-to-3.5.5.nbp",
+      "sha256": "99f5db1cf235e890ab0f98127d5f157205a1a2373ba1879e3c65858519bac20f",
+      "size": 486900,
+      "sig": "AClv9Pob9poF0MguK0tJyz1Ejsr389kdpRZK9y412nfcbwqBN3haqphbP+dQ456UUDoXKF7mlTNyIbAYVcf4CQ=="
+    },
+    {
       "from": "3.5.3",
-      "url": "https://github.com/NmX69/nl-net-buddy-releases/releases/download/v3.5.4/3.5.3-to-3.5.4.nbp",
-      "sha256": "54c532c2fec93495de890c30f6c9d5948f6555a6aeba0003f2a31e0c254230ae",
-      "size": 198855,
-      "sig": "O15JS8Lk+a3VkkxyG3NYlYnxtS8LUDqUhLIvMLPgx/NxLzoIg2v9kPbZE/+nWvzv1DtuYEjIbmk2DUFHUUskCQ=="
+      "url": "https://github.com/NmX69/nl-net-buddy-releases/releases/download/v3.5.5/3.5.3-to-3.5.5.nbp",
+      "sha256": "b4c10bff2b650cfeab108287c991f7d9f6f829c671278d59193a916ce0e5783e",
+      "size": 491173,
+      "sig": "HmIV5nfzIbJPe5GrPWhEYfTrPg/reArjDDZZPkVqF+ElClR/QFnw+j7GBso2dbxIFOxc713GGKQKqFFC0zeICg=="
     }
   ]
 }
