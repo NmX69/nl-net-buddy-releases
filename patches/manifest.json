@@ -1,14 +1,14 @@
 {
   "format": 1,
-  "version": "3.5.2",
+  "version": "3.5.4",
   "abi": "9cab3fd71defc0650505f041f16aa6ab27cc4a955367e5baa825690b2ea58f8c",
   "patches": [
     {
-      "from": "3.5.0",
-      "url": "https://github.com/NmX69/nl-net-buddy-releases/releases/download/v3.5.2/3.5.0-to-3.5.2.nbp",
-      "sha256": "c637b6431d44e52c027eaf1063c1943d7dcae117790dc7d39d3aba6ffb47adb1",
-      "size": 299564,
-      "sig": "4BqlVuy/eESAhOpNLkNJypUZ0h5kSw5+7PN2UByi6vigk/tLpFhVzvGz9taunH2kLMgG+OePywyH5qbIw6pvBQ=="
+      "from": "3.5.3",
+      "url": "https://github.com/NmX69/nl-net-buddy-releases/releases/download/v3.5.4/3.5.3-to-3.5.4.nbp",
+      "sha256": "54c532c2fec93495de890c30f6c9d5948f6555a6aeba0003f2a31e0c254230ae",
+      "size": 198855,
+      "sig": "O15JS8Lk+a3VkkxyG3NYlYnxtS8LUDqUhLIvMLPgx/NxLzoIg2v9kPbZE/+nWvzv1DtuYEjIbmk2DUFHUUskCQ=="
     }
   ]
 }
