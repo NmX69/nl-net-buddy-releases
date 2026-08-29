@@ -1,21 +1,35 @@
 {
   "format": 1,
-  "version": "3.5.9",
+  "version": "3.5.10",
   "abi": "9cab3fd71defc0650505f041f16aa6ab27cc4a955367e5baa825690b2ea58f8c",
   "patches": [
     {
+      "from": "3.5.9",
+      "url": "https://github.com/NmX69/nl-net-buddy-releases/releases/download/v3.5.10/3.5.9-to-3.5.10.nbp",
+      "sha256": "fc8ba972c8ff178771364a6922700a54ed596de32a4a9eb0b9d63d85252bfbb9",
+      "size": 234383,
+      "sig": "PAg+/AhFjT9zaa9QZGGJ3Juz0FHooTi93yIxChrFKyEG4hLz6q/9mBdupuM2VlGAPZuNEoD5KfNTbX8iveYnBA=="
+    },
+    {
       "from": "3.5.8",
-      "url": "https://github.com/NmX69/nl-net-buddy-releases/releases/download/v3.5.9/3.5.8-to-3.5.9.nbp",
-      "sha256": "ab341f50549945e21cf29c8c58775eb33d2622332daadb8d8ece5daeab06e940",
-      "size": 708220,
-      "sig": "SXwvG3iWJYBKpj0+LW/X+pNvxJbXnNiPog+NKnyOmYp8YhAYHv3FVOY9Wm3CHFWZE1u+Z/pODD8CAYZm+FVWAg=="
+      "url": "https://github.com/NmX69/nl-net-buddy-releases/releases/download/v3.5.10/3.5.8-to-3.5.10.nbp",
+      "sha256": "ede637bbc4f6fa4a8151ee892f35b146ef899f19f79c9403d5accf7f5c459112",
+      "size": 744115,
+      "sig": "pEaqeolsoK06KOKChh4qFk9yj+43b1OWPWco3c5Fv3jiiO3V63OOYc4lcbndsTApdd241qlRS15wtTC9MOGoBw=="
     },
     {
       "from": "3.5.7",
-      "url": "https://github.com/NmX69/nl-net-buddy-releases/releases/download/v3.5.9/3.5.7-to-3.5.9.nbp",
-      "sha256": "267aac314019e797b131cc128a2fbd6120443e0bdb6e598a6d34d44e40ef04af",
-      "size": 968906,
-      "sig": "oRSw5W9/KPcbinpwnmGnQBcMosrUlrVTnHoY/oLIymMj8BmWmZeCgVBwYzEc5UBcs/qNRMEntHAZ6PTxnQNGAA=="
+      "url": "https://github.com/NmX69/nl-net-buddy-releases/releases/download/v3.5.10/3.5.7-to-3.5.10.nbp",
+      "sha256": "97d8991384111487e580bbc63344da9aa2bbe88d1a567db09b0490de43e3e2ce",
+      "size": 1009254,
+      "sig": "WdpFuzvvJ52JS1wipbYGxc6gyQUqg8v8dScxSeBdZPds6TnuD5QgtcELHDQfz4ab4HbhJtd9ADmUELGL9X2YDw=="
+    },
+    {
+      "from": "3.5.6",
+      "url": "https://github.com/NmX69/nl-net-buddy-releases/releases/download/v3.5.10/3.5.6-to-3.5.10.nbp",
+      "sha256": "9367d0151a0980fa1930075199c7a3b646485c29ea3a758ff04c3b6471dca509",
+      "size": 1012346,
+      "sig": "Fl8X4bfGDuLJW/AB6zDj/EQhIxr4vns8o0lNzF3KeE+qhii5I8SHfXWZHRwUtuUecCNcbQtdA7An7vvkizQdBw=="
     }
   ]
 }
