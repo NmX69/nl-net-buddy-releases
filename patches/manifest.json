@@ -1,28 +1,28 @@
 {
   "format": 1,
-  "version": "3.5.11",
+  "version": "3.5.12",
   "abi": "9cab3fd71defc0650505f041f16aa6ab27cc4a955367e5baa825690b2ea58f8c",
   "patches": [
     {
+      "from": "3.5.11",
+      "url": "https://github.com/NmX69/nl-net-buddy-releases/releases/download/v3.5.12/3.5.11-to-3.5.12.nbp",
+      "sha256": "f74e2aeac9fcba6f3c46f94a3ac52204d5bebc1efb2ffc721c9d06dd442a0b8b",
+      "size": 252557,
+      "sig": "clC7wPVH6kND9cfRx4bN3s17DTCDoIqsOYwEzJ2qHcEZxS3Wz0J2yjOC1+Td7UpOzBlgGIgl3a9Nl5cRE7wzBg=="
+    },
+    {
       "from": "3.5.10",
-      "url": "https://github.com/NmX69/nl-net-buddy-releases/releases/download/v3.5.11/3.5.10-to-3.5.11.nbp",
-      "sha256": "27f44dc60281bfd6cc4b96a054dc260978331e5909d758b1d9b46206ef2ef473",
-      "size": 466076,
-      "sig": "kO/F2xP9d0yOmMu1bDyag3tpf68OkD3ECzAfJYVBXTD1oy5lws4iprODlk9PYJeaAW2K64cBGYxPTYOpIITGBQ=="
+      "url": "https://github.com/NmX69/nl-net-buddy-releases/releases/download/v3.5.12/3.5.10-to-3.5.12.nbp",
+      "sha256": "d468d23fd2e48c39c9f10d7a9d6d04efd3e4ef9874130768593c185dc1f91156",
+      "size": 473437,
+      "sig": "SMFi/XIXTyR3BVFflhd1/purt31Vp99/qEabwxynHwzWgDjmouUn0wFeNiCbD/t9yGeXcFJl5fcqo5+cPiN0Dw=="
     },
     {
       "from": "3.5.9",
-      "url": "https://github.com/NmX69/nl-net-buddy-releases/releases/download/v3.5.11/3.5.9-to-3.5.11.nbp",
-      "sha256": "59c1b3c66c9c6e8e2939007a39ad9dbf6737811c02f5c70d2ed8a5855c3fdc6f",
-      "size": 483005,
-      "sig": "We7ITL2opw6RylFMO8NghQxRYqFsUDV9oYzz9Ujy2dG0jHDb8dcCou3QvntEmsWNEWR0LPYsfN0N6kiUeO6TCw=="
-    },
-    {
-      "from": "3.5.8",
-      "url": "https://github.com/NmX69/nl-net-buddy-releases/releases/download/v3.5.11/3.5.8-to-3.5.11.nbp",
-      "sha256": "6e70729dc95c67bbc7cc4392c49f08211283be1b237846763ecfe3bcabf8db14",
-      "size": 910970,
-      "sig": "FPJzZU3sesSE1+0bgzhwhcrBpPpKtY4E0IxWCPA9pznkc7kTiIZX2ZaXvJNLj3bpwC+TNOSnO7MdSgqys1jOCA=="
+      "url": "https://github.com/NmX69/nl-net-buddy-releases/releases/download/v3.5.12/3.5.9-to-3.5.12.nbp",
+      "sha256": "0cb57d2c36f9ec5c10181658a2015ecfbf90d6581f2114f684c51953fec22dba",
+      "size": 483401,
+      "sig": "aqcs6HZTt3YLVl87ZpP07/LqQkjzykzSnvaeeArabxKp0gSiqchF/W0JIkaPmRqvG2uv0g6q1cHcKJi9W9x/AA=="
     }
   ]
 }
