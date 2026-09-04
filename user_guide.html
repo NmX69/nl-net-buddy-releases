@@ -143,7 +143,7 @@
 <div class="wrap">
 
   <h1>NL Net Buddy — User Guide</h1>
-  <p class="subtitle">Version 3.5.19 · by N6WWW — a companion for NetLogger, featuring the OMISS Award Hunter platform</p>
+  <p class="subtitle">Version 3.5.20 · by N6WWW — a companion for NetLogger, featuring the OMISS Award Hunter platform</p>
 
   <nav class="toc">
     <strong>Contents</strong>
@@ -155,6 +155,7 @@
       <li><a href="#netcontrol">Running a net (net-control tools &amp; leader keys)</a></li>
       <li><a href="#scripts">Net Preamble / Scripts</a></li>
       <li><a href="#logtools">Tools that tidy your log</a></li>
+      <li><a href="#client">Net Buddy Client (run a net without NetLogger)</a></li>
       <li><a href="#messenger">Net Buddy Messenger (chat with the net)</a></li>
       <li><a href="#games">Net Buddy Games (beta)</a></li>
       <li><a href="#dashboard">Using the dashboard (offline review)</a></li>
@@ -431,6 +432,141 @@
     <li><strong>QRZ Tools &rarr; Dupe Scanner</strong> compares your QRZ logbook against your NetLogger log and shows contacts QRZ is holding twice. It changes nothing at either end. Each group has a <strong>[copy ids]</strong> link: click it, then paste into the search box to the <em>left</em> of <strong>Filter</strong> at the top of your QRZ logbook list. QRZ then shows just those QSOs side by side, so you can compare them and delete the one you do not want.</li>
   </ul>
 
+  <h2 id="client">Net Buddy Client (run a net without NetLogger)</h2>
+
+  <p>The <strong>Net Buddy Client</strong> is a NetLogger replacement: it reads the net, shows the
+  check-in list, and lets you send AIMs without NetLogger running at all. It opens in its own
+  window from the HUD.</p>
+
+  <p><strong>Picking a net.</strong> The nets are listed with the ones Net Buddy tracks
+  &mdash; OMISS and the other supported nets &mdash; <strong>highlighted and at the top</strong>,
+  so you are not hunting for yours among forty club nets.</p>
+
+  <p><strong>Opening a net only watches it. You must press JOIN.</strong> The
+  <strong>JOIN</strong> button is in the bar across the top. Until you press it you are simply
+  observing: nobody sees you and you cannot send. Joining lists you in everyone else&rsquo;s
+  monitor window and is what arms the send box &mdash; it is deliberately a separate step, so
+  opening a net to look at it never announces you. (NetLogger joins automatically; this does not.)</p>
+
+  <p><strong>Three panels.</strong> The <strong>check-in list</strong> in the middle, the
+  <strong>People</strong> rail on the right, and <strong>AIM</strong> &mdash; the net&rsquo;s chat.
+  Click the word <strong>PEOPLE</strong> to collapse that rail and give the width back to the
+  other two. <strong>GAMES</strong> and <strong>LURKERS</strong> on the same rail open and
+  collapse the same way.</p>
+
+  <p><strong>Text size.</strong> <strong>A&minus;</strong> and <strong>A+</strong> in the
+  <strong>top right corner</strong> scale the whole window. Set it once to whatever is comfortable;
+  it is remembered.</p>
+
+  <p><strong>The row above the check-in list</strong> holds the controls that change what the list
+  shows. Each opens <em>into the check-in column</em>, so nothing pushes the chat around:</p>
+  <ul>
+    <li><strong>awards</strong> &mdash; the ranked award list: which stations on this net advance
+    which awards, priority first.</li>
+    <li><strong>announce</strong> &mdash; the NCS announcement macros, from your own configuration.
+    You must have JOINed the net to send one.</li>
+    <li><strong>show</strong> &mdash; filter the list (not worked, worked, military, VIP and so
+    on). Only filters that match somebody on <em>this</em> net are offered.</li>
+    <li><strong>sort</strong> &mdash; reorder by line number, callsign, state, name, remarks or
+    member ID. <strong>Line #</strong> is the net&rsquo;s own order and is what you normally want,
+    because line numbers are what get called on the air.</li>
+  </ul>
+
+  <p>Whenever a filter is hiding stations, or the list is in any order other than by line number,
+  an <strong>orange bar appears over the list</strong> saying so &mdash; click it to put everything
+  back in one press. You can never be left looking at a filtered or re-sorted list without knowing
+  it.</p>
+
+  <p><strong>The two chips</strong> on that row are readouts first and buttons second, the same as
+  on the HUD:</p>
+  <ul>
+    <li><strong>PINK</strong> shows the current pink-line number; press it to jump to that line in
+    the check-in list.</li>
+    <li><strong>ME</strong> shows the line <em>you</em> are checked in as, and wears
+    <strong>your status</strong> &mdash; white when you are available, and the colour of whatever
+    role or state you hold otherwise. Press it to jump to your own line.</li>
+  </ul>
+
+  <p>Either chip reads <strong>--</strong> when there is nothing to jump to, and shows a dashed
+  edge rather than going dim.</p>
+
+  <h3>Working the check-in list</h3>
+
+  <p><strong>Every line opens up.</strong> Click the <strong>+</strong> at the start of the row, or
+  press the <strong>right arrow key</strong>, to see the rest of what the net knows about that
+  station &mdash; full name, city, county, grid, remarks, award and QSL information. The
+  <strong>left arrow</strong> closes it again. Open as many rows at once as you like; the list is
+  not limited to one.</p>
+
+  <p><strong>Two keys do the work</strong> on whichever row is selected:</p>
+  <ul>
+    <li><strong>Enter</strong> &mdash; log the contact. The QSO window opens already filled in
+    from the check-in row, so most contacts are Enter, check, commit.</li>
+    <li><strong>R</strong> &mdash; just note what you can <em>hear</em> from that station, without
+    logging anything. Type the signal report and press Enter. It is remembered against that line
+    for the rest of the net, and if you log the contact later it is already filled in for you.</li>
+  </ul>
+
+  <p><strong>The dot beside the line number is monitor status</strong> &mdash; whether that station
+  has Net Buddy or NetLogger open right now. It differs in <em>shape as well as colour</em>, so it
+  reads without relying on seeing the colour: a <strong>green circle</strong> means they are on
+  monitor now, an <strong>amber square</strong> means they were here and have gone, and a
+  <strong>slate circle</strong> means they have not been seen on monitor at all.</p>
+
+  <p><strong>Your own contact log</strong> is along the bottom: click
+  <strong>&#9656; contact log</strong> at the bottom left to open it, and the same control to
+  collapse it again. It shows what you have already worked, so &ldquo;have I had this station
+  before?&rdquo; is answered without leaving the net. It updates the moment a contact is committed.
+  You can drag its top edge to make it taller, and it remembers whether you left it open.</p>
+
+  <h3>The People rail</h3>
+
+  <p><strong>PEOPLE is your Net Buddy Messenger people list</strong> &mdash; who else is running
+  Net Buddy right now, not who is checked in. Click the word <strong>PEOPLE</strong> to collapse
+  it. Inside it, <strong>NET</strong> is the people here on this net with you and
+  <strong>GLOBAL</strong> is everyone else, with the net each of them is on shown underneath their
+  name. Double-click anybody to open a private message.</p>
+
+  <p><strong>LURKERS</strong>, at the bottom of the same rail, is the other question: stations
+  <strong>on monitor for this net but not checked in</strong>. They are watching and have not put
+  their name up. These come from NetLogger rather than from Net Buddy, so they are drawn
+  differently and you cannot message them &mdash; the difference in appearance is the information.</p>
+
+  <p><strong>GAMES</strong> sits between the two, listing open tables you can join.</p>
+
+  <h3>The AIM pane (the net&rsquo;s chat)</h3>
+
+  <p><strong>Search is at the very top.</strong> Type anything &mdash; a word, a callsign &mdash;
+  and the pane shows only the messages containing it. It is how you find &ldquo;what did they say
+  about the frequency&rdquo; on a busy net without scrolling. Clear it to get everything back.</p>
+
+  <p>If new traffic arrives while a search is hiding it, an <strong>orange bar</strong> appears
+  saying how many messages you are not seeing &mdash; click it to clear the search. You are never
+  left reading a filtered chat without being told.</p>
+
+  <p><strong>The AIM buttons are below the search</strong> &mdash; your macros, sent with one
+  press.</p>
+
+  <p><strong>New messages stand out.</strong> Anything that arrived on the most recent refresh is
+  drawn on a different background, so a glance tells you what is new without reading from the
+  bottom up and working out where you left off.</p>
+
+  <p><strong>The sender&rsquo;s name is coloured by their role on the net</strong>, taken from their
+  own check-in row, so you can see who is speaking before you read the name:</p>
+  <ul>
+    <li><strong>Blue</strong> &mdash; net control.</li>
+    <li><strong>Orange</strong> &mdash; a relay.</li>
+    <li><strong>Purple</strong> &mdash; the logger.</li>
+    <li><strong>Yellow</strong> &mdash; everybody else.</li>
+  </ul>
+  <p>These are the same hues those stations wear in the check-in list, so the two panels teach one
+  vocabulary rather than two. <strong>Net control is the exception that colours the whole
+  message</strong>, not just the name &mdash; NCS traffic is instruction, and it has to be findable
+  while you scroll past chatter.</p>
+
+  <p>Sending needs you to have <strong>JOIN</strong>ed the net &mdash; the box will say so if you
+  have not.</p>
+
   <h2 id="messenger">Net Buddy Messenger (chat with the net)</h2>
   <p><strong>Net Buddy Messenger</strong> lets you chat directly with the other stations on your net. There is no server, no account and nothing to set up: it finds everyone else on the same net by itself, and takes your callsign from NetLogger &mdash; so the callsign you show other people is the one you are checked in with.</p>
   <p>It starts with Net Buddy and sits as a small <strong>NBM</strong> chip on your desktop. <strong>Click the chip</strong> to open the directory of everyone on your net, then <strong>click a name</strong> to open a chat. Type and press <strong>Enter</strong> (or click <strong>Send</strong>).</p>
@@ -447,7 +583,12 @@
     <li><strong>Right-click the chip &rarr; Minimize</strong> tucks it onto the taskbar; click its taskbar button to bring it back. <strong>Quit</strong> now stays quit.</li>
     <li><strong>Right-click the chip &rarr; Reconnect mesh</strong> if the Messenger looks connected but you are hearing nobody &mdash; no messages arriving and the directory not filling. It rebuilds the connection where it stands, so you don&rsquo;t have to close and reopen the Messenger. It is safe to press more than once, and it does not affect your log, your net, or any chat window you have open.</li>
   </ul>
-  <p><strong>Emoji.</strong> Type emoticons the ordinary way &mdash; <code>:)</code>, <code>;)</code>, <code>:D</code>, <code>&lt;3</code> &mdash; or use the <strong>Emoji</strong> button beside the message box to pick one. Everyone can send them; having them <em>arrive as colour pictures</em> rather than as text is a <strong>supporter perk</strong>.</p>
+  <p><strong>Emoji &mdash; for everyone.</strong> Type emoticons the ordinary way &mdash;
+  <code>:)</code>, <code>;)</code>, <code>:D</code>, <code>&lt;3</code> &mdash; or use the
+  <strong>Emoji</strong> button beside the message box to pick one. They arrive as pictures for
+  everybody; this used to be a supporter perk and no longer is. The same emoticons work in the Net
+  Buddy Client, in both the net&rsquo;s AIM chat and private messages, and the client has an emoji
+  button of its own beside its message box.</p>
 
   <p><strong>Settings.</strong> Your callsign and name come from NetLogger and aren&rsquo;t editable here, so nobody can put someone else&rsquo;s call on a message. You can set the <strong>font size</strong> (restart to apply) and choose whether the Messenger <strong>keeps on top of other windows</strong> (on by default).</p>
 
@@ -460,6 +601,7 @@
   <p><strong>Games keep themselves up to date.</strong> A game fix or a new game does not need a new Net Buddy &mdash; the games are a small package the Messenger refreshes on its own, when it starts and again before a table opens. There is nothing to install and nothing to do.</p>
   <ul>
     <li><strong>To start a game:</strong> right-click the <strong>NBM</strong> chip &rarr; <strong>Games</strong> &rarr; <strong>Worked All Tiles</strong>. Your table opens and the directory shows you as <strong>QRV</strong>, so anyone can join you.</li>
+    <li><strong>From the Net Buddy Client,</strong> use the <strong>Start</strong> button at the top of the <strong>GAMES</strong> section in the People rail, and double-click any table listed there to sit down at it. The client stops the Messenger while it runs, so this is the way in when you are working a net from the client.</li>
     <li><strong>For a private game,</strong> use the <strong>Games</strong> button inside a chat instead. Only the people in that chat can join, and you are not advertised to anyone else.</li>
     <li><strong>Nobody there yet?</strong> <strong>Ask on AIM</strong> posts one line to the net asking for players.</li>
     <li><strong>Short of players?</strong> A table plays fine with bots, so you never have to wait for a second person to try it.</li>
