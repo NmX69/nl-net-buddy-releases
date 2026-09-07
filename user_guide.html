@@ -143,7 +143,7 @@
 <div class="wrap">
 
   <h1>NL Net Buddy — User Guide</h1>
-  <p class="subtitle">Version 3.5.24 · by N6WWW — a companion for NetLogger, featuring the OMISS Award Hunter platform</p>
+  <p class="subtitle">Version 3.5.25 · by N6WWW — a companion for NetLogger, featuring the OMISS Award Hunter platform</p>
 
   <nav class="toc">
     <strong>Contents</strong>
@@ -468,6 +468,11 @@
   <strong>top right corner</strong> scale the whole window. Set it once to whatever is comfortable;
   it is remembered.</p>
 
+  <p><strong>Closing the client closes Net Buddy</strong>, when you started in Client Mode. The
+  client is the only window there, so shutting it shuts the program &mdash; there is no second
+  window left running behind it. If you reached the client from the HUD instead (Companion Mode),
+  closing it simply gives you the HUD back, as before.</p>
+
   <p><strong>The row above the check-in list</strong> holds the controls that change what the list
   shows. Each opens <em>into the check-in column</em>, so nothing pushes the chat around:</p>
   <ul>
@@ -477,10 +482,16 @@
     You must have JOINed the net to send one.</li>
     <li><strong>show</strong> &mdash; filter the list (not worked, worked, military, VIP and so
     on). Only filters that match somebody on <em>this</em> net are offered.</li>
-    <li><strong>sort</strong> &mdash; reorder by line number, callsign, state, name, remarks or
-    member ID. <strong>Line #</strong> is the net&rsquo;s own order and is what you normally want,
-    because line numbers are what get called on the air.</li>
+    <li><strong>sort</strong> &mdash; reorder by line number, callsign, state, name, remarks,
+    member ID or <strong>status</strong>. <strong>Line #</strong> is the net&rsquo;s own order and
+    is what you normally want, because line numbers are what get called on the air.</li>
   </ul>
+
+  <p><strong>Sort by status</strong> groups the list the way it is already coloured: all the
+  check-outs together, then unavailable, then not responding, then the roles, then stations you
+  have worked, then everyone still to work. A station who is several of those at once files under
+  the one its colour shows &mdash; so the grouping and the colours can never disagree. Within each
+  group the stations stay in the net&rsquo;s own order.</p>
 
   <p>Whenever a filter is hiding stations, or the list is in any order other than by line number,
   an <strong>orange bar appears over the list</strong> saying so &mdash; click it to put everything
@@ -512,6 +523,10 @@
   station &mdash; full name, city, county, grid, remarks, award and QSL information. The
   <strong>left arrow</strong> closes it again. Open as many rows at once as you like; the list is
   not limited to one.</p>
+
+  <p><strong>Right-click any line</strong> for a menu about that station: a
+  <strong>station report</strong>, or their <strong>check-in history</strong> &mdash; how often
+  they have been on this net and when you last worked them. Escape closes it.</p>
 
   <p><strong>Two keys do the work</strong> on whichever row is selected:</p>
   <ul>
@@ -581,6 +596,35 @@
 
   <p>Sending needs you to have <strong>JOIN</strong>ed the net &mdash; the box will say so if you
   have not.</p>
+
+  <h3>The client&rsquo;s keyboard (Alt keys)</h3>
+
+  <p>The client has its own keyboard, and it belongs to the page rather than to Windows &mdash; so
+  it works the same wherever the client is running, and it does not need the HUD.</p>
+
+  <ul>
+    <li><strong>Alt and a number</strong> sends an announcement. <strong>Alt+1</strong> through
+    <strong>Alt+0</strong> match the ten announce buttons, in order. Each button carries its number
+    in a small circle in the corner, so the panel teaches its own keys.</li>
+    <li><strong>Alt and a letter</strong> sends an AIM macro: <strong>Alt+I</strong> for CI,
+    <strong>Alt+O</strong> for CO, <strong>Alt+A</strong> for U/A, <strong>Alt+K</strong> for BK,
+    <strong>Alt+L</strong> for LC, <strong>Alt+W</strong> for WW, <strong>Alt+B</strong> for BTN
+    and <strong>Alt+C</strong> for your own C&#42; macro. The letter that sends each one is
+    underlined on the button itself.</li>
+  </ul>
+
+  <p><strong>Use the number row above the letters, not the number pad.</strong> Windows reserves
+  Alt and the number pad for typing special characters, so those are deliberately left alone.</p>
+
+  <h3>The status footer</h3>
+
+  <p>Along the bottom of the client is <strong>one line that says what just happened</strong> &mdash;
+  a message sent, a net joined, something refused. Routine notices fade after a few seconds;
+  anything that <em>failed</em> stays until you dismiss it, because a failure you did not see is
+  the one that costs you.</p>
+
+  <p><strong>Click the footer to see the last twenty messages.</strong> A sentence that went past
+  while you were talking on the radio is still there to read. Escape closes it again.</p>
 
   <h2 id="messenger">Net Buddy Messenger (chat with the net)</h2>
   <p><strong>Net Buddy Messenger</strong> lets you chat directly with the other stations on your net. There is no server, no account and nothing to set up: it finds everyone else on the same net by itself, and takes your callsign from NetLogger &mdash; so the callsign you show other people is the one you are checked in with.</p>
