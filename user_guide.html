@@ -143,7 +143,7 @@
 <div class="wrap">
 
   <h1>NL Net Buddy — User Guide</h1>
-  <p class="subtitle">Version 3.5.26 · by N6WWW — a companion for NetLogger, featuring the OMISS Award Hunter platform</p>
+  <p class="subtitle">Version 3.5.27 · by N6WWW — a companion for NetLogger, featuring the OMISS Award Hunter platform</p>
 
   <nav class="toc">
     <strong>Contents</strong>
@@ -615,6 +615,125 @@
 
   <p><strong>Use the number row above the letters, not the number pad.</strong> Windows reserves
   Alt and the number pad for typing special characters, so those are deliberately left alone.</p>
+
+  <h3>Being the logger in the client (net-control tools)</h3>
+
+  <p>When you are the <strong>logger</strong> on a net &mdash; either because it is your net, or
+  because net control promoted you &mdash; the client can do the whole job. A green
+  <strong>LOGGER</strong> chip in the header is how you know you have it. Everything in this section
+  needs that chip; without it the client says so rather than failing quietly.</p>
+
+  <p><strong>Log mode &mdash; Ctrl+Space.</strong> This turns the AIM pane itself into a
+  select-and-act list, so you never leave the screen you are already reading. An amber
+  <strong>LOG</strong> band appears across the top of the pane with the live keys written on it.
+  <strong>Up</strong> and <strong>Down</strong> pick a station by the message they sent, and then one
+  key does the job:</p>
+
+  <ul>
+    <li><strong>A</strong> &mdash; unavailable, or back again. It toggles.</li>
+    <li><strong>C</strong> &mdash; check them out, or back in. It toggles too.</li>
+    <li><strong>W</strong> &mdash; <strong>waiting room</strong>: check them in, marked unavailable.
+    Use it for somebody who has arrived but is not ready yet.</li>
+    <li><strong>L</strong> &mdash; add them to the net&rsquo;s <strong>Last Call</strong> list, with
+    their line number, exactly as the HUD does it.</li>
+    <li><strong>G</strong> &mdash; say <strong>73</strong> to them, and stay in log mode, because at
+    the end of a net a run of 73s is one key each.</li>
+    <li><strong>Escape</strong> &mdash; leave log mode. A second Ctrl+Space does the same.</li>
+  </ul>
+
+  <p>These are the same letters, on the same stations, as the HUD&rsquo;s own Status box. That is
+  deliberate: your hands should not have to learn two sets.</p>
+
+  <p><strong>The client tells you what happened, in words.</strong> A toggle says which way it went
+  (&ldquo;W1AW is now unavailable&rdquo;) because the list will not re-tint until the next poll. A
+  refusal says why, and the reason is usually the useful part: <em>already checked in on line
+  #14</em>, <em>not on the check-in list &mdash; check them in first</em>, or <em>this net has no
+  Last Call list yet</em>. The AIM pane lists whoever has been <em>talking</em>, and somebody talking
+  need not be checked in at all, so those are ordinary answers rather than errors.</p>
+
+  <p><strong>Ctrl+G</strong> opens a mode for nothing but 73s &mdash; an orange <strong>73</strong>
+  band, pick a station, <strong>G</strong> sends and stays, <strong>Enter</strong> sends and leaves.
+  Anyone may use it; it does not need the logger role, because saying 73 is just a message.</p>
+
+  <h3>Editing the list, and typing straight into it</h3>
+
+  <p><strong>Shift+E</strong> on a selected row opens an <strong>edit box</strong> for that
+  station&rsquo;s details &mdash; callsign, member number, the name the row shows, full name, city,
+  state, county, grid and remarks. Change what you need and save; the net sees it.</p>
+
+  <p><strong>Shift+I</strong> turns on <strong>fast entry</strong>, for typing a net up from
+  nothing. The row you are on becomes typeable: enter a callsign, press <strong>Enter</strong>, and
+  you are on the next line ready for the next one. <strong>Escape</strong> leaves it.</p>
+
+  <p><strong>Ctrl+D then a letter</strong> is the <em>leader</em> &mdash; hold nothing, press
+  Ctrl+D, and a panel appears in the bottom-left corner listing every letter and what it does. It is
+  a menu rather than something to memorise: press the letter you can read, or press anything else and
+  it goes away. <strong>?</strong> on its own shows the whole keyboard at any time.</p>
+
+  <h3>Following the pink line</h3>
+
+  <p>The <strong>PINK</strong> button centres the list on the net&rsquo;s working line and selects
+  it. Beside it, inside the same box, is a <strong>tick box</strong>: tick it and the client follows
+  the pink line <em>every time it moves</em>, so the line the net is working is always the line in
+  front of you. Untick it and the button behaves as it always did &mdash; one press, one jump.</p>
+
+  <h3>Putting the radio on the net</h3>
+
+  <p>If you have rig control set up and your radio is not on the net&rsquo;s frequency, an orange
+  <strong>QSY</strong> button appears in the header. Press it and the radio moves. It goes away by
+  itself once the radio is there.</p>
+
+  <p><strong>It reads the radio back before it claims anything.</strong> You will be told
+  <em>confirmed</em>, or that the radio refused and where it actually is, or that the command was
+  sent but could not be confirmed &mdash; because a button that says &ldquo;done&rdquo; when the
+  radio did not move is worse than no button.</p>
+
+  <h3>Settings, without leaving the client</h3>
+
+  <p><strong>Tools &rarr; Settings&hellip;</strong> opens the whole configuration inside the client
+  &mdash; your callsign, your name on NetLogger, your log file, your radio, and every sync target.
+  Links across the top jump to a section. It is the same settings the desktop Config window writes,
+  so whichever you use, there is one answer.</p>
+
+  <p><strong>Each sync section has a Test button</strong> that tries the connection and tells you in
+  a sentence what came back &mdash; and it tests <em>what you have typed</em>, not what was last
+  saved, so you can try a host before committing to it. Green means good; amber means it was sent but
+  nothing can confirm it; red means something is wrong. The QRZ test talks to QRZ and can take twenty
+  seconds, so the button disables itself while it waits.</p>
+
+  <p>One thing still needs the desktop window: <strong>entering</strong> your K1ALF website login,
+  because that is a password and passwords are not sent to a browser. Testing the login you already
+  saved works here.</p>
+
+  <h3>Previous nets</h3>
+
+  <p><strong>Net &rarr; Previous nets&hellip;</strong> lists nets that have already finished, across
+  every server, and opens any one of them as a full check-in list. Search by name. A net that ends
+  simply vanishes from the live list, so this is how you look at last Tuesday&rsquo;s roll &mdash;
+  and it works between nets, when everything else is greyed out.</p>
+
+  <h3>Saving a net, and saving your log</h3>
+
+  <p>Both live under the <strong>Net</strong> menu, and they are different things:</p>
+
+  <ul>
+    <li><strong>Export check-in list</strong> &mdash; <em>the net</em>. CSV gives you the list as it
+    stood, in line order, for a spreadsheet. ADIF gives the same rows as contact records for a
+    logging program, and the file itself says plainly that a check-in is <em>not</em> a worked
+    contact &mdash; because who turned up and who you worked are two different lists.</li>
+    <li><strong>Export my contact log</strong> &mdash; <em>your own QSOs</em>. Choose ADIF to move
+    your log somewhere else, or CSV to read and count it. Leave the dates empty for the whole log, or
+    set a range for one month&rsquo;s award application. Both ends of the range are included, and the
+    dates are <strong>UTC</strong>, the same as your log.</li>
+  </ul>
+
+  <p>Both write a file into an <strong>exports</strong> folder beside your data, and the client tells
+  you the full path afterwards &mdash; the client runs in a browser window with no download bar, so
+  it saves the file itself and says where it went.</p>
+
+  <p><strong>The ADIF export keeps everything.</strong> Whatever any program ever wrote into a
+  contact &mdash; QSL flags, power, grids, contest fields &mdash; comes out the other side, so moving
+  your log does not quietly cost you data.</p>
 
   <h3>The status footer</h3>
 
