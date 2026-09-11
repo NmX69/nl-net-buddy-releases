@@ -1,0 +1,1427 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Net Buddy Client — Guide</title>
+<style>
+  /* Same palette as docs/user_guide.html, so the two guides read as one family. Light blue is the
+     only tint, and it is never grey; body text stays full black / full white in both themes. */
+  :root {
+    --bg: #ffffff;
+    --fg: #000000;
+    --line: #000000;
+    --accent: #cfe8ff;
+    --accent-dark: #9fd0ff;
+    --code-bg: #eef6ff;
+    --link: #0033aa;
+    --head-bg: #ffe066;      /* Headline badge: yellow with black text */
+    --new-bg: #b00000;       /* "Not in NetLogger": deep red with WHITE text (7.4:1) */
+  }
+  body.dark {
+    --bg: #000000;
+    --fg: #ffffff;
+    --line: #ffffff;
+    --accent: #003a66;
+    --accent-dark: #00598f;
+    --code-bg: #10263a;
+    --link: #7fb8ff;
+    --head-bg: #6b4f00;
+    --new-bg: #b00000;
+  }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    background: var(--bg);
+    color: var(--fg);
+    font-family: "Segoe UI", Arial, sans-serif;
+    font-size: 19px;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0 0 80px 0;
+  }
+  .wrap { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+  h1 { font-size: 34px; margin: 28px 0 4px 0; border-bottom: 5px solid var(--line); padding-bottom: 10px; }
+  h2 { font-size: 28px; margin: 48px 0 8px 0; border-bottom: 4px solid var(--line); padding-bottom: 6px; }
+  h3 { font-size: 23px; margin: 32px 0 10px 0; }
+  a { color: var(--link); }
+  code, kbd {
+    background: var(--code-bg);
+    border: 2px solid var(--line);
+    border-radius: 4px;
+    padding: 0 6px;
+    font-family: Consolas, "Courier New", monospace;
+    font-size: 17px;
+    white-space: nowrap;
+  }
+  .subtitle { font-size: 20px; font-weight: 700; margin: 8px 0 0 0; }
+  .note {
+    background: var(--accent);
+    color: var(--fg);
+    border-left: 8px solid var(--line);
+    padding: 12px 16px;
+    margin: 16px 0;
+  }
+
+  .topbar { position: sticky; top: 0; background: var(--bg); border-bottom: 3px solid var(--line); z-index: 5; }
+  .topbar .wrap { display: flex; align-items: center; justify-content: space-between; gap: 12px;
+                  padding-top: 10px; padding-bottom: 10px; flex-wrap: wrap; }
+  .topbar .name { font-size: 20px; font-weight: 700; }
+  button {
+    background: var(--accent);
+    color: var(--fg);
+    border: 3px solid var(--line);
+    border-radius: 6px;
+    font: inherit;
+    font-size: 18px;
+    font-weight: 700;
+    padding: 6px 14px;
+    cursor: pointer;
+  }
+  button:hover { background: var(--accent-dark); }
+  button:focus-visible, summary:focus-visible, input:focus-visible { outline: 4px solid var(--link); outline-offset: 2px; }
+
+  nav.toc { border: 3px solid var(--line); border-radius: 8px; padding: 14px 20px; margin: 24px 0; background: var(--accent); }
+  nav.toc ol { margin: 6px 0 0 0; padding-left: 26px; }
+  nav.toc ul { margin: 2px 0; padding-left: 22px; }
+
+  /* The filter bar. Nothing is hidden until the reader asks: a row hidden by default is a
+     feature Ctrl+F cannot find, and "hidden features" is the problem this page exists to fix. */
+  .filters { border: 3px solid var(--line); border-radius: 8px; padding: 12px 16px; margin: 20px 0; }
+  .filters fieldset { border: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 6px 18px; align-items: center; }
+  .filters legend { font-weight: 700; float: left; margin-right: 12px; }
+  .filters label { cursor: pointer; white-space: nowrap; }
+  .filters input { width: 20px; height: 20px; vertical-align: -3px; }
+  .filters .row2 { margin-top: 10px; display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+  #hiddenNote { font-weight: 700; }
+
+  .badge {
+    display: inline-block;
+    font-size: 15px;
+    font-weight: 700;
+    border: 2px solid var(--line);
+    border-radius: 12px;
+    padding: 0 8px;
+    margin: 0 4px 0 0;
+    white-space: nowrap;
+    vertical-align: 2px;
+  }
+  .badge.headline { background: var(--head-bg); }
+  .badge.everyday { background: var(--accent); }
+  .badge.deep     { background: var(--bg); border-style: dashed; }
+  .badge.new      { background: var(--new-bg); color: #ffffff; }
+
+  /* Column heading over each group of rows. Hidden at narrow widths, where every cell names
+     itself instead. */
+  .colhead, .feat > summary {
+    display: grid;
+    grid-template-columns: minmax(200px, 2fr) 3fr 3fr;
+    gap: 0 16px;
+  }
+  .colhead { font-weight: 700; background: var(--accent-dark); border: 3px solid var(--line);
+             padding: 8px 12px 8px 48px; margin-top: 8px; }
+
+  .feat { border: 2px solid var(--line); border-top: none; }
+  .feat:nth-of-type(even) > summary { background: var(--accent); }
+  .feat > summary {
+    list-style: none;
+    cursor: pointer;
+    padding: 10px 12px 10px 48px;
+    position: relative;
+  }
+  .feat > summary::-webkit-details-marker { display: none; }
+  .feat > summary::before {
+    content: "+";
+    position: absolute;
+    left: 10px;
+    top: 9px;
+    width: 26px;
+    height: 26px;
+    line-height: 22px;
+    text-align: center;
+    font-weight: 700;
+    font-size: 22px;
+    border: 2px solid var(--line);
+    border-radius: 4px;
+    background: var(--bg);
+  }
+  .feat[open] > summary::before { content: "\2212"; }
+  .feat[open] > summary { border-bottom: 2px solid var(--line); }
+  .fname { font-weight: 700; display: block; }
+  .lbl { font-weight: 700; }
+
+  .howto { padding: 6px 20px 14px 48px; }
+  .howto-head { font-weight: 700; font-size: 20px; margin: 8px 0 6px 0;
+                border-bottom: 2px solid var(--line); display: inline-block; }
+  .howto ol, .howto ul { margin: 8px 0; padding-left: 26px; }
+  .howto li { margin: 4px 0; }
+  .howto .differs { border-left: 6px solid var(--line); padding: 4px 12px; background: var(--code-bg); margin: 10px 0; }
+  .howto .tools { margin-top: 10px; display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+  .howto .copied { font-weight: 700; }
+
+  @media (max-width: 760px) {
+    .colhead { display: none; }
+    .feat > summary { display: block; }
+    .feat > summary > span { display: block; margin-top: 4px; }
+  }
+  @media (min-width: 761px) {
+    .lbl { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+  }
+
+  hr { border: none; border-top: 3px solid var(--line); margin: 36px 0; }
+  .footer { font-style: italic; margin-top: 36px; }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="wrap">
+    <span class="name">Net Buddy Client — Guide</span>
+    <button type="button" id="darkToggle" onclick="toggleDark()">Dark mode</button>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <h1>Net Buddy Client — Guide</h1>
+  <p class="subtitle">by N6WWW · what the client does, starting from what you know in NetLogger</p>
+
+  <div class="note" id="thanks"><strong>Thank you, NetLogger.</strong> Net Buddy is only possible because of AC0ZG and the team at <a href="https://www.netlogger.org/">NetLogger.org</a>, and the free service they give the amateur radio community. Please visit them and support their work.</div>
+
+  <p><strong>You already know NetLogger.</strong> This guide starts there. Each row names a job, says
+  how NetLogger does it, and how the Net Buddy Client does it.</p>
+  <p><strong>Every row opens.</strong> Click it, or Tab to it and press Enter, to see the steps.
+  Each open row has a <strong>Copy a link to this</strong> button, so you can send someone
+  straight to the answer.</p>
+  <p>The NetLogger column comes from NetLogger&rsquo;s own Help (version 3.1.7).</p>
+  <p>Award tracking in the dashboard, logbook sync setup, and Companion mode (Net Buddy running
+  beside NetLogger) are in the <a href="user_guide.html">Net Buddy User Guide</a>.</p>
+
+  <nav class="toc" aria-label="Contents">
+    <strong>Contents</strong>
+    <ol>
+      <li><a href="#everyone">Part 1 — For everyone</a>
+        <ul>
+          <li><a href="#g-before">Before the net</a></li>
+          <li><a href="#g-checkin">Checking in</a></li>
+          <li><a href="#g-list">During the net: the check-in list</a></li>
+          <li><a href="#g-chat">During the net: chat and people</a></li>
+          <li><a href="#g-radio">During the net: your radio and your log</a></li>
+          <li><a href="#g-after">After the net</a></li>
+          <li><a href="#g-any">Any time</a></li>
+        </ul>
+      </li>
+      <li><a href="#ncs">Part 2 — For net control and loggers</a>
+        <ul>
+          <li><a href="#g-seat">Taking the logger&rsquo;s seat</a></li>
+          <li><a href="#g-open">Opening the net</a></li>
+          <li><a href="#g-entry">Checking people in</a></li>
+          <li><a href="#g-run">Running the list</a></li>
+        </ul>
+      </li>
+    </ol>
+  </nav>
+
+  <div class="filters">
+    <fieldset>
+      <legend>Show:</legend>
+      <label><input type="radio" name="level" value="all" checked> Everything</label>
+      <label><input type="radio" name="level" value="main"> Headline and Everyday</label>
+      <label><input type="radio" name="level" value="headline"> Headline only</label>
+    </fieldset>
+    <div class="row2">
+      <label><input type="checkbox" id="onlyNew"> Only things NetLogger does not do</label>
+    </div>
+    <div class="row2">
+      <button type="button" id="openAll">Open every row</button>
+      <button type="button" id="closeAll">Close every row</button>
+      <span id="hiddenNote" aria-live="polite"></span>
+      <button type="button" id="showAll" hidden>Show everything</button>
+    </div>
+    <p style="margin:10px 0 0 0">
+      <span class="badge headline">Headline</span> the reasons to try it ·
+      <span class="badge everyday">Everyday</span> used every net ·
+      <span class="badge deep">Deep cut</span> handy, and easy to miss ·
+      <span class="badge new">Not in NetLogger</span>
+    </p>
+  </div>
+
+
+  <!-- ================================================================ PART 1 -->
+
+  <h2 id="everyone">Part 1 — For everyone</h2>
+  <p>Anyone who checks into a net. Net control and loggers: this part is yours too.</p>
+
+  <!-- ------------------------------------------------ before -->
+  <div class="group">
+  <h3 id="g-before">Before the net</h3>
+  <div class="colhead" aria-hidden="true"><span>Job</span><span>In NetLogger</span><span>In Net Buddy Client</span></div>
+
+  <details class="feat" id="find-and-join">
+    <summary>
+      <span><span class="fname">Finding &amp; Joining a net</span> <span class="badge headline">Headline</span></span>
+      <span><span class="lbl">In NetLogger: </span>Select Net opens the Nets In Progress window. Pick a line, click Monitor Net.</span>
+      <span><span class="lbl">In Net Buddy Client: </span>The list of live nets is the first screen, the nets Net Buddy tracks at the top. Open one and you are on it.</span>
+    </summary>
+    <div class="howto">
+      <p class="howto-head">In Net Buddy Client (NBC):</p>
+      <ol>
+        <li>Start the client. The live nets are listed.</li>
+        <li>Click a net, or move with the arrow keys and press <kbd>Enter</kbd>.</li>
+        <li>The client joins the net for you. You appear in everyone&rsquo;s monitor window, and you can send.
+            The button in the header says <strong>on net</strong>.</li>
+      </ol>
+      <ul>
+        <li>Would you rather look before you join? See <a href="#auto-join">Auto Join or Auto Browse</a>.</li>
+        <li>Each net shows its frequency, band, mode, net control, and how many are checked in.</li>
+        <li><strong>AWARDS</strong> marks a net Net Buddy tracks awards for.
+            <strong>JOINED</strong> marks one you are already on.</li>
+        <li>The list refreshes itself every 20 seconds, and says when the next refresh lands.</li>
+      </ul>
+    </div>
+  </details>
+
+  <details class="feat" id="view-after-leaving">
+    <summary>
+      <span><span class="fname">View a net after leaving</span> <span class="badge everyday">Everyday</span> <span class="badge new">Not in NetLogger</span></span>
+      <span><span class="lbl">In NetLogger: </span>Stop Monitoring leaves the net, and you stop seeing it.</span>
+      <span><span class="lbl">In Net Buddy Client: </span>Leave the net and keep watching. You drop off the net&rsquo;s monitor list, but still see everything.</span>
+    </summary>
+    <div class="howto">
+      <p class="howto-head">In Net Buddy Client (NBC):</p>
+      <ol>
+        <li>Click the <strong>on net</strong> button in the header. You have left the net.</li>
+        <li>You are no longer on the net&rsquo;s monitor list, but the check-in list and the chat keep
+            updating. You can watch all the activity; you just cannot take part.</li>
+        <li>Click <strong>join</strong> to come back.</li>
+      </ol>
+    </div>
+  </details>
+
+  <details class="feat" id="auto-join">
+    <summary>
+      <span><span class="fname">Auto Join or Auto Browse</span> <span class="badge deep">Deep cut</span> <span class="badge new">Not in NetLogger</span></span>
+      <span><span class="lbl">In NetLogger: </span>Monitoring a net always lists you in its Monitors window.</span>
+      <span><span class="lbl">In Net Buddy Client: </span>You choose what opening a net does: join it, or just browse it without being seen.</span>
+    </summary>
+    <div class="howto">
+      <p class="howto-head">In Net Buddy Client (NBC):</p>
+      <ol>
+        <li><strong>Tools &rarr; Settings&hellip; &rarr; Client Config</strong>.</li>
+        <li>Find <strong>Join a net automatically when I open it</strong>.
+          <ul>
+            <li><strong>Ticked — Auto Join</strong> (the default). Opening a net joins it.</li>
+            <li><strong>Unticked — Auto Browse</strong>. Opening a net only shows it to you. You are not in
+                anyone&rsquo;s monitor window and you cannot send. Press <strong>join</strong> when you are ready.</li>
+          </ul>
+        </li>
+        <li>Save.</li>
+      </ol>
+    </div>
+  </details>
+
+  <details class="feat" id="switch-net">
+    <summary>
+      <span><span class="fname">Joining several nets, and switching between them</span> <span class="badge everyday">Everyday</span></span>
+      <span><span class="lbl">In NetLogger: </span>File &rarr; New Net Window opens another net in a window of its own.</span>
+      <span><span class="lbl">In Net Buddy Client: </span>Join as many nets as you like, and switch between them from one list. Each one stays joined.</span>
+    </summary>
+    <div class="howto">
+      <p class="howto-head">In Net Buddy Client (NBC):</p>
+      <ol>
+        <li><strong>Net Specific &rarr; Switch net&hellip;</strong></li>
+        <li>Pick a net. The client shows it. With Auto Join on, a net you open is joined too.</li>
+      </ol>
+      <ul>
+        <li>Every net you have joined carries a <strong>JOINED</strong> tag, in this list and on the start screen.</li>
+        <li>Switching away does not leave a net. You stay on its monitor list until you leave it —
+            see <a href="#view-after-leaving">View a net after leaving</a>.</li>
+        <li>Picking the net you are already on just closes the list.</li>
+      </ul>
+    </div>
+  </details>
+
+  <details class="feat" id="previous-nets">
+    <summary>
+      <span><span class="fname">Browse previous or closed nets</span> <span class="badge everyday">Everyday</span></span>
+      <span><span class="lbl">In NetLogger: </span>View &rarr; Previous Nets. Choose a server, Get Previous Nets, then Load Checkins.</span>
+      <span><span class="lbl">In Net Buddy Client: </span>One list across every server at once, with a search box.</span>
+    </summary>
+    <div class="howto">
+      <p class="howto-head">In Net Buddy Client (NBC):</p>
+      <ol>
+        <li><strong>File &rarr; Previous nets&hellip;</strong></li>
+        <li>Type part of the net&rsquo;s name to narrow the list.</li>
+        <li>Open one. Its check-in list appears, read-only.</li>
+      </ol>
+      <p>This works between nets, when nothing is live.</p>
+    </div>
+  </details>
+  </div>
+
+  <!-- ------------------------------------------------ check-in -->
+  <div class="group">
+  <h3 id="g-checkin">Checking in</h3>
+  <div class="colhead" aria-hidden="true"><span>Job</span><span>In NetLogger</span><span>In Net Buddy Client</span></div>
+
+  <details class="feat" id="macros">
+    <summary>
+      <span><span class="fname">Telling the NCS you&rsquo;re checking in, out, or unavailable</span> <span class="badge headline">Headline</span> <span class="badge new">Not in NetLogger</span></span>
+      <span><span class="lbl">In NetLogger: </span>Type a message, and hope it is understood on the net.</span>
+      <span><span class="lbl">In Net Buddy Client: </span>Custom action buttons, designed so NCS and loggers understand them and act on them the same way every time.</span>
+    </summary>
+    <div class="howto">
+      <p class="howto-head">In Net Buddy Client (NBC):</p>
+      <p>The buttons sit under the search box at the top of the AIM pane. Each one has one
+      letter underlined: that is its Alt key.</p>
+      <ul>
+        <li><kbd>Alt+I</kbd> CI — check in</li>
+        <li><kbd>Alt+O</kbd> CO — check out</li>
+        <li><kbd>Alt+U</kbd> UA — unavailable</li>
+        <li><kbd>Alt+K</kbd> BK — back</li>
+        <li><kbd>Alt+L</kbd> LC — ask for a last call</li>
+        <li><kbd>Alt+W</kbd> WW — working</li>
+        <li><kbd>Alt+B</kbd> BTN — back to net</li>
+        <li><kbd>Alt+C</kbd> C* — your own message. Right-click <strong>C*</strong> to write it.</li>
+      </ul>
+      <p>The Alt keys work even while you are typing a message. A button rests for 5 seconds
+      after you press it, so one message cannot go out twice.</p>
+      <p>You must have joined the net to send.</p>
+    </div>
+  </details>
+
+  <details class="feat" id="me-chip">
+    <summary>
+      <span><span class="fname">Finding your own line</span> <span class="badge everyday">Everyday</span></span>
+      <span><span class="lbl">In NetLogger: </span>Your own row is colored teal.</span>
+      <span><span class="lbl">In Net Buddy Client: </span>The <strong>ME</strong> chip shows your line number and your status. Press it to jump there.</span>
+    </summary>
+    <div class="howto">
+      <p class="howto-head">In Net Buddy Client (NBC):</p>
+      <ul>
+        <li><strong>ME</strong> sits in the row above the check-in list.</li>
+        <li>It is white when you are available, and wears the color of your role or status otherwise.</li>
+        <li>It reads <strong>--</strong> until you are on the list.</li>
+      </ul>
+    </div>
+  </details>
+  </div>
+
+  <!-- ------------------------------------------------ during: list -->
+  <div class="group">
+  <h3 id="g-list">During the net: the check-in list</h3>
+  <div class="colhead" aria-hidden="true"><span>Job</span><span>In NetLogger</span><span>In Net Buddy Client</span></div>
+
+  <details class="feat" id="pink-line">
+    <summary>
+      <span><span class="fname">Following whose turn it is</span> <span class="badge headline">Headline</span> <span class="badge new">Not in NetLogger</span></span>
+      <span><span class="lbl">In NetLogger: </span>The pink row shows whose turn it is. You scroll to find it.</span>
+      <span><span class="lbl">In Net Buddy Client: </span>Shows the pink line too — and tick one box to <strong>AUTO-FOLLOW</strong> it. No scrolling: it stays centered on your screen.</span>
+    </summary>
+    <div class="howto">
+      <p class="howto-head">In Net Buddy Client (NBC):</p>
+      <ul>
+        <li>Tick the box inside the <strong>PINK</strong> chip, above the check-in list. The list follows the
+            pink line every time it moves, and keeps it centered on your screen.</li>
+        <li>Untick it to scroll freely. Pressing <strong>PINK</strong> then jumps to the pink line once.</li>
+        <li>The chip also shows the pink line&rsquo;s line number.</li>
+      </ul>
+    </div>
+  </details>
+
+
+  <details class="feat" id="find">
+    <summary>
+      <span><span class="fname">Search the check-in list</span> <span class="badge headline">Headline</span> <span class="badge new">Not in NetLogger</span></span>
+      <span><span class="lbl">In NetLogger: </span><kbd>Ctrl+F</kbd> finds a call sign, and it is case-sensitive.</span>
+      <span><span class="lbl">In Net Buddy Client: </span>Type in the find box and find any check-in by name, call sign, remarks, or award status!</span>
+    </summary>
+    <div class="howto">
+      <p class="howto-head">In Net Buddy Client (NBC):</p>
+      <p>Type in the <strong>find</strong> box above the list. It searches call sign, name, state,
+      county, city, member number, grid, remarks and award tags, and narrows the list as you type.</p>
+      <ul>
+        <li>Capitals do not matter: <code>w1aw</code> finds W1AW.</li>
+        <li><kbd>&amp;</kbd> means AND: <code>ohio &amp; army</code> finds Army members in Ohio.</li>
+        <li><kbd>|</kbd> means OR: <code>ohio | texas</code>.</li>
+        <li>A space is just a space, so <code>air force</code> finds Air Force.</li>
+      </ul>
+      <p>An orange bar over the list says when something is hidden. Click it, or press
+      <kbd>Escape</kbd> in the list, to get the whole net back.</p>
+    </div>
+  </details>
+
+  <details class="feat" id="not-worked">
+    <summary>
+      <span><span class="fname">Showing only stations you haven&rsquo;t worked</span> <span class="badge headline">Headline</span> <span class="badge new">Not in NetLogger</span></span>
+      <span><span class="lbl">In NetLogger: </span>Sort by status, and the stations without a (w) end up at the bottom.</span>
+      <span><span class="lbl">In Net Buddy Client: </span>Click <strong>show all</strong> at the top of the check-in list to show ONLY the stations you haven&rsquo;t worked! <kbd>Escape</kbd> takes you straight back to the full list.</span>
+    </summary>
+    <div class="howto">
+      <p class="howto-head">In Net Buddy Client (NBC):</p>
+      <ol>
+        <li>Click <strong>show all</strong>, beside the find box at the top of the check-in list. It now reads <strong>not worked</strong>.</li>
+        <li>The list keeps only stations you have not worked and can still call.</li>
+        <li>Press <kbd>Escape</kbd> in the list to clear it, fast, back to the full list.</li>
+      </ol>
+      <p>Hidden: stations you have worked, yourself, and anyone checked out or not responding.
+      An orange bar over the list reminds you it is filtered. Clicking it also puts everyone back.</p>
+    </div>
+  </details>
+
+  <details class="feat" id="awards">
+    <summary>
+      <span><span class="fname">Which stations advance your awards</span> <span class="badge headline">Headline</span> <span class="badge new">Not in NetLogger</span></span>
+      <span><span class="lbl">In NetLogger: </span>No.</span>
+      <span><span class="lbl">In Net Buddy Client: </span>A ranked list of who on this net moves which of your awards forward, your favorites first.</span>
+    </summary>
+    <div class="howto">
+      <p class="howto-head">In Net Buddy Client (NBC):</p>
+      <ol>
+        <li>Click <strong>awards</strong> above the check-in list, or <strong>Awards &rarr; Award ranking</strong>.</li>
+        <li>Stations are grouped PRIORITY, CLOSE and OTHER.</li>
+        <li>Double-click a station to jump to its line.</li>
+      </ol>
+      <ul>
+        <li>A station shown in bright yellow with <strong>!</strong> would complete an award.</li>
+        <li>Your priority awards are the favorites you pick in the dashboard. See the
+            <a href="user_guide.html#dashboard">User Guide</a>.</li>
+      </ul>
+    </div>
+  </details>
+
+  <details class="feat" id="row-details">
+    <summary>
+      <span><span class="fname">Seeing everything about a station</span> <span class="badge everyday">Everyday</span></span>
+      <span><span class="lbl">In NetLogger: </span>Columns across the row. You can hide, show and reorder them.</span>
+      <span><span class="lbl">In Net Buddy Client: </span>Click the <strong>+</strong> or press the right-arrow key to open the row and see the rest: full name, city, county, grid, remarks, award and QSL details.</span>
+    </summary>
+    <div class="howto">
+      <p class="howto-head">In Net Buddy Client (NBC):</p>
+      <ul>
+        <li>Click the <strong>+</strong> at the start of a row, or press <kbd>&rarr;</kbd>. <kbd>&larr;</kbd> closes it.</li>
+        <li>Open as many rows as you like.</li>
+        <li>Three fast taps of <kbd>&rarr;</kbd> open every row. Three fast taps of <kbd>&larr;</kbd> close them all.</li>
+      </ul>
+    </div>
+  </details>
+
+  <details class="feat" id="row-colors">
+    <summary>
+      <span><span class="fname">Reading a row at a glance</span> <span class="badge everyday">Everyday</span> <span class="badge new">Not in NetLogger</span></span>
+      <span><span class="lbl">In NetLogger: </span>Row colors show status. View &rarr; Color Legend lists them.</span>
+      <span><span class="lbl">In Net Buddy Client: </span>The same line colors as NetLogger — but it also shows clearly which stations you haven&rsquo;t worked, which the other colors otherwise hide!</span>
+    </summary>
+    <div class="howto">
+      <p class="howto-head">In Net Buddy Client (NBC):</p>
+      <ul>
+        <li>Rows use NetLogger&rsquo;s own color scheme, so nothing needs relearning.</li>
+        <li>A station you haven&rsquo;t worked is marked on its row even when a role or status color covers it.</li>
+        <li>Checked-out and not-responding rows are struck through.</li>
+        <li>Badges on the row spell out role, worked or not, and signal reports.</li>
+        <li><strong>The dot beside the line number</strong> says whether that station is on monitor.
+          Shape tells you as well as color:
+          <ul>
+            <li>green circle: on monitor now</li>
+            <li>amber square: was here, and has gone</li>
+            <li>slate circle: not seen on monitor</li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </details>
+
+  <details class="feat" id="marks">
+    <summary>
+      <span><span class="fname">Marking stations for yourself</span> <span class="badge everyday">Everyday</span></span>
+      <span><span class="lbl">In NetLogger: </span><kbd>F4</kbd> Needed (green). <kbd>F6</kbd> Not Heard (yellow). Only you see them.</span>
+      <span><span class="lbl">In Net Buddy Client: </span>The same keys, the same meaning. Only you see them, and no logger role is needed.</span>
+    </summary>
+    <div class="howto">
+      <p class="howto-head">In Net Buddy Client (NBC):</p>
+      <ul>
+        <li>Select a row. <kbd>F4</kbd> marks it green: a station you mean to work.</li>
+        <li><kbd>F6</kbd> marks it yellow: a station you cannot hear.</li>
+        <li>Press the key again to clear it.</li>
+      </ul>
+      <p class="differs">NetLogger&rsquo;s <kbd>F3</kbd> (Worked), <kbd>F9</kbd> (clear all) and
+      <kbd>F10</kbd> (Needed Next) are not in the client: <kbd>F3</kbd> is TURN there, and
+      <kbd>F9</kbd> and <kbd>F10</kbd> are not yet assigned. See
+      <a href="#keys-differ">Keys that work differently</a>.</p>
+    </div>
+  </details>
+
+  <details class="feat" id="keys-differ">
+    <summary>
+      <span><span class="fname">Keys that work differently from NetLogger</span> <span class="badge headline">Headline</span></span>
+      <span><span class="lbl">In NetLogger: </span><kbd>F2</kbd> switches the highlighter mode. <kbd>F3</kbd> marks Worked. <kbd>F9</kbd> clears statuses. <kbd>F10</kbd> Needed Next.</span>
+      <span><span class="lbl">In Net Buddy Client: </span><kbd>F2</kbd> moves the pink line. <kbd>F3</kbd> is TURN. <kbd>F9</kbd> and <kbd>F10</kbd> are not yet assigned.</span>
+    </summary>
+    <div class="howto">
+      <p class="howto-head">NetLogger and Net Buddy Client (NBC), key by key:</p>
+      <p><strong>The same in both:</strong> <kbd>F4</kbd> green, <kbd>F5</kbd> checked out,
+      <kbd>F6</kbd> yellow, <kbd>F7</kbd> unavailable, <kbd>F8</kbd> no response.</p>
+      <p><strong>Different.</strong> In the client, <kbd>F2</kbd> and <kbd>F3</kbd> — with or without
+      <kbd>Shift</kbd> — are net control and logger keys.</p>
+      <ul>
+        <li><kbd>F2</kbd> — NetLogger: manual or automatic highlighter. NBC: move the pink line here, without telling the net.</li>
+        <li><kbd>Shift+F2</kbd> — NetLogger: not in its key list. NBC: move the pink line here <em>and</em> announce their turn. TURN carries on from here.</li>
+        <li><kbd>F3</kbd> — NetLogger: mark Worked. NBC: TURN — advance the net to the next station and announce it.</li>
+        <li><kbd>Shift+F3</kbd> — NetLogger: not in its key list. NBC: jump here and announce. The next TURN goes back to where the list was.</li>
+        <li><kbd>F9</kbd> — NetLogger: clear all statuses. NBC: not yet assigned.</li>
+        <li><kbd>F10</kbd> — NetLogger: Needed Next. NBC: not yet assigned.</li>
+        <li><kbd>Ctrl+F</kbd> — NetLogger: find a call sign. Client: use the <a href="#find">find box</a>.</li>
+        <li><kbd>Ctrl+Q</kbd> — NetLogger: QRZ page. Client: right-click the row, <strong>Look up on QRZ</strong>.</li>
+      </ul>
+      <p>Press <kbd>?</kbd> in the client for every key it has.</p>
+    </div>
+  </details>
+
+  <details class="feat" id="lookups">
+    <summary>
+      <span><span class="fname">Looking a station up</span> <span class="badge everyday">Everyday</span></span>
+      <span><span class="lbl">In NetLogger: </span><kbd>Ctrl+Q</kbd> opens their QRZ page.</span>
+      <span><span class="lbl">In Net Buddy Client: </span>Right-click any line, or any AIM message, for a station report, their check-in history, or QRZ.</span>
+    </summary>
+    <div class="howto">
+      <p class="howto-head">In Net Buddy Client (NBC):</p>
+      <ul>
+        <li><strong>Station report</strong> — from your own log: have you worked them, on which bands, and what is still needed.</li>
+        <li><strong>Check-in history</strong> — from omiss.net: how often they are on. OMISS nets only.</li>
+        <li><strong>Look up on QRZ</strong> — opens their QRZ page in your browser.</li>
+      </ul>
+      <p><strong>Someone not on screen?</strong> Press <kbd>Ctrl+D</kbd> then <kbd>S</kbd> (report)
+      or <kbd>H</kbd> (history), and type a line number, call sign or member number. The same two
+      are in the <strong>Tools</strong> menu.</p>
+    </div>
+  </details>
+
+  <details class="feat" id="sort">
+    <summary>
+      <span><span class="fname">Sorting the list</span> <span class="badge deep">Deep cut</span></span>
+      <span><span class="lbl">In NetLogger: </span>Click a column header. Click <strong>#</strong> to go back.</span>
+      <span><span class="lbl">In Net Buddy Client: </span>A <strong>sort</strong> menu, including sort by status.</span>
+    </summary>
+    <div class="howto">
+      <p class="howto-head">In Net Buddy Client (NBC):</p>
+      <ul>
+        <li>Choose Line #, Callsign, State, Name, Remarks, Member ID or Status.</li>
+        <li><strong>Status</strong> groups the list the way it is colored: checked out, unavailable,
+            not responding, roles, worked, then everyone still to work.</li>
+        <li>Line # is the net&rsquo;s own order, the numbers called on the air. <kbd>Escape</kbd> in the list goes back to it.</li>
+      </ul>
+    </div>
+  </details>
+  </div>
+
+  <!-- ------------------------------------------------ during: chat -->
+  <div class="group">
+  <h3 id="g-chat">During the net: chat and people</h3>
+  <div class="colhead" aria-hidden="true"><span>Job</span><span>In NetLogger</span><span>In Net Buddy Client</span></div>
+
+  <details class="feat" id="aim">
+    <summary>
+      <span><span class="fname">The net&rsquo;s chat (AIM)</span> <span class="badge everyday">Everyday</span> <span class="badge new">Not in NetLogger</span></span>
+      <span><span class="lbl">In NetLogger: </span>The AIM window. Net control&rsquo;s messages and yours are colored. BB codes and emoticons work.</span>
+      <span><span class="lbl">In Net Buddy Client: </span>The same chat, plus what NetLogger lacks: new messages on a different background, a banner when unread messages arrive while you&rsquo;re scrolled up, NCS, logger and relay names all color-coded — not just NCS — and many more emoji.</span>
+    </summary>
+    <div class="howto">
+      <p class="howto-head">In Net Buddy Client (NBC):</p>
+      <ul>
+        <li>The sender&rsquo;s name takes their role color: blue net control, purple logger, orange relay,
+            yellow everyone else. Net control&rsquo;s whole message is colored, so instructions are easy to find.</li>
+        <li>Messages from the latest refresh have a different background.</li>
+        <li>Scrolled up reading? When new messages arrive, an orange banner tells you there are unread messages below. Click it to go to them.</li>
+        <li><strong>Many more emoji</strong> — several times NetLogger&rsquo;s eight, in the chat and in private
+            messages, with more on the way. Typed emoticons like <code>:)</code> turn into emoji, and the
+            emoji button above the typing box shows them all to pick from.</li>
+        <li>BB codes like <code>[b]bold[/b]</code> show as real formatting.</li>
+        <li>Links open in your normal web browser.</li>
+        <li>The <strong>A&minus;</strong> and <strong>A+</strong> in the AIM pane change only the chat&rsquo;s text size.</li>
+        <li>Drag the edge between the list and the chat to make the chat wider. Double-click the edge to reset it.</li>
+      </ul>
+    </div>
+  </details>
+
+  <details class="feat" id="aim-search">
+    <summary>
+      <span><span class="fname">Searching the chat</span> <span class="badge headline">Headline</span> <span class="badge new">Not in NetLogger</span></span>
+      <span><span class="lbl">In NetLogger: </span>No. You scroll.</span>
+      <span><span class="lbl">In Net Buddy Client: </span>A find box at the top of the AIM pane shows only the messages that contain a word or call sign.</span>
+    </summary>
+    <div class="howto">
+      <p class="howto-head">In Net Buddy Client (NBC):</p>
+      <ol>
+        <li>Type in the find box at the very top of the AIM pane.</li>
+        <li>Clear it to see everything again.</li>
+      </ol>
+      <p>If new messages arrive while the search hides them, an orange bar says how many. Click it to clear the search.</p>
+    </div>
+  </details>
+
+  <details class="feat" id="goodbye">
+    <summary>
+      <span><span class="fname">Saying 73, fast</span> <span class="badge everyday">Everyday</span> <span class="badge new">Not in NetLogger</span></span>
+      <span><span class="lbl">In NetLogger: </span>You type each one.</span>
+      <span><span class="lbl">In Net Buddy Client: </span><strong>Goodbye Mode:</strong> <kbd>Ctrl+G</kbd> lets you choose who to say goodbye to — OR right-click their message and say 73 from there!</span>
+    </summary>
+    <div class="howto">
+      <p class="howto-head">In Net Buddy Client (NBC):</p>
+      <p><strong>Goodbye Mode</strong> — for a run of 73s, one key each:</p>
+      <ol>
+        <li><kbd>Ctrl+G</kbd>. An orange <strong>73</strong> band appears on the AIM pane.</li>
+        <li><kbd>&uarr;</kbd> <kbd>&darr;</kbd> to pick a station by the message they sent.</li>
+        <li><kbd>G</kbd> says 73 and stays for the next one. <kbd>Enter</kbd> says 73 and leaves.</li>
+        <li><kbd>Escape</kbd> leaves without sending.</li>
+      </ol>
+      <p><strong>Just one station?</strong> Right-click their message and choose <strong>Say 73</strong>.</p>
+      <p>No logger role needed.</p>
+    </div>
+  </details>
+
+  <details class="feat" id="people">
+    <summary>
+      <span><span class="fname">Private chat with other hams</span> <span class="badge headline">Headline</span> <span class="badge new">Not in NetLogger</span></span>
+      <span><span class="lbl">In NetLogger: </span>Not possible.</span>
+      <span><span class="lbl">In Net Buddy Client: </span>The <strong>PEOPLE</strong> list shows who is running Net Buddy, here and on other nets. Double-click anyone to chat privately.</span>
+    </summary>
+    <div class="howto">
+      <p class="howto-head">In Net Buddy Client (NBC):</p>
+      <ul>
+        <li><strong>NET</strong> is the people on this net with you. <strong>GLOBAL</strong> is everyone else, with the net they are on.</li>
+        <li>Double-click a name to open a private chat window. <strong>+ Add</strong> brings in a third station.</li>
+        <li>The same emoji as the net&rsquo;s chat work here, with an emoji button to pick from.</li>
+        <li>A chime plays, and a collapsed PEOPLE bar flashes, when a private message is waiting.</li>
+        <li><kbd>Escape</kbd> in a chat window minimizes it. The &times; ends the conversation.</li>
+        <li><strong>LURKERS</strong>, at the bottom, are on monitor for this net but not checked in. They come from NetLogger, so you cannot message them.</li>
+        <li>Click the word <strong>PEOPLE</strong> to fold the list away. <strong>Net Specific &rarr; People and games</strong> brings it back.</li>
+        <li>If it goes quiet and you think it should not, right-click the PEOPLE bar to reconnect.</li>
+      </ul>
+    </div>
+  </details>
+
+  <details class="feat" id="list-to-chat">
+    <summary>
+      <span><span class="fname">Moving between the list and the chat, no mouse</span> <span class="badge deep">Deep cut</span> <span class="badge new">Not in NetLogger</span></span>
+      <span><span class="lbl">In NetLogger: </span>No.</span>
+      <span><span class="lbl">In Net Buddy Client: </span>In the check-in list, <kbd>A</kbd> takes you to the AIM chat. In AIM, the up or down arrow takes you back to the list — to log a QSO fast!</span>
+    </summary>
+    <div class="howto">
+      <p class="howto-head">In Net Buddy Client (NBC):</p>
+      <ul>
+        <li>In the check-in list, press <kbd>A</kbd> and you are in the AIM message box. Any letter works, and it becomes the first letter of your message; <kbd>A</kbd> is the easy one to remember.</li>
+        <li>In the message box, <kbd>&uarr;</kbd> or <kbd>&darr;</kbd> takes you back to the check-in list, one row moved.</li>
+        <li>Then <kbd>Enter</kbd> on the row logs the QSO.</li>
+      </ul>
+    </div>
+  </details>
+
+  <details class="feat" id="aim-ignore">
+    <summary>
+      <span><span class="fname">Ignoring a station on AIM</span> <span class="badge deep">Deep cut</span></span>
+      <span><span class="lbl">In NetLogger: </span>Monitors window, click the station, AIM Ignore. Loggers can ignore for everyone.</span>
+      <span><span class="lbl">In Net Buddy Client: </span>Not in the client.</span>
+    </summary>
+    <div class="howto">
+      <p class="howto-head">In Net Buddy Client (NBC):</p>
+      <p>Not available. Use NetLogger for this.</p>
+    </div>
+  </details>
+
+  <details class="feat" id="games">
+    <summary>
+      <span><span class="fname">Games (beta)</span> <span class="badge deep">Deep cut</span> <span class="badge new">Not in NetLogger</span></span>
+      <span><span class="lbl">In NetLogger: </span>No.</span>
+      <span><span class="lbl">In Net Buddy Client: </span>Start a game table or join one, with other Net Buddy users.</span>
+    </summary>
+    <div class="howto">
+      <p class="howto-head">In Net Buddy Client (NBC):</p>
+      <ul>
+        <li><strong>GAMES</strong> is on the PEOPLE rail. Choose a game and press <strong>Start</strong>.</li>
+        <li>Double-click an open table to join it. <strong>Leave</strong> closes your own table.</li>
+      </ul>
+    </div>
+  </details>
+  </div>
+
+  <!-- ------------------------------------------------ during: radio and log -->
+  <div class="group">
+  <h3 id="g-radio">During the net: your radio and your log</h3>
+  <div class="colhead" aria-hidden="true"><span>Job</span><span>In NetLogger</span><span>In Net Buddy Client</span></div>
+
+  <details class="feat" id="qsy">
+    <summary>
+      <span><span class="fname">CAT Control: Auto-QSY to net freq</span> <span class="badge headline">Headline</span> <span class="badge new">Not in NetLogger</span></span>
+      <span><span class="lbl">In NetLogger: </span>No rig control.</span>
+      <span><span class="lbl">In Net Buddy Client: </span>Join a net and your radio moves to its frequency by itself, via Hamlib/rigctld, Omni-Rig, or ACLog TCP. A <strong>QSY</strong> button takes you back if you tune away.</span>
+    </summary>
+    <div class="howto">
+      <p class="howto-head">In Net Buddy Client (NBC):</p>
+      <ul>
+        <li>Set it up once: <strong>Tools &rarr; Settings&hellip; &rarr; Rig control</strong>, and choose how Net Buddy
+            reaches your radio — Hamlib/rigctld, Omni-Rig, or ACLog (TCP). Hamlib and Omni-Rig work with any
+            logger, or none. ACLog needs ACLog running with your rig connected. Step by step:
+            <a href="user_guide.html#sync">the User Guide</a>.</li>
+        <li>It moves the radio for nets you have <strong>joined</strong>. Just browsing a net does not touch your radio.</li>
+        <li>It will not drag you back while you are tuned off working someone.</li>
+        <li>When your radio is off the net&rsquo;s frequency, a <strong>QSY</strong> button appears in the header. Press it to go back. It goes away once the radio is there.</li>
+        <li>The client reads the radio back before it tells you anything: confirmed, refused and where the radio actually is, or sent but not confirmed.</li>
+        <li>If the move fails — your logging program was not running, say — it tries again the next time you come back to that net.</li>
+      </ul>
+    </div>
+  </details>
+
+  <details class="feat" id="log-contact">
+    <summary>
+      <span><span class="fname">Logging a contact</span> <span class="badge everyday">Everyday</span></span>
+      <span><span class="lbl">In NetLogger: </span>Select the row, click Log Contact. Usually you only type the signal reports.</span>
+      <span><span class="lbl">In Net Buddy Client: </span>Select the row and press <kbd>Enter</kbd>. The <strong>Log QSO</strong> window opens already filled in.</span>
+    </summary>
+    <div class="howto">
+      <p class="howto-head">In Net Buddy Client (NBC):</p>
+      <ol>
+        <li>Select the station&rsquo;s row.</li>
+        <li>Press <kbd>Enter</kbd>, or double-click the row.</li>
+        <li>The <strong>Log QSO</strong> window opens, already filled in. Check the details and add the reports.</li>
+        <li>Press <kbd>Enter</kbd>, or click <strong>Log QSO</strong>, to save it.</li>
+      </ol>
+    </div>
+  </details>
+
+  <details class="feat" id="rst-note">
+    <summary>
+      <span><span class="fname">Noting a signal report before you log</span> <span class="badge deep">Deep cut</span></span>
+      <span><span class="lbl">In NetLogger: </span>Type it in the RST Sent column on the station&rsquo;s row.</span>
+      <span><span class="lbl">In Net Buddy Client: </span><kbd>R</kbd> notes the report you are giving a station, without logging. It is filled in for you when you log.</span>
+    </summary>
+    <div class="howto">
+      <p class="howto-head">In Net Buddy Client (NBC):</p>
+      <ol>
+        <li>Select the row and press <kbd>R</kbd>.</li>
+        <li>Type the report and press <kbd>Enter</kbd>. <kbd>Escape</kbd> throws it away.</li>
+      </ol>
+      <p>It stays with that line for the rest of the net. Nothing is sent to the net.</p>
+    </div>
+  </details>
+
+  <details class="feat" id="combo">
+    <summary>
+      <span><span class="fname">Auto-logging combo station blocks</span> <span class="badge everyday">Everyday</span> <span class="badge new">Not in NetLogger</span></span>
+      <span><span class="lbl">In NetLogger: </span>The logger can mark stations CMB. You log each station separately.</span>
+      <span><span class="lbl">In Net Buddy Client: </span>Work any one station in a combo block, and NBC offers to log a contact with every adjacent station that has COMBO in its remarks — in one step.</span>
+    </summary>
+    <div class="howto">
+      <p class="howto-head">In Net Buddy Client (NBC):</p>
+      <ol>
+        <li>Log the contact with one station in the combo, as usual.</li>
+        <li>If the lines around it have the word <strong>combo</strong> in Remarks, the client lists them,
+            with their remarks, and asks who else you worked.</li>
+        <li>Tick the stations and press <strong>Log</strong>. <kbd>Escape</kbd> logs only the first one.</li>
+      </ol>
+      <p>Band, mode, time and signal report are shared. Call sign, member number and location stay each station&rsquo;s own.</p>
+    </div>
+  </details>
+
+  <details class="feat" id="contact-log">
+    <summary>
+      <span><span class="fname">Your own contact log</span> <span class="badge everyday">Everyday</span></span>
+      <span><span class="lbl">In NetLogger: </span>The Contacts table under the check-ins, with filters for this call, this net and more.</span>
+      <span><span class="lbl">In Net Buddy Client: </span>A contact log along the bottom that you can open, resize, sort and edit.</span>
+    </summary>
+    <div class="howto">
+      <p class="howto-head">In Net Buddy Client (NBC):</p>
+      <ul>
+        <li>Open it with <strong>&#9656; contact log</strong> at the bottom left, <strong>File &rarr; Contact log</strong>, or <kbd>L</kbd> in the list.</li>
+        <li>Drag its top edge to make it taller. It remembers whether you left it open.</li>
+        <li><strong>all nets</strong> and <strong>only</strong> (this call) narrow what it shows. <strong>sort</strong> orders it.</li>
+        <li><kbd>Enter</kbd> or double-click edits a contact. Right-click for Edit, Delete, New and Refresh.</li>
+        <li>Delete asks first, and makes a backup before it changes anything.</li>
+        <li><kbd>L</kbd> again takes you back to the check-in list.</li>
+      </ul>
+    </div>
+  </details>
+  </div>
+
+  <!-- ------------------------------------------------ after -->
+  <div class="group">
+  <h3 id="g-after">After the net</h3>
+  <div class="colhead" aria-hidden="true"><span>Job</span><span>In NetLogger</span><span>In Net Buddy Client</span></div>
+
+  <details class="feat" id="export-net">
+    <summary>
+      <span><span class="fname">Saving the check-in list</span> <span class="badge everyday">Everyday</span></span>
+      <span><span class="lbl">In NetLogger: </span>File &rarr; Save Check-ins, in NetLogger&rsquo;s own format. Auto Save can do it for you.</span>
+      <span><span class="lbl">In Net Buddy Client: </span>Export it as a spreadsheet (CSV) or as ADIF.</span>
+    </summary>
+    <div class="howto">
+      <p class="howto-head">In Net Buddy Client (NBC):</p>
+      <ul>
+        <li><strong>File &rarr; Export check-in list (CSV)&hellip;</strong> — the list as it stood, in line order.</li>
+        <li><strong>File &rarr; Export check-in list (ADIF)&hellip;</strong> — the same rows as records a logging program can read.
+            The file says plainly that a check-in is not a worked contact.</li>
+      </ul>
+      <p>The file goes in an <strong>exports</strong> folder beside your Net Buddy data, and the client tells you where.</p>
+    </div>
+  </details>
+
+  <details class="feat" id="export-log">
+    <summary>
+      <span><span class="fname">Exporting your log</span> <span class="badge everyday">Everyday</span></span>
+      <span><span class="lbl">In NetLogger: </span>File &rarr; Export Contacts, ADIF or CSV. CSV carries only some fields.</span>
+      <span><span class="lbl">In Net Buddy Client: </span>ADIF that keeps every field, or CSV, for the whole log or a date range.</span>
+    </summary>
+    <div class="howto">
+      <p class="howto-head">In Net Buddy Client (NBC):</p>
+      <ol>
+        <li><strong>File &rarr; Export my contact log&hellip;</strong></li>
+        <li>Choose ADIF (to move your log) or CSV (to read and count it).</li>
+        <li>Leave the dates empty for everything, or set a range — one month for an award application, say.</li>
+      </ol>
+      <p>Dates are UTC, like your log, and both ends of the range are included.</p>
+    </div>
+  </details>
+
+  <details class="feat" id="sync">
+    <summary>
+      <span><span class="fname">Sending contacts to your logbook</span> <span class="badge everyday">Everyday</span></span>
+      <span><span class="lbl">In NetLogger: </span>Upload to LoTW and eQSL from the eLogs menu.</span>
+      <span><span class="lbl">In Net Buddy Client: </span>Sends new contacts to ACLog, N3FJP, Ham Radio Deluxe, QRZ, K1ALF, and loggers that listen for WSJT-X. Not LoTW or eQSL.</span>
+    </summary>
+    <div class="howto">
+      <p class="howto-head">In Net Buddy Client (NBC):</p>
+      <ul>
+        <li>Set each one up in <strong>Tools &rarr; Settings&hellip;</strong>. Each has a <strong>Test</strong> button.</li>
+        <li>Step-by-step setup is in the <a href="user_guide.html#sync">User Guide</a>.</li>
+      </ul>
+    </div>
+  </details>
+  </div>
+
+  <!-- ------------------------------------------------ any time -->
+  <div class="group">
+  <h3 id="g-any">Any time</h3>
+  <div class="colhead" aria-hidden="true"><span>Job</span><span>In NetLogger</span><span>In Net Buddy Client</span></div>
+
+  <details class="feat" id="text-size">
+    <summary>
+      <span><span class="fname">Making the text bigger</span> <span class="badge headline">Headline</span></span>
+      <span><span class="lbl">In NetLogger: </span>Edit menu, window by window: font, size and colors.</span>
+      <span><span class="lbl">In Net Buddy Client: </span><strong>A&minus;</strong> and <strong>A+</strong> scale the whole window at once, and it is remembered.</span>
+    </summary>
+    <div class="howto">
+      <p class="howto-head">In Net Buddy Client (NBC):</p>
+      <ul>
+        <li><strong>A&minus;</strong> and <strong>A+</strong> are in the top right corner. Also <strong>Tools &rarr; Larger text</strong> / <strong>Smaller text</strong>.</li>
+        <li>The chat has its own A&minus; / A+ as well.</li>
+      </ul>
+    </div>
+  </details>
+
+  <details class="feat" id="settings">
+    <summary>
+      <span><span class="fname">Settings</span> <span class="badge everyday">Everyday</span></span>
+      <span><span class="lbl">In NetLogger: </span>Spread across the Setup and Edit menus, and Preferences.</span>
+      <span><span class="lbl">In Net Buddy Client: </span>One window, with links across the top to each section, and a Test button for each connection.</span>
+    </summary>
+    <div class="howto">
+      <p class="howto-head">In Net Buddy Client (NBC):</p>
+      <ul>
+        <li><strong>Tools &rarr; Settings&hellip;</strong></li>
+        <li><strong>Test</strong> tries what you have typed, before you save it. Green is good, amber means sent but not confirmed, red means something is wrong.</li>
+        <li>Your K1ALF password can only be typed in <strong>Tools &rarr; Full settings (desktop)&hellip;</strong>. Passwords are never sent to the browser.</li>
+      </ul>
+    </div>
+  </details>
+
+  <details class="feat" id="keyboard">
+    <summary>
+      <span><span class="fname">Every key in one list</span> <span class="badge everyday">Everyday</span></span>
+      <span><span class="lbl">In NetLogger: </span>Help lists 13 shortcut keys.</span>
+      <span><span class="lbl">In Net Buddy Client: </span>Press <kbd>?</kbd> for every key. A pop-up menu of commands is one key away.</span>
+    </summary>
+    <div class="howto">
+      <p class="howto-head">In Net Buddy Client (NBC):</p>
+      <ul>
+        <li><kbd>?</kbd>, or <strong>Help &rarr; Keyboard shortcuts&hellip;</strong>, lists every key.</li>
+        <li><kbd>Ctrl+D</kbd> opens a small menu in the bottom-left corner. Press the letter you can read. (<kbd>Ctrl+;</kbd> works too.)</li>
+        <li><kbd>Alt</kbd> plus an underlined letter opens that menu on the bar.</li>
+        <li><kbd>F1</kbd> opens the user guide in your browser.</li>
+        <li><kbd>Escape</kbd> closes the newest thing that is open.</li>
+      </ul>
+    </div>
+  </details>
+
+  <details class="feat" id="footer">
+    <summary>
+      <span><span class="fname">What just happened</span> <span class="badge deep">Deep cut</span></span>
+      <span><span class="lbl">In NetLogger: </span>Not described in NetLogger&rsquo;s Help.</span>
+      <span><span class="lbl">In Net Buddy Client: </span>One line along the bottom says what just happened. Failures stay until you dismiss them.</span>
+    </summary>
+    <div class="howto">
+      <p class="howto-head">In Net Buddy Client (NBC):</p>
+      <ul>
+        <li>Routine notices fade after a few seconds.</li>
+        <li>Click <strong>recent</strong> in the footer for the last 20, with times.</li>
+      </ul>
+    </div>
+  </details>
+
+  <details class="feat" id="sound">
+    <summary>
+      <span><span class="fname">Sounds</span> <span class="badge deep">Deep cut</span></span>
+      <span><span class="lbl">In NetLogger: </span>Not described in NetLogger&rsquo;s Help.</span>
+      <span><span class="lbl">In Net Buddy Client: </span>A chime for a new private message. Sounds can be turned off.</span>
+    </summary>
+    <div class="howto">
+      <p class="howto-head">In Net Buddy Client (NBC):</p>
+      <ul>
+        <li><strong>Tools &rarr; Sound</strong> turns sounds on or off.</li>
+        <li><strong>Test sound</strong>, in the gear menu, plays a tone and tells you whether it worked.</li>
+      </ul>
+    </div>
+  </details>
+
+  <details class="feat" id="layout">
+    <summary>
+      <span><span class="fname">Your layout is remembered</span> <span class="badge deep">Deep cut</span></span>
+      <span><span class="lbl">In NetLogger: </span>Column order, fonts and colors are kept. The Contacts table can be undocked.</span>
+      <span><span class="lbl">In Net Buddy Client: </span>Window size and place, which panels are open, the chat&rsquo;s width and the text size are kept.</span>
+    </summary>
+    <div class="howto">
+      <p class="howto-head">In Net Buddy Client (NBC):</p>
+      <p>Nothing to do. It comes back the way you left it.</p>
+    </div>
+  </details>
+
+  <details class="feat" id="support">
+    <summary>
+      <span><span class="fname">Supporting NetLogger and Net Buddy</span> <span class="badge deep">Deep cut</span></span>
+      <span><span class="lbl">In NetLogger: </span>A donate button on netlogger.org keeps their servers running.</span>
+      <span><span class="lbl">In Net Buddy Client: </span><strong>Help &rarr; Support NetLogger and Net Buddy&hellip;</strong> — NetLogger first.</span>
+    </summary>
+    <div class="howto">
+      <p class="howto-head">In Net Buddy Client (NBC):</p>
+      <p>Every net you see runs on NetLogger&rsquo;s servers. If Net Buddy is useful to you, support them first:
+      <a href="https://www.netlogger.org/">netlogger.org</a>.</p>
+    </div>
+  </details>
+  </div>
+
+
+  <!-- ================================================================ PART 2 -->
+
+  <h2 id="ncs">Part 2 — For net control and loggers</h2>
+  <p><strong>Everything in Part 1 applies to you too.</strong> This part is the extra job.</p>
+  <p>Most of it needs the logger role on the net. Without it, the client tells you so in words
+  instead of failing quietly.</p>
+
+  <!-- ------------------------------------------------ seat -->
+  <div class="group">
+  <h3 id="g-seat">Taking the logger&rsquo;s seat</h3>
+  <div class="colhead" aria-hidden="true"><span>Job</span><span>In NetLogger</span><span>In Net Buddy Client</span></div>
+
+  <details class="feat" id="logger-role">
+    <summary>
+      <span><span class="fname">Becoming the logger</span> <span class="badge headline">Headline</span></span>
+      <span><span class="lbl">In NetLogger: </span>Start Logging with the net password, or be promoted from the Monitors window.</span>
+      <span><span class="lbl">In Net Buddy Client: </span>Be promoted by the current logger. The client notices by itself.</span>
+    </summary>
+    <div class="howto">
+      <p class="howto-head">In Net Buddy Client (NBC):</p>
+      <ol>
+        <li>Join the net.</li>
+        <li>Ask the current logger to promote you. In NetLogger that is the Monitors window, Promote Logger.</li>
+        <li>When the promotion arrives, the <strong>ME</strong> chip turns bright green and the <strong>TURN</strong> button appears.</li>
+      </ol>
+    </div>
+  </details>
+
+  <details class="feat" id="needs-netlogger">
+    <summary>
+      <span><span class="fname">What still needs NetLogger</span> <span class="badge everyday">Everyday</span></span>
+      <span><span class="lbl">In NetLogger: </span>Create Net, Close Net, promoting and demoting loggers, and ignoring a station for everyone.</span>
+      <span><span class="lbl">In Net Buddy Client: </span>Not in the client yet. Use NetLogger for these.</span>
+    </summary>
+    <div class="howto">
+      <p class="howto-head">In Net Buddy Client (NBC):</p>
+      <p>Not available yet. Use NetLogger for:</p>
+      <ul>
+        <li>Creating a net, and closing it at the end.</li>
+        <li>Promoting another station to logger, and taking it away again (Promote Logger and Demote, in NetLogger&rsquo;s Monitors window).</li>
+        <li>AIM Group Ignore.</li>
+      </ul>
+    </div>
+  </details>
+  </div>
+
+  <!-- ------------------------------------------------ opening -->
+  <div class="group">
+  <h3 id="g-open">Opening the net</h3>
+  <div class="colhead" aria-hidden="true"><span>Job</span><span>In NetLogger</span><span>In Net Buddy Client</span></div>
+
+  <details class="feat" id="announcements">
+    <summary>
+      <span><span class="fname">Announcements</span> <span class="badge headline">Headline</span> <span class="badge new">Not in NetLogger</span></span>
+      <span><span class="lbl">In NetLogger: </span>You type or paste each one into AIM.</span>
+      <span><span class="lbl">In Net Buddy Client: </span>Ten buttons you write once. <kbd>Alt+1</kbd> to <kbd>Alt+0</kbd> send them.</span>
+    </summary>
+    <div class="howto">
+      <p class="howto-head">In Net Buddy Client (NBC):</p>
+      <ol>
+        <li>Click <strong>announce</strong> above the check-in list, or <strong>Net Specific &rarr; Announcements</strong>.</li>
+        <li>Right-click a button to write its name and its message.</li>
+        <li>Press the button, or <kbd>Alt</kbd> and its number. The number row and the number pad both work.</li>
+      </ol>
+      <ul>
+        <li>Each button shows its number in the corner.</li>
+        <li><strong>+</strong> adds more buttons after the first ten. Those have no key.</li>
+        <li>A button rests for 5 seconds after you press it.</li>
+        <li>Anyone who has joined can send announcements. You do not need the logger role.</li>
+      </ul>
+    </div>
+  </details>
+  </div>
+
+  <!-- ------------------------------------------------ entry -->
+  <div class="group">
+  <h3 id="g-entry">Checking people in</h3>
+  <div class="colhead" aria-hidden="true"><span>Job</span><span>In NetLogger</span><span>In Net Buddy Client</span></div>
+
+  <details class="feat" id="entry">
+    <summary>
+      <span><span class="fname">Typing check-ins in</span> <span class="badge headline">Headline</span></span>
+      <span><span class="lbl">In NetLogger: </span>Click the Call Sign cell and type a call or member ID. Tab and Enter look it up and move on.</span>
+      <span><span class="lbl">In Net Buddy Client: </span>Entry mode: type a call or member number, press <kbd>Enter</kbd>, and you are on the next line.</span>
+    </summary>
+    <div class="howto">
+      <p class="howto-head">In Net Buddy Client (NBC):</p>
+      <ol>
+        <li>In the check-in list, press <kbd>I</kbd>. A band across the list names the mode, the line you are typing into, and how to stop.</li>
+        <li>Type a call sign or a member number. The client works out which, and fills the rest from the roster and the callbook.</li>
+        <li><kbd>Tab</kbd> moves across the line — call, m/p, state, name, remarks — and keeps what you typed.
+            <kbd>Shift+Tab</kbd> or <kbd>Home</kbd> goes back to the call sign.</li>
+        <li><kbd>Enter</kbd> saves the line and moves down to the next. It is the only key that saves.</li>
+        <li><kbd>&uarr;</kbd> or <kbd>&darr;</kbd> leaves entry mode and moves, <strong>without saving</strong> the line you were on. Press <kbd>I</kbd> to come back.</li>
+        <li><kbd>Escape</kbd> leaves entry mode.</li>
+      </ol>
+      <p><strong>Shortcuts after the call sign</strong>, the way stations sign on the air:</p>
+      <ul>
+        <li><code>/m</code> mobile, <code>/p</code> portable</li>
+        <li><code>/q</code> puts QRP in remarks; <code>/q10</code> puts QRP 10W</li>
+        <li><code>/new</code> puts NEW in remarks; <code>/fam</code> puts FAM</li>
+        <li>They combine: <code>4711/p/new</code>. Anything else after a slash stays part of the call sign, so <code>W1AW/4</code> is left alone.</li>
+      </ul>
+    </div>
+  </details>
+
+  <details class="feat" id="checkin-mode">
+    <summary>
+      <span><span class="fname">Check-in mode: one box, safer with two loggers</span> <span class="badge headline">Headline</span> <span class="badge new">Not in NetLogger</span></span>
+      <span><span class="lbl">In NetLogger: </span>Each logger types into a line they pick from their own screen.</span>
+      <span><span class="lbl">In Net Buddy Client: </span>Type who, press <kbd>Enter</kbd>. The client reads the net again and puts them on the next empty line.</span>
+    </summary>
+    <div class="howto">
+      <p class="howto-head">In Net Buddy Client (NBC):</p>
+      <ol>
+        <li>Press <kbd>C</kbd> in the check-in list. The <strong>Check-in mode</strong> box opens.</li>
+        <li>Type a call sign or member number — the shortcuts like <code>/m</code> work here too — and press <kbd>Enter</kbd>.</li>
+        <li>The client reads the net fresh and writes the station on the next empty line. The box clears for the next one.</li>
+        <li>The box stays open and shows the last few that landed, with their line numbers.</li>
+        <li><kbd>Escape</kbd> when you are done.</li>
+      </ol>
+      <ul>
+        <li>If an entry is refused — already on line 14, say — the box tells you and selects what you typed, so you can fix it or type straight over it.</li>
+        <li><strong>Why it is safer:</strong> typing into the list, you pick the line from a screen that can be 20 seconds old, and two loggers can pick the same line. Here the line is chosen a moment before the write. It is not a lock — two Enters in the same second can still collide — but the window is far smaller.</li>
+      </ul>
+    </div>
+  </details>
+
+  <details class="feat" id="edit-line">
+    <summary>
+      <span><span class="fname">Fixing a line</span> <span class="badge everyday">Everyday</span></span>
+      <span><span class="lbl">In NetLogger: </span>Click a cell to type over it, or double-click to edit.</span>
+      <span><span class="lbl">In Net Buddy Client: </span><kbd>E</kbd> opens every field of the line in one box, and can refill it from the roster and QRZ.</span>
+    </summary>
+    <div class="howto">
+      <p class="howto-head">In Net Buddy Client (NBC):</p>
+      <ol>
+        <li>Select the line and press <kbd>E</kbd>, or right-click it and choose <strong>EDIT</strong>.</li>
+        <li>Change what you need: call sign, member number, name, city, state, county, grid, remarks.</li>
+        <li><strong>Rebuild fresh</strong> refills it from the call sign and shows what changed. It does not save.</li>
+        <li><strong>Save to the net</strong>.</li>
+      </ol>
+    </div>
+  </details>
+
+  <details class="feat" id="lines">
+    <summary>
+      <span><span class="fname">Inserting, deleting and clearing lines</span> <span class="badge everyday">Everyday</span></span>
+      <span><span class="lbl">In NetLogger: </span>Right-click: Insert Row, Delete Row, Clear Row.</span>
+      <span><span class="lbl">In Net Buddy Client: </span>One key each, and each one asks first.</span>
+    </summary>
+    <div class="howto">
+      <p class="howto-head">In Net Buddy Client (NBC):</p>
+      <ul>
+        <li><kbd>Insert</kbd> — blank lines above; it asks how many. Everyone below moves down.</li>
+        <li><kbd>Delete</kbd> — delete the line. Everyone below moves up.</li>
+        <li><kbd>Backspace</kbd> — empty the line. Every line number stays put.</li>
+      </ul>
+      <p>The delete box offers four choices, from just this line up to clearing the whole list. The bigger the choice, the stronger its color.</p>
+    </div>
+  </details>
+  </div>
+
+  <!-- ------------------------------------------------ running -->
+  <div class="group">
+  <h3 id="g-run">Running the list</h3>
+  <div class="colhead" aria-hidden="true"><span>Job</span><span>In NetLogger</span><span>In Net Buddy Client</span></div>
+
+  <details class="feat" id="turn">
+    <summary>
+      <span><span class="fname">TURN: calling the next station</span> <span class="badge headline">Headline</span> <span class="badge new">Not in NetLogger</span></span>
+      <span><span class="lbl">In NetLogger: </span>You move the pink highlighter yourself. Announcing it is up to you.</span>
+      <span><span class="lbl">In Net Buddy Client: </span>One key or one button moves the pink line to the next station and announces it on AIM. Jump out of order, and come back, from the same button.</span>
+    </summary>
+    <div class="howto">
+      <p class="howto-head">In Net Buddy Client (NBC):</p>
+      <p><strong>Call the next station:</strong></p>
+      <ul>
+        <li>Press <strong>TURN</strong> above the list, between PINK and ME — or <kbd>F3</kbd> from anywhere in the window, even mid-message.</li>
+        <li>The button shows where the next press lands: <strong>TURN &rarr; 14</strong>.</li>
+        <li>It posts on AIM whose turn it is, and who is up next.</li>
+        <li>A big card in the middle of your screen shows who you are calling — see <a href="#turn-callout">Big call-out</a>.</li>
+      </ul>
+      <p><strong>Jump out of order, and come back:</strong></p>
+      <ul>
+        <li>Select a row and press <kbd>Shift+F3</kbd>. The pink line jumps there and it is announced.
+            The next TURN goes back to where the list was.</li>
+        <li>Or press <strong>&rarr;#</strong>, the right-hand half of the TURN button, and type a line number:
+          <ul>
+            <li><strong>Jump and return from</strong> — go there, and the next TURN comes back. For a station back from unavailable, or a priority call.</li>
+            <li><strong>MOVE pink line to</strong> — go there and carry on from there.</li>
+          </ul>
+          Both announce on AIM.</li>
+      </ul>
+      <p><strong>From the right-click menu:</strong> right-click any line and choose
+      <strong>TURN &rarr; #14 &hellip;</strong> The pink line moves there and it is announced on AIM.</p>
+      <p>In <a href="#log-mode">log mode</a>, <kbd>N</kbd> is TURN and <kbd>J</kbd> is the jump.</p>
+    </div>
+  </details>
+
+  <details class="feat" id="turn-callout">
+    <summary>
+      <span><span class="fname">Big call-out of who you are calling</span> <span class="badge headline">Headline</span> <span class="badge new">Not in NetLogger</span></span>
+      <span><span class="lbl">In NetLogger: </span>No.</span>
+      <span><span class="lbl">In Net Buddy Client: </span>After TURN, a large card in the middle of your screen shows the line, call and name you are about to call — big enough to read while you reach for the mic.</span>
+    </summary>
+    <div class="howto">
+      <p class="howto-head">In Net Buddy Client (NBC):</p>
+      <ul>
+        <li>It appears on your screen when you press TURN or jump to a line.</li>
+        <li>White for a normal turn. Orange for a last call.</li>
+        <li>Underneath, it says whether that station is on monitor.</li>
+        <li>It takes no keys and no clicks away from you. It goes by itself after 10 seconds, or when you click it.</li>
+        <li>To turn it off or change the time: <strong>Tools &rarr; Settings&hellip; &rarr; Client Config</strong>,
+            <strong>Show the big TURN callout</strong>.</li>
+      </ul>
+    </div>
+  </details>
+
+  <details class="feat" id="plp">
+    <summary>
+      <span><span class="fname">Pink Line Protection</span> <span class="badge headline">Headline</span> <span class="badge new">Not in NetLogger</span></span>
+      <span><span class="lbl">In NetLogger: </span>No.</span>
+      <span><span class="lbl">In Net Buddy Client: </span>If someone moved the pink line since your last TURN, TURN stops and asks which station you meant.</span>
+    </summary>
+    <div class="howto">
+      <p class="howto-head">In Net Buddy Client (NBC):</p>
+      <ul>
+        <li>It shows both: the station the pink line is on now, and the one TURN was going to call.</li>
+        <li>A choice that would call the same station twice is marked in red. That is a warning, not a refusal.</li>
+        <li>Nothing is written until you pick.</li>
+      </ul>
+    </div>
+  </details>
+
+  <details class="feat" id="move-pink">
+    <summary>
+      <span><span class="fname">Moving the pink line yourself</span> <span class="badge everyday">Everyday</span></span>
+      <span><span class="lbl">In NetLogger: </span>In manual mode, click the row number. <kbd>F2</kbd> switches manual and automatic.</span>
+      <span><span class="lbl">In Net Buddy Client: </span>Keys to move it quietly, or move it and announce.</span>
+    </summary>
+    <div class="howto">
+      <p class="howto-head">In Net Buddy Client (NBC):</p>
+      <p>Select a row, then:</p>
+      <ul>
+        <li><kbd>F2</kbd> — move the pink line here. The net is not told. Double-clicking the line number does the same.</li>
+        <li><kbd>Shift+F2</kbd> — move it here and announce. TURN carries on from here.</li>
+      </ul>
+      <p>To jump out of order and come back, see <a href="#turn">TURN</a>.</p>
+    </div>
+  </details>
+
+  <details class="feat" id="statuses">
+    <summary>
+      <span><span class="fname">Checked out, unavailable, no response</span> <span class="badge everyday">Everyday</span></span>
+      <span><span class="lbl">In NetLogger: </span><kbd>F5</kbd>, <kbd>F7</kbd>, <kbd>F8</kbd>, logger only.</span>
+      <span><span class="lbl">In Net Buddy Client: </span>The same keys, and the client says in words which way it went.</span>
+    </summary>
+    <div class="howto">
+      <p class="howto-head">In Net Buddy Client (NBC):</p>
+      <ul>
+        <li><kbd>F5</kbd> checked out. <kbd>F7</kbd> unavailable. <kbd>F8</kbd> no response. Press again to clear.</li>
+        <li>The same three are on the right-click menu.</li>
+        <li>The footer says, for example, &ldquo;W1AW is now unavailable&rdquo;, because the color changes on the next refresh.</li>
+      </ul>
+    </div>
+  </details>
+
+  <details class="feat" id="log-mode">
+    <summary>
+      <span><span class="fname">Log mode: act on whoever just messaged</span> <span class="badge headline">Headline</span> <span class="badge new">Not in NetLogger</span></span>
+      <span><span class="lbl">In NetLogger: </span>Read the AIM, find their row, then press the key.</span>
+      <span><span class="lbl">In Net Buddy Client: </span>Pick the station by their AIM message and press one letter. You never leave the chat.</span>
+    </summary>
+    <div class="howto">
+      <p class="howto-head">In Net Buddy Client (NBC):</p>
+      <ol>
+        <li><kbd>Ctrl+Space</kbd>. An amber <strong>LOG</strong> band appears on the AIM pane.</li>
+        <li><kbd>&uarr;</kbd> <kbd>&darr;</kbd> to pick a station by the message they sent.</li>
+        <li>Press a letter:
+          <ul>
+            <li><kbd>A</kbd> unavailable, or back again</li>
+            <li><kbd>C</kbd> checked out, or back in</li>
+            <li><kbd>W</kbd> waiting room: check them in, marked unavailable</li>
+            <li><kbd>L</kbd> add them to the Last Call list</li>
+            <li><kbd>G</kbd> say 73, and stay in log mode</li>
+            <li><kbd>N</kbd> TURN — no station needs picking</li>
+            <li><kbd>J</kbd> jump to a line you name</li>
+          </ul>
+        </li>
+        <li><kbd>Escape</kbd> or <kbd>Ctrl+Space</kbd> again leaves log mode.</li>
+      </ol>
+      <p>Someone talking in AIM need not be checked in, so &ldquo;not on the list — check them in first&rdquo; is an ordinary answer, not an error.</p>
+    </div>
+  </details>
+  </div>
+
+  <hr>
+  <p class="footer">Net Buddy Client guide · by N6WWW · The NetLogger column is drawn from NetLogger&rsquo;s own Help, version 3.1.7.</p>
+
+</div>
+
+<script>
+  /* Dark mode: same behaviour as the user guide, remembered across visits. With no stored
+     choice it follows the computer's own light/dark setting. */
+  function toggleDark() {
+    document.body.classList.toggle('dark');
+    var on = document.body.classList.contains('dark');
+    document.getElementById('darkToggle').textContent = on ? 'Light mode' : 'Dark mode';
+    try { localStorage.setItem('nbc_guide_dark', on ? '1' : '0'); } catch (e) {}
+  }
+  (function () {
+    var saved = null;
+    try { saved = localStorage.getItem('nbc_guide_dark'); } catch (e) {}
+    var dark = saved === '1' ||
+      (saved === null && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches);
+    if (dark) {
+      document.body.classList.add('dark');
+      document.getElementById('darkToggle').textContent = 'Light mode';
+    }
+  })();
+
+  var rows = Array.prototype.slice.call(document.querySelectorAll('details.feat'));
+
+  /* A link to a row (…nbc_guide.html#turn) opens that row and scrolls to it, so a link pasted
+     into AIM lands on the answer rather than on the top of the page. */
+  function openFromHash() {
+    var id = decodeURIComponent(location.hash.replace(/^#/, ''));
+    if (!id) return;
+    var el = document.getElementById(id);
+    if (el && el.tagName === 'DETAILS') {
+      el.hidden = false;
+      el.open = true;
+      el.scrollIntoView({ block: 'start' });
+    }
+  }
+  window.addEventListener('hashchange', openFromHash);
+  openFromHash();
+
+  /* Every row carries its own "copy link" button. The row's id IS the link. */
+  rows.forEach(function (row) {
+    var box = row.querySelector('.howto');
+    if (!box) return;
+    var tools = document.createElement('div');
+    tools.className = 'tools';
+    var btn = document.createElement('button');
+    btn.type = 'button';
+    btn.textContent = 'Copy a link to this';
+    var said = document.createElement('span');
+    said.className = 'copied';
+    said.setAttribute('aria-live', 'polite');
+    btn.addEventListener('click', function () {
+      var url = location.href.split('#')[0] + '#' + row.id;
+      function shown() { said.textContent = 'Copied: ' + url; }
+      function manual() { said.textContent = 'Copy this link: ' + url; }
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(url).then(shown, manual);
+      } else {
+        manual();
+      }
+    });
+    tools.appendChild(btn);
+    tools.appendChild(said);
+    box.appendChild(tools);
+  });
+
+  /* Filters. Two questions a reader asks: "just the big ones" and "just what NetLogger
+     doesn't do". The page always says how many rows are hidden, so a filtered page is
+     never mistaken for the whole guide. */
+  /* A row's BADGES are the only record of its level and of whether NetLogger has it -- the
+     filter reads them, so what a reader sees on the row and what the filter acts on cannot
+     disagree. */
+  function levelOf(row) {
+    if (row.querySelector('.badge.headline')) return 'headline';
+    if (row.querySelector('.badge.everyday')) return 'everyday';
+    return 'deep';
+  }
+  function applyFilters() {
+    var level = document.querySelector('input[name="level"]:checked').value;
+    var onlyNew = document.getElementById('onlyNew').checked;
+    var allowed = {
+      all: ['headline', 'everyday', 'deep'],
+      main: ['headline', 'everyday'],
+      headline: ['headline']
+    }[level];
+    var hidden = 0;
+    rows.forEach(function (row) {
+      var show = allowed.indexOf(levelOf(row)) >= 0 && (!onlyNew || !!row.querySelector('.badge.new'));
+      row.hidden = !show;
+      if (!show) hidden++;
+    });
+    document.querySelectorAll('.group').forEach(function (g) {
+      var any = g.querySelector('details.feat:not([hidden])');
+      g.hidden = !any;
+    });
+    var note = document.getElementById('hiddenNote');
+    note.textContent = hidden ? (hidden + ' of ' + rows.length + ' features are hidden by these choices.') : '';
+    document.getElementById('showAll').hidden = !hidden;
+  }
+  document.querySelectorAll('.filters input').forEach(function (i) {
+    i.addEventListener('change', applyFilters);
+  });
+  document.getElementById('showAll').addEventListener('click', function () {
+    document.querySelector('input[name="level"][value="all"]').checked = true;
+    document.getElementById('onlyNew').checked = false;
+    applyFilters();
+  });
+  document.getElementById('openAll').addEventListener('click', function () {
+    rows.forEach(function (r) { if (!r.hidden) r.open = true; });
+  });
+  document.getElementById('closeAll').addEventListener('click', function () {
+    rows.forEach(function (r) { r.open = false; });
+  });
+  applyFilters();
+</script>
+
+</body>
+</html>
