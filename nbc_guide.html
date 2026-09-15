@@ -290,6 +290,9 @@
       <p class="howto-head">In Net Buddy Client (NBC):</p>
       <ol>
         <li>Click the <strong>on net</strong> button in the header. You have left the net.</li>
+        <li>If you created this net and it is still open, NBC warns you first, because the net stays
+            open for everyone after you go. Quitting or closing the window warns you the same way.
+            To end the net instead, use <strong>Net Control &rarr; Close Net&hellip;</strong></li>
         <li>You are no longer on the net&rsquo;s monitor list, but the check-in list and the chat keep
             updating. You can watch all the activity; you just cannot take part.</li>
         <li>Click <strong>join</strong> to come back.</li>
@@ -306,7 +309,7 @@
     <div class="howto">
       <p class="howto-head">In Net Buddy Client (NBC):</p>
       <ol>
-        <li><strong>Tools &rarr; Settings&hellip; &rarr; Client Config</strong>.</li>
+        <li><strong>File &rarr; Settings&hellip; &rarr; Client Config</strong>.</li>
         <li>Find <strong>Join a net automatically when I open it</strong>.
           <ul>
             <li><strong>Ticked — Auto Join</strong> (the default). Opening a net joins it.</li>
@@ -349,7 +352,7 @@
     <div class="howto">
       <p class="howto-head">In Net Buddy Client (NBC):</p>
       <ol>
-        <li><strong>File &rarr; Previous nets&hellip;</strong></li>
+        <li><strong>View &rarr; Previous nets&hellip;</strong></li>
         <li>Type part of the net&rsquo;s name to narrow the list.</li>
         <li>Open one. Its check-in list appears, read-only.</li>
       </ol>
@@ -757,7 +760,7 @@
     <div class="howto">
       <p class="howto-head">In Net Buddy Client (NBC):</p>
       <ul>
-        <li>Set it up once: <strong>Tools &rarr; Settings&hellip; &rarr; Rig control</strong>, and choose how Net Buddy
+        <li>Set it up once: <strong>File &rarr; Settings&hellip; &rarr; Rig control</strong>, and choose how Net Buddy
             reaches your radio — Hamlib/rigctld, Omni-Rig, or ACLog (TCP). Hamlib and Omni-Rig work with any
             logger, or none. ACLog needs ACLog running with your rig connected. Step by step:
             <a href="user_guide.html#sync">the User Guide</a>.</li>
@@ -830,7 +833,7 @@
     <div class="howto">
       <p class="howto-head">In Net Buddy Client (NBC):</p>
       <ul>
-        <li>Open it with <strong>&#9656; contact log</strong> at the bottom left, <strong>File &rarr; Contact log</strong>, or <kbd>L</kbd> in the list.</li>
+        <li>Open it with <strong>&#9656; contact log</strong> at the bottom left, <strong>View &rarr; Contact log</strong>, or <kbd>L</kbd> in the list.</li>
         <li>Drag its top edge to make it taller. It remembers whether you left it open.</li>
         <li><strong>all nets</strong> and <strong>only</strong> (this call) narrow what it shows. <strong>sort</strong> orders it.</li>
         <li><kbd>Enter</kbd> or double-click edits a contact. Right-click for Edit, Delete, New and Refresh.</li>
@@ -889,7 +892,7 @@
     <div class="howto">
       <p class="howto-head">In Net Buddy Client (NBC):</p>
       <ul>
-        <li>Set each one up in <strong>Tools &rarr; Settings&hellip;</strong>. Each has a <strong>Test</strong> button.</li>
+        <li>Set each one up in <strong>File &rarr; Settings&hellip;</strong>. Each has a <strong>Test</strong> button.</li>
         <li>Step-by-step setup is in the <a href="user_guide.html#sync">User Guide</a>.</li>
       </ul>
     </div>
@@ -925,10 +928,32 @@
     <div class="howto">
       <p class="howto-head">In Net Buddy Client (NBC):</p>
       <ul>
-        <li><strong>Tools &rarr; Settings&hellip;</strong></li>
+        <li><strong>File &rarr; Settings&hellip;</strong></li>
         <li><strong>Test</strong> tries what you have typed, before you save it. Green is good, amber means sent but not confirmed, red means something is wrong.</li>
         <li>Your K1ALF password can only be typed in <strong>Tools &rarr; Full settings (desktop)&hellip;</strong>. Passwords are never sent to the browser.</li>
       </ul>
+    </div>
+  </details>
+
+  <details class="feat" id="locations">
+    <summary>
+      <span><span class="fname">Station locations</span> <span class="badge deep">Deep cut</span></span>
+      <span><span class="lbl">In NetLogger: </span>Setup &rarr; Station Locations.</span>
+      <span><span class="lbl">In Net Buddy Client: </span>File &rarr; Station locations&hellip; &mdash; the same list and edit form NetLogger has.</span>
+    </summary>
+    <div class="howto">
+      <p class="howto-head">In Net Buddy Client (NBC):</p>
+      <ul>
+        <li><strong>File &rarr; Station locations&hellip;</strong> opens the list.</li>
+        <li>The first time you open it, the list is read from NetLogger&rsquo;s own Station Locations. It becomes Net Buddy&rsquo;s own the first time you save a change here.</li>
+        <li><strong>Edit</strong> changes the selected location. <strong>Copy and edit</strong> starts a new one from it. <strong>New</strong> starts blank. <strong>Delete</strong> removes it &mdash; the last location cannot be deleted, there is always one to log from. <strong>Set current</strong> makes it the one Net Buddy logs from. <strong>Import from NetLogger</strong> adds any of NetLogger&rsquo;s locations you do not already have.</li>
+        <li>In the edit form, State, County and ITU/CQ zone are dropdowns &mdash; click anywhere in the box to open one. Pick a state and the zone usually fills itself in; twelve states cover two zones and ask you to pick.</li>
+        <li>Turn on <strong>club call</strong> or <strong>additional call</strong> and each one logs its own copy of every QSO you log, with its own Fixed/Mobile/Portable. Turn both on and one contact becomes three records, one per call.</li>
+        <li>Station notes go into the QSO&rsquo;s Notes field, the same as NetLogger.</li>
+        <li>After you log a contact, the footer names the location it came from, and how many records it wrote when a club or additional call multiplied it.</li>
+      </ul>
+      <p>A location only changes what Net Buddy logs. When another logger checks you in, their roster still shows your home QTH &mdash; this cannot change that. In Companion Mode, NetLogger does the logging, so none of this applies there.</p>
+      <p>To upload to LoTW, use TQSL&rsquo;s own &ldquo;Sign a log and upload&rdquo; on your log file &mdash; the log already carries the station fields TQSL needs.</p>
     </div>
   </details>
 
@@ -1220,7 +1245,7 @@
         <li>White for a normal turn. Orange for a last call.</li>
         <li>Underneath, it says whether that station is on monitor.</li>
         <li>It takes no keys and no clicks away from you. It goes by itself after 10 seconds, or when you click it.</li>
-        <li>To turn it off or change the time: <strong>Tools &rarr; Settings&hellip; &rarr; Client Config</strong>,
+        <li>To turn it off or change the time: <strong>File &rarr; Settings&hellip; &rarr; Client Config</strong>,
             <strong>Show the big TURN callout</strong>.</li>
       </ul>
     </div>
@@ -1306,6 +1331,21 @@
 
   <hr>
   <p class="footer">Net Buddy Client guide · by N6WWW · The NetLogger column is drawn from NetLogger&rsquo;s own Help, version 3.1.7.</p>
+  <!-- REQUIRED BY TQSL'S LICENCE while data/us_locations.json ships. Text owner: engine/about.py ARRL_TQSL_NOTICE. -->
+  <details class="footer" id="third-party-notice">
+    <summary>Third-party notice: TrustedQSL (ARRL)</summary>
+    <p>The US state, county and zone table used by Station Locations is derived from the configuration of TrustedQSL (TQSL).</p>
+    <p>Copyright (C) 2001-2020 American Radio Relay League, Inc. All rights reserved.</p>
+    <p>Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:</p>
+    <ol>
+      <li>Any redistribution of source code must retain the above copyright notice, this list of conditions and the disclaimer shown in Paragraph 5 (below).</li>
+      <li>Redistribution in binary form must reproduce the above copyright notice, this list of conditions and the disclaimer shown in Paragraph 5 (below) in the documentation and/or other materials provided with the distribution.</li>
+      <li>Products derived from or including this software may not use &quot;Logbook of the World&quot; or &quot;LoTW&quot; or any other American Radio Relay League, Incorporated trademarks or servicemarks in their names without prior written permission of the ARRL.</li>
+      <li>Use of this software does not imply endorsement by ARRL of products derived from or including this software and vendors may not claim such endorsement.</li>
+      <li>Disclaimer: This software is provided &quot;as-is&quot; without representation, guarantee or warranty of any kind, either express or implied, including but not limited to the implied warranties of merchantability or of fitness for a particular purpose. The entire risk as to the quality and performance of the software is solely with you. Should the software prove defective, you (and not the American Radio Relay League, its officers, directors, employees or agents) assume the entire cost of all necessary servicing, repair or correction. In no event will ARRL be liable to you or to any third party for any damages, whether direct or indirect, including lost profits, lost savings, or other incidental or consequential damages arising out of the use or inability to use such software, regardless of whether ARRL has been advised of the possibility of such damages.</li>
+    </ol>
+    <p>NL Net Buddy is not affiliated with or endorsed by ARRL.</p>
+  </details>
 
 </div>
 
