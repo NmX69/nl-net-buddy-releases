@@ -143,7 +143,7 @@
 <div class="wrap">
 
   <h1>NL Net Buddy — User Guide</h1>
-  <p class="subtitle">Version 3.5.41 · by N6WWW — a companion for NetLogger, featuring the OMISS Award Hunter platform</p>
+  <p class="subtitle">Version 3.5.42 · by N6WWW — a companion for NetLogger, featuring the OMISS Award Hunter platform</p>
 
   <div class="note" id="thanks"><strong>Thank you, NetLogger.</strong> Net Buddy is only possible because of AC0ZG and the team at <a href="https://www.netlogger.org/">NetLogger.org</a>, and the free service they give the amateur radio community. Please visit them and support their work.</div>
 
@@ -159,6 +159,7 @@
       <li><a href="#netcontrol">Running a net (net-control tools &amp; leader keys)</a></li>
       <li><a href="#scripts">Net Preamble / Scripts</a></li>
       <li><a href="#logtools">Tools that tidy your log</a></li>
+      <li><a href="#logcheck">Log Check (compare logs with another operator)</a></li>
       <li><a href="#client">Net Buddy Client (run a net without NetLogger)</a></li>
       <li><a href="#messenger">Net Buddy Messenger (chat with the net)</a></li>
       <li><a href="#games">Net Buddy Games (beta)</a></li>
@@ -445,6 +446,17 @@
     <li><strong>NetLogger Tools &rarr; Clear duplicate marks</strong> takes the marks off again. It finds them by the mark itself, so it still works after you have already deleted some.</li>
     <li><strong>QRZ Tools &rarr; Dupe Scanner</strong> compares your QRZ logbook against your NetLogger log and shows contacts QRZ is holding twice. It changes nothing at either end. Each group has a <strong>[copy ids]</strong> link: click it, then paste into the search box to the <em>left</em> of <strong>Filter</strong> at the top of your QRZ logbook list. QRZ then shows just those QSOs side by side, so you can compare them and delete the one you do not want.</li>
   </ul>
+
+  <h2 id="logcheck">Log Check (compare logs with another operator)</h2>
+  <p>Two operators who have worked each other should have the same contacts between them, and often do not &mdash; one of you missed a logging, or a net went in one log and not the other. <strong>Log Check</strong> settles it in a few seconds, without either of you emailing a file.</p>
+  <p>Open a direct message with the other station and click <strong>LogChk</strong>. They are asked whether they agree; nothing leaves your machine until they do. Then each of you hands over the contacts you hold <em>with each other</em>, and each of you is shown only the ones you do not already have &mdash; as a tick list, with everything ticked, and <strong>Cancel</strong> as the button your Enter key would press. Nothing is written until you choose.</p>
+  <ul>
+    <li><strong>Add to my log</strong> writes the ticked contacts into your NetLogger log. <strong>One</strong> numbered backup is made for the whole import, not one per contact.</li>
+    <li><strong>Save as ADIF</strong> puts the same records in a file instead, through your normal save dialog, so you can look at them before anything is written.</li>
+    <li>The signal reports are <strong>swapped</strong> on the way in: what they sent is what you received. The net name and the club flag come across too, so an imported contact counts towards your awards exactly as one you logged yourself.</li>
+    <li>Every imported contact is tagged in <strong>Remarks</strong>, and the summary tells you the tag to search for &mdash; so you can always see what a log check added.</li>
+  </ul>
+  <p>It works from the HUD, from the Client and from the Messenger. The Messenger has no log of its own; it asks Net Buddy, so Net Buddy needs to be running for a log check started there.</p>
 
   <h2 id="client">Net Buddy Client (run a net without NetLogger)</h2>
 
