@@ -143,7 +143,7 @@
 <div class="wrap">
 
   <h1>NL Net Buddy — User Guide</h1>
-  <p class="subtitle">Version 3.5.46 · by N6WWW — a companion for NetLogger, featuring the OMISS Award Hunter platform</p>
+  <p class="subtitle">Version 3.5.47 · by N6WWW — a companion for NetLogger, featuring the OMISS Award Hunter platform</p>
 
   <div class="note" id="thanks"><strong>Thank you, NetLogger.</strong> Net Buddy is only possible because of AC0ZG and the team at <a href="https://www.netlogger.org/">NetLogger.org</a>, and the free service they give the amateur radio community. Please visit them and support their work.</div>
 
@@ -160,6 +160,7 @@
       <li><a href="#scripts">Net Preamble / Scripts</a></li>
       <li><a href="#logtools">Tools that tidy your log</a></li>
       <li><a href="#logcheck">Log Check (compare logs with another operator)</a></li>
+      <li><a href="#importadif">Importing an ADIF file (Client)</a></li>
       <li><a href="#client">Net Buddy Client (run a net without NetLogger)</a></li>
       <li><a href="#messenger">Net Buddy Messenger (chat with the net)</a></li>
       <li><a href="#games">Net Buddy Games (beta)</a></li>
@@ -459,6 +460,20 @@
   </ul>
   <p><strong>If NetLogger is open when you import, Net Buddy warns you first.</strong> NetLogger keeps its own copy of the log in memory and rewrites your log from it the next time you log or edit anything in it, which would erase the imported contacts. Close NetLogger before importing and reopen it afterwards &mdash; or use <strong>Export to ADIF</strong> and import that file in NetLogger.</p>
   <p>It works from the HUD, from the Client and from the Messenger. The Messenger has no log of its own; it asks Net Buddy, so Net Buddy needs to be running for a log check started there.</p>
+
+  <h2 id="importadif">Importing an ADIF file (Client)</h2>
+  <p>In the <strong>Net Buddy Client</strong>, you can add contacts to your log from another logger&rsquo;s ADIF file &mdash; ACLog, N3FJP, Log4OM, a second copy of NetLogger, anything that writes ADIF.</p>
+  <ol>
+    <li><strong>File &rarr; Import ADIF&hellip;</strong> (or right-click your contact log &rarr; <strong>Import ADIF&hellip;</strong>), then <strong>Choose ADIF file&hellip;</strong>.</li>
+    <li>Net Buddy shows what the file would do: how many contacts are <strong>new</strong>, how many are <strong>already in your log</strong>, and any it <strong>can&rsquo;t read</strong>, with the reason. Nothing is written yet.</li>
+    <li>Click <strong>Import</strong> to add the new ones, or <strong>Cancel</strong>.</li>
+  </ol>
+  <ul>
+    <li>&ldquo;Already in your log&rdquo; means the same station, the same UTC date and band, within 30 minutes. Those are skipped, so importing the same file twice adds nothing.</li>
+    <li><strong>One</strong> backup of your log is made before anything is written.</li>
+    <li>OMISS details exported from NetLogger &mdash; club, member number, net &mdash; come across, so those contacts still count for your awards.</li>
+  </ul>
+  <p><strong>If NetLogger is open when you import, Net Buddy warns you first</strong>, for the same reason as Log Check above: NetLogger would rewrite your log from its own copy and erase the import.</p>
 
   <h2 id="client">Net Buddy Client (run a net without NetLogger)</h2>
 
@@ -1001,7 +1016,7 @@
     <li><strong>Custom check-in (CI) message</strong> — replaces the default check-in announcement on the <strong>CI</strong> button. Use <code>{My_OM}</code> for your OM# (it becomes your callsign on non-OMISS nets) &mdash; e.g. <code>{My_OM} CI &mdash; good evening everyone!</code>.</li>
     <li><strong>Custom &ldquo;unavailable&rdquo; (U/A) message</strong> — tick <em>&ldquo;Ask me for a custom U/A away message when I press the UA button.&rdquo;</em> Then each time you press <strong>UA</strong>, a small box pops up for a one-off away message. <strong>Leave it blank and press Enter to send the usual</strong> <code>#&lt;line&gt; U/A - &lt;call&gt;</code>; type something to send that instead.</li>
     <li><strong>Custom check-out (CO) message</strong> — tick <em>&ldquo;Ask me for a custom check-out message when I press the CO button.&rdquo;</em> Then pressing <strong>CO</strong> pops a box for a custom check-out line. Just like U/A, <strong>blank + Enter sends the usual check-out</strong>; type something to send your own.</li>
-    <li><strong>AIM word alerts</strong> — tick the alert box and list the words to watch for (comma-separated &mdash; e.g. your call and your name). NL Net Buddy beeps when any of them is mentioned in AIM chat, and ignores your own posts so you never trip your own alert.</li>
+    <li><strong>AIM word alerts</strong> — tick the alert box and list the words to watch for (comma-separated &mdash; e.g. your call and your name). NL Net Buddy plays a short two-note alert when any of them is mentioned in AIM chat, and ignores your own posts so you never trip your own alert.</li>
     <li><strong>A courtesy 73</strong> — when you check another station out from the Status box (<strong>CO</strong>), NL Net Buddy also posts a quick 73 to them in AIM. <strong>CO is a toggle:</strong> press it on someone who&rsquo;s <em>already</em> checked out and it puts them back on the net &mdash; and the courtesy message becomes a warm &ldquo;welcome back&rdquo; instead of the 73.</li>
     <li><strong>Status-change auto messaging</strong> — off by default; tick it to have NL Net Buddy post a short courtesy AIM whenever you set a station&rsquo;s status from the Status box (U/A, Waiting Room, Last Call). Some operators love the feedback, others find it chatty &mdash; your call.</li>
     <li><strong>Always-on net-control panel</strong> — tick <em>&ldquo;Always show the NCS panel&rdquo;</em> to keep the announcement buttons visible even when your role isn&rsquo;t auto-detected.</li>
