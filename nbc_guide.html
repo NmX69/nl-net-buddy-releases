@@ -183,7 +183,7 @@
 <div class="wrap">
 
   <h1>Net Buddy Client — Guide</h1>
-  <p class="subtitle">Version 3.5.46 · by N6WWW · what the client does, starting from what you know in NetLogger</p>
+  <p class="subtitle">Version 3.5.47 · by N6WWW · what the client does, starting from what you know in NetLogger</p>
 
   <div class="note" id="thanks"><strong>Thank you, NetLogger.</strong> Net Buddy is only possible because of AC0ZG and the team at <a href="https://www.netlogger.org/">NetLogger.org</a>, and the free service they give the amateur radio community. Please visit them and support their work.</div>
 
@@ -895,11 +895,34 @@
     <div class="howto">
       <p class="howto-head">In Net Buddy Client (NBC):</p>
       <ol>
-        <li><strong>File &rarr; Export my contact log&hellip;</strong></li>
+        <li><strong>File &rarr; Export log&hellip;</strong></li>
         <li>Choose ADIF (to move your log) or CSV (to read and count it).</li>
         <li>Leave the dates empty for everything, or set a range — one month for an award application, say.</li>
       </ol>
       <p>Dates are UTC, like your log, and both ends of the range are included.</p>
+    </div>
+  </details>
+
+  <details class="feat" id="import-adif">
+    <summary>
+      <span><span class="fname">Importing contacts from another logger</span> <span class="badge new">New</span></span>
+      <span><span class="lbl">In NetLogger: </span>File &rarr; Import Contacts.</span>
+      <span><span class="lbl">In Net Buddy Client: </span>Import an ADIF file from any logger. It shows what it would add first, and skips contacts you already have.</span>
+    </summary>
+    <div class="howto">
+      <p class="howto-head">In Net Buddy Client (NBC):</p>
+      <ol>
+        <li><strong>File &rarr; Import ADIF&hellip;</strong> (or right-click your contact log &rarr; <strong>Import ADIF&hellip;</strong>).</li>
+        <li>Click <strong>Choose ADIF file&hellip;</strong> and pick the file.</li>
+        <li>Read the summary: how many are <strong>new</strong>, how many are <strong>already in your log</strong>, and any that <strong>can&rsquo;t be read</strong>, with the reason.</li>
+        <li>Click <strong>Import</strong> to add the new ones, or <strong>Cancel</strong>. Nothing is written until you click Import.</li>
+      </ol>
+      <ul>
+        <li>&ldquo;Already in your log&rdquo; means the same station, same UTC date and band, within 30 minutes. Those are skipped, so importing the same file twice adds nothing.</li>
+        <li>Net Buddy takes <strong>one</strong> backup of your log before it writes.</li>
+        <li><strong>If NetLogger is running too, you are warned first</strong> &mdash; NetLogger would overwrite the import the next time you log in it.</li>
+        <li>OMISS details exported from NetLogger (club, member number, net) come across, so those contacts still count for awards.</li>
+      </ul>
     </div>
   </details>
 
