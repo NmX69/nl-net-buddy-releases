@@ -183,7 +183,7 @@
 <div class="wrap">
 
   <h1>Net Buddy Client — Guide</h1>
-  <p class="subtitle">Version 3.5.47 · by N6WWW · what the client does, starting from what you know in NetLogger</p>
+  <p class="subtitle">Version 3.5.48 · by N6WWW · what the client does, starting from what you know in NetLogger</p>
 
   <div class="note" id="thanks"><strong>Thank you, NetLogger.</strong> Net Buddy is only possible because of AC0ZG and the team at <a href="https://www.netlogger.org/">NetLogger.org</a>, and the free service they give the amateur radio community. Please visit them and support their work.</div>
 
@@ -482,6 +482,7 @@
       <ol>
         <li>Click <strong>awards</strong> above the check-in list, or <strong>Awards &rarr; Award ranking</strong>.</li>
         <li>Stations are grouped PRIORITY, CLOSE and OTHER.</li>
+        <li>The list keeps updating in the background throughout the active net, even with the drawer closed. New arrivals are scored, departed stations are removed, and logged contacts update award progress. Unchanged calculations are reused.</li>
         <li>Double-click a station to jump to its line.</li>
       </ol>
       <ul>
@@ -633,6 +634,7 @@
         <li>The sender&rsquo;s name takes their role color: blue net control, purple logger, orange relay,
             yellow everyone else. Net control&rsquo;s whole message is colored, so instructions are easy to find.</li>
         <li>Messages from the latest refresh have a different background.</li>
+        <li>Double-click a message to mark it with a pink background and border. Double-click again to clear it. These marks are only in your current window; they are not sent to the net or saved across restarts.</li>
         <li>Scrolled up reading? When new messages arrive, an orange banner tells you there are unread messages below. Click it to go to them.</li>
         <li><strong>Many more emoji</strong> — several times NetLogger&rsquo;s eight, in the chat and in private
             messages, with more on the way. Typed emoticons like <code>:)</code> turn into emoji, and the
@@ -654,7 +656,7 @@
     <div class="howto">
       <p class="howto-head">In Net Buddy Client (NBC):</p>
       <ol>
-        <li>Type in the find box at the very top of the AIM pane.</li>
+        <li>With focus in AIM, <kbd>Alt+F</kbd> takes you to its find box. Type there to search messages.</li>
         <li>Clear it to see everything again.</li>
       </ol>
       <p>If new messages arrive while the search hides them, an orange bar says how many. Click it to clear the search.</p>
@@ -672,7 +674,7 @@
       <p><strong>Goodbye Mode</strong> — for a run of 73s, one key each:</p>
       <ol>
         <li><kbd>Ctrl+G</kbd>. An orange <strong>73</strong> band appears on the AIM pane.</li>
-        <li><kbd>&uarr;</kbd> <kbd>&darr;</kbd> to pick a station by the message they sent.</li>
+        <li>Click a message, or use <kbd>&uarr;</kbd> <kbd>&darr;</kbd>, to pick its sender. Clicking only selects; press a letter to act.</li>
         <li><kbd>G</kbd> says 73 and stays for the next one. <kbd>Enter</kbd> says 73 and leaves.</li>
         <li><kbd>Escape</kbd> leaves without sending.</li>
       </ol>
@@ -845,7 +847,9 @@
             <li><strong>&amp;</strong> means both, <strong>|</strong> means either: <strong>mode:cw &amp; band:40m</strong></li>
           </ul>
           <kbd>Esc</kbd> clears it.</li>
+        <li><kbd>Alt+F</kbd> with focus in the contact log takes you to its find box; in AIM it focuses AIM&rsquo;s find, and elsewhere it focuses the check-in list&rsquo;s find. This also works with the panes popped out.</li>
         <li><kbd>Enter</kbd> or double-click edits a contact. Right-click for Edit, Delete, Export (ADIF or CSV), New contact, Import ADIF and Refresh.</li>
+        <li>Drag the edit dialog by its title bar to read AIM or the check-in list behind it. The background stays bright. Double-click the title bar to centre it again.</li>
         <li>Delete asks first, and makes a backup before it changes anything.</li>
         <li><kbd>L</kbd> again takes you back to the check-in list.</li>
       </ul>
@@ -1223,6 +1227,7 @@
       <ol>
         <li>Select the line and press <kbd>E</kbd>, or right-click it and choose <strong>EDIT</strong>.</li>
         <li>Change what you need: call sign, member number, name, city, state, county, grid, remarks.</li>
+        <li>Drag the title bar to uncover the list or AIM; the background is not dimmed. Double-click the title bar to centre the dialog again.</li>
         <li><strong>Rebuild fresh</strong> refills it from the call sign and shows what changed. It does not save.</li>
         <li><strong>Save to the net</strong>.</li>
       </ol>
@@ -1362,7 +1367,7 @@
       <p class="howto-head">In Net Buddy Client (NBC):</p>
       <ol>
         <li><kbd>Ctrl+Space</kbd>. An amber <strong>LOG</strong> band appears on the AIM pane.</li>
-        <li><kbd>&uarr;</kbd> <kbd>&darr;</kbd> to pick a station by the message they sent.</li>
+        <li>Click a message, or use <kbd>&uarr;</kbd> <kbd>&darr;</kbd>, to pick its sender. Clicking only selects; press a letter to act.</li>
         <li>Press a letter:
           <ul>
             <li><kbd>A</kbd> unavailable, or back again</li>
