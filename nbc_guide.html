@@ -183,7 +183,7 @@
 <div class="wrap">
 
   <h1>Net Buddy Client — Guide</h1>
-  <p class="subtitle">Version 3.5.48 · by N6WWW · what the client does, starting from what you know in NetLogger</p>
+  <p class="subtitle">Version 3.5.49 · by N6WWW · what the client does, starting from what you know in NetLogger</p>
 
   <div class="note" id="thanks"><strong>Thank you, NetLogger.</strong> Net Buddy is only possible because of AC0ZG and the team at <a href="https://www.netlogger.org/">NetLogger.org</a>, and the free service they give the amateur radio community. Please visit them and support their work.</div>
 
@@ -1180,7 +1180,8 @@
         <li>Type a call sign or a member number. The client works out which, and fills the rest from the roster and the callbook.</li>
         <li><kbd>Tab</kbd> moves across the line — call, m/p, state, name, remarks — and keeps what you typed.
             <kbd>Shift+Tab</kbd> or <kbd>Home</kbd> goes back to the call sign.</li>
-        <li><kbd>Enter</kbd> saves the line and moves down to the next. It is the only key that saves.</li>
+        <li><kbd>Enter</kbd> saves from any column and moves to the next line?s call sign, staying in entry mode.
+            For a quick remarks edit, press <kbd>M</kbd>; <kbd>Enter</kbd> saves and exits that edit.</li>
         <li><kbd>&uarr;</kbd> or <kbd>&darr;</kbd> leaves entry mode and moves, <strong>without saving</strong> the line you were on. Press <kbd>I</kbd> to come back.</li>
         <li><kbd>Escape</kbd> leaves entry mode.</li>
       </ol>
@@ -1205,7 +1206,10 @@
       <ol>
         <li>Press <kbd>C</kbd> in the check-in list. The <strong>Check-in mode</strong> box opens.</li>
         <li>Type a call sign or member number — the shortcuts like <code>/m</code> work here too — and press <kbd>Enter</kbd>.</li>
-        <li>The client reads the net fresh and writes the station on the next empty line. The box clears for the next one.</li>
+        <li><strong>Overwrite Remarks-only lines</strong> uses the first line without a call sign, including notes.
+            Choose <strong>Keep remarks</strong> or <strong>Clear remarks</strong>. Untick it to protect notes and use a blank line.
+            These choices are remembered.</li>
+        <li>The client reads the net fresh and writes the station on the next eligible line. The box clears for the next one.</li>
         <li>The box stays open and shows the last few that landed, with their line numbers.</li>
         <li><kbd>Escape</kbd> when you are done.</li>
       </ol>
