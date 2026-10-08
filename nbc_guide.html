@@ -183,7 +183,7 @@
 <div class="wrap">
 
   <h1>Net Buddy Client — Guide</h1>
-  <p class="subtitle">Version 3.5.50 · by N6WWW · what the client does, starting from what you know in NetLogger</p>
+  <p class="subtitle">Version 3.5.51 · by N6WWW · what the client does, starting from what you know in NetLogger</p>
 
   <div class="note" id="thanks"><strong>Thank you, NetLogger.</strong> Net Buddy is only possible because of AC0ZG and the team at <a href="https://www.netlogger.org/">NetLogger.org</a>, and the free service they give the amateur radio community. Please visit them and support their work.</div>
 
@@ -347,7 +347,7 @@
     <summary>
       <span><span class="fname">Browse previous or closed nets</span> <span class="badge everyday">Everyday</span></span>
       <span><span class="lbl">In NetLogger: </span>View &rarr; Previous Nets. Choose a server, Get Previous Nets, then Load Checkins.</span>
-      <span><span class="lbl">In Net Buddy Client: </span>One list across every server at once, with a search box.</span>
+      <span><span class="lbl">In Net Buddy Client: </span>One list across every server at once, with a search box, plus the lists saved on this computer.</span>
     </summary>
     <div class="howto">
       <p class="howto-head">In Net Buddy Client (NBC):</p>
@@ -356,6 +356,8 @@
         <li>Type part of the net&rsquo;s name to narrow the list.</li>
         <li>Open one. Its check-in list appears, read-only.</li>
       </ol>
+      <p>At the top, <strong>Saved on this computer</strong> lists every net you have left or closed, and
+         any lists NetLogger saved too. Open one the same way.</p>
       <p>This works between nets, when nothing is live.</p>
     </div>
   </details>
@@ -866,16 +868,19 @@
     <summary>
       <span><span class="fname">Saving the check-in list</span> <span class="badge everyday">Everyday</span></span>
       <span><span class="lbl">In NetLogger: </span>File &rarr; Save Check-ins, in NetLogger&rsquo;s own format. Auto Save can do it for you.</span>
-      <span><span class="lbl">In Net Buddy Client: </span>Export it as a spreadsheet (CSV) or as ADIF.</span>
+      <span><span class="lbl">In Net Buddy Client: </span>Saved for you, always, in NetLogger&rsquo;s own format. Export it as CSV or ADIF too.</span>
     </summary>
     <div class="howto">
       <p class="howto-head">In Net Buddy Client (NBC):</p>
       <ul>
-        <li><strong>File &rarr; Export check-in list (CSV)&hellip;</strong> — the list as it stood, in line order.</li>
-        <li><strong>File &rarr; Export check-in list (ADIF)&hellip;</strong> — the same rows as records a logging program can read.
-            The file says plainly that a check-in is not a worked contact.</li>
+        <li><strong>Nothing to do:</strong> when you leave or close a net, or quit, the list is saved in
+            NetLogger&rsquo;s own check-in format. Find it under <strong>View &rarr; Previous nets&hellip;</strong>,
+            and NetLogger&rsquo;s File &rarr; Open Check-in File can open it too.</li>
+        <li><strong>File &rarr; Export check-in list&hellip;</strong>, then choose <strong>CSV</strong> — the list as it
+            stood, in line order — or <strong>ADIF</strong> — the same rows as records a logging program can read.
+            The ADIF file says plainly that a check-in is not a worked contact.</li>
       </ul>
-      <p>The file goes in an <strong>exports</strong> folder beside your Net Buddy data, and the client tells you where.</p>
+      <p>The export box asks where to save the file.</p>
     </div>
   </details>
 
