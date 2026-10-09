@@ -183,7 +183,7 @@
 <div class="wrap">
 
   <h1>Net Buddy Client — Guide</h1>
-  <p class="subtitle">Version 3.5.52 · by N6WWW · what the client does, starting from what you know in NetLogger</p>
+  <p class="subtitle">Version 3.5.53 · by N6WWW · what the client does, starting from what you know in NetLogger</p>
 
   <div class="note" id="thanks"><strong>Thank you, NetLogger.</strong> Net Buddy is only possible because of AC0ZG and the team at <a href="https://www.netlogger.org/">NetLogger.org</a>, and the free service they give the amateur radio community. Please visit them and support their work.</div>
 
@@ -347,7 +347,7 @@
     <summary>
       <span><span class="fname">Browse previous or closed nets</span> <span class="badge everyday">Everyday</span></span>
       <span><span class="lbl">In NetLogger: </span>View &rarr; Previous Nets. Choose a server, Get Previous Nets, then Load Checkins.</span>
-      <span><span class="lbl">In Net Buddy Client: </span>One list across every server at once, with a search box, plus the lists saved on this computer.</span>
+      <span><span class="lbl">In Net Buddy Client: </span>One list across every server at once, with a search box, and a switch to the lists saved on this computer.</span>
     </summary>
     <div class="howto">
       <p class="howto-head">In Net Buddy Client (NBC):</p>
@@ -356,8 +356,10 @@
         <li>Type part of the net&rsquo;s name to narrow the list.</li>
         <li>Open one. Its check-in list appears, read-only.</li>
       </ol>
-      <p>At the top, <strong>Saved on this computer</strong> lists every net you have left or closed, and
-         any lists NetLogger saved too. Open one the same way.</p>
+      <p>The switch at the right of the Find box chooses the list. <strong>On Server</strong> shows
+         nets from the NetLogger servers. <strong>Saved Local</strong> shows every net you have left or
+         closed, and any lists NetLogger saved too, one entry per net. Find searches whichever list
+         is showing.</p>
       <p>This works between nets, when nothing is live.</p>
     </div>
   </details>
@@ -1147,6 +1149,31 @@
   <h3 id="g-open">Opening the net</h3>
   <div class="colhead" aria-hidden="true"><span>Job</span><span>In NetLogger</span><span>In Net Buddy Client</span></div>
 
+  <details class="feat" id="free-freq">
+    <summary>
+      <span><span class="fname">Free Frequency Finder</span> <span class="badge new">Not in NetLogger</span></span>
+      <span><span class="lbl">In NetLogger: </span>Tune around, or check the POTA spots page yourself.</span>
+      <span><span class="lbl">In Net Buddy Client: </span>A picture of the band with every POTA SSB spot and running NetLogger net on it. Click a clear spot and your radio goes there.</span>
+    </summary>
+    <div class="howto">
+      <p class="howto-head">In Net Buddy Client (NBC):</p>
+      <ol>
+        <li>Choose <strong>View &rarr; Free Frequency Finder</strong>. It opens on the band your radio is on.</li>
+        <li>The strip is the band&rsquo;s <strong>General-class phone</strong> segment. Each POTA activator spotted on SSB is a <strong>red</strong> block 3 kHz wide, on that band&rsquo;s sideband (LSB on 160, 80 and 40 m; USB from 20 m up). Each NetLogger net running right now is a <strong>yellow</strong> block the same size. A net whose frequency is not a number (&ldquo;VOIP&rdquo;) is left off.</li>
+        <li>With rig control set up, a <strong>blue box</strong> shows where your radio is, and follows you as you tune.</li>
+        <li><strong>Click</strong> anywhere on the strip. Your radio goes to the nearest clear 3 kHz, on a whole kHz.</li>
+        <li>With rig control, the <strong>Rig</strong> row steps you along the band: <strong>Prev clear</strong> and <strong>Next clear</strong> move 3 kHz at a time to the next clear spot. Someone tells you a spot is busy where they are, or a station is splattering? Press <strong>Mark busy</strong> and it turns <strong>purple</strong>. <strong>Clear here</strong> takes a mark off, or hides a spot or a net that has gone quiet.</li>
+        <li>At the bottom, <strong>Always avoid</strong> holds the frequencies you never want, as a comma list: <code>7.200, 7.230-7.235</code>. One frequency gets 3 kHz like a spot; a range is held exactly. They show as <strong>pink stripes</strong>. Press <strong>Save</strong>.</li>
+      </ol>
+      <ul>
+        <li>No rig control? A click still tells you the nearest clear frequency to tune by hand.</li>
+        <li>Spots come from pota.app, refreshed every minute. A spot lasts up to 30 minutes unless the activator closes it.</li>
+        <li>A mark lasts 3 hours. The avoid list stays until you change it. Both are shared with Companion Mode.</li>
+        <li>The idea is Tony KA3BPN&rsquo;s. Companion Mode has the same window on the gear menu.</li>
+      </ul>
+    </div>
+  </details>
+
   <details class="feat" id="announcements">
     <summary>
       <span><span class="fname">Announcements</span> <span class="badge headline">Headline</span> <span class="badge new">Not in NetLogger</span></span>
@@ -1266,6 +1293,24 @@
 
   <!-- ------------------------------------------------ running -->
   <div class="group">
+  <details class="feat" id="waiting-room">
+    <summary>
+      <span><span class="fname">The Waiting Room bar</span> <span class="badge new">Not in NetLogger</span></span>
+      <span><span class="lbl">In NetLogger: </span>Scroll to the bottom to see who was added U/A and is waiting for a roger.</span>
+      <span><span class="lbl">In Net Buddy Client: </span>An orange bar over the list names everyone waiting; click a station when you hear them.</span>
+    </summary>
+    <div class="howto">
+      <p class="howto-head">In Net Buddy Client (NBC):</p>
+      <ol>
+        <li>While you hold the logger&rsquo;s seat, a station checked in as U/A lands in the <strong>Waiting Room</strong>. You hear a short four-note chime, and an <strong>orange bar</strong> appears at the top of the check-in list.</li>
+        <li>Each station is a button: line number, call, name and state, e.g. <strong>#34 W1AW Hiram CT</strong>. The line number is for the relay you ask to &ldquo;get a roger out of #34&rdquo;.</li>
+        <li><strong>Go to WR</strong> jumps the list and your selection to the first station waiting.</li>
+        <li>When you hear a station, <strong>click its button</strong>. Their U/A is cleared and they leave the bar. If another logger already cleared them, nothing is sent.</li>
+      </ol>
+      <p>Only stations that arrive while you hold the seat are shown, and a station that goes U/A later in the net is an ordinary U/A. Companion Mode shows the same buttons in a drawer under the HUD.</p>
+    </div>
+  </details>
+
   <h3 id="g-run">Running the list</h3>
   <div class="colhead" aria-hidden="true"><span>Job</span><span>In NetLogger</span><span>In Net Buddy Client</span></div>
 
