@@ -143,7 +143,7 @@
 <div class="wrap">
 
   <h1>NL Net Buddy — User Guide</h1>
-  <p class="subtitle">Version 3.5.52 · by N6WWW — a companion for NetLogger, featuring the OMISS Award Hunter platform</p>
+  <p class="subtitle">Version 3.5.53 · by N6WWW — a companion for NetLogger, featuring the OMISS Award Hunter platform</p>
 
   <div class="note" id="thanks"><strong>Thank you, NetLogger.</strong> Net Buddy is only possible because of AC0ZG and the team at <a href="https://www.netlogger.org/">NetLogger.org</a>, and the free service they give the amateur radio community. Please visit them and support their work.</div>
 
@@ -228,6 +228,7 @@
       <tr><td class="area">HUD</td><td>Net-control panel</td><td>Announcement buttons, shown only when you run the net. 10 fully customizable message buttons &mdash; edit both the message and the button name (right-click the button).</td></tr>
       <tr><td class="area">HUD</td><td>Message variables</td><td>Custom and net-control buttons can auto-fill your call, line number, the NCS name, Zulu time, and more.</td></tr>
       <tr><td class="area">HUD</td><td>Gear menu (⚙)</td><td>One dropdown for Config (Settings), this User Guide, About &amp; Share, and the OMISS Net Schedule.</td></tr>
+      <tr><td class="area">HUD</td><td>Free Frequency Finder</td><td>The band&rsquo;s General phone segment with every POTA SSB spot and running NetLogger net drawn on it; click a clear spot and the rig goes there.</td></tr>
       <tr><td class="area">HUD</td><td>OMISS Net Schedule</td><td>Today &amp; tomorrow&rsquo;s OMISS nets in LOCAL <em>and</em> UTC, with the scheduled NCS, an ON-AIR / countdown tag, and your own nets highlighted.</td></tr>
       <tr><td class="area">HUD</td><td>Pink / Select-Net</td><td>Jump NetLogger to the active pink line, or pop its net selector, without moving the HUD off NetLogger&rsquo;s own buttons. <strong>Right-click</strong> it to <strong>Stop Monitoring</strong> (leave the net) &mdash; it can never trigger &ldquo;Close Net.&rdquo;</td></tr>
       <tr><td class="area">Nets</td><td>Multiple nets (OMISS + WASA + USTNET)</td><td>Follows whichever net you check into and shows that net&rsquo;s awards. The dashboard has a net dropdown to switch nets.</td></tr>
@@ -311,7 +312,7 @@
     <li><strong>Hide 30s</strong> — minimize the HUD for 30 seconds; it pops back on its own. Handy for reaching NetLogger's menus or net selector along the top of the screen without losing the HUD. (To keep it down, use the window's own minimize button.)</li>
     <li><strong>Dash</strong> — build and open the dashboard.</li>
     <li><strong>Pink</strong> / <strong>Next</strong> — <em>(when you're in a net)</em> jump NetLogger's check-in list to the active <strong>pink</strong> line (<strong>Pink</strong>) or the <strong>green</strong> &ldquo;needed next&rdquo; line (<strong>Next</strong>) — so you don't have to move the HUD off NetLogger's own arrow buttons to reach them. <strong>Right-click</strong> the Pink / Select-Net button to <strong>Stop Monitoring</strong> (leave the net you&rsquo;re on). It invokes NetLogger&rsquo;s &ldquo;Stop Monitoring&rdquo; button <em>by name</em>, so it can <strong>never</strong> trigger &ldquo;Close Net&rdquo; — closing a net stays a deliberate manual action.</li>
-    <li><strong>⚙</strong> (gear) — a dropdown menu: <strong>Config</strong> (Settings), <strong>OMISS Net Schedule</strong>, <strong>OMISS NCS Scripts</strong>, <strong>WASA Scripts &amp; Schedule</strong>, <strong>User Guide</strong> (this page), <strong>About &amp; Share</strong>, <strong>Debug Helper</strong>, and <strong>Supporter Perks</strong>.</li>
+    <li><strong>⚙</strong> (gear) — a dropdown menu: <strong>Config</strong> (Settings), <strong>OMISS Net Schedule</strong>, <strong>Free Frequency Finder</strong>, <strong>OMISS NCS Scripts</strong>, <strong>WASA Scripts &amp; Schedule</strong>, <strong>User Guide</strong> (this page), <strong>About &amp; Share</strong>, <strong>Debug Helper</strong>, and <strong>Supporter Perks</strong>.</li>
     <li><strong>ALF</strong> — push your new OMISS contacts to K1ALF&rsquo;s online awards tracker (second row, below the gear button — see below).</li>
   </ul>
 
@@ -320,6 +321,17 @@
   <ul>
     <li><strong>Config</strong> — open Settings.</li>
     <li><strong>OMISS Net Schedule</strong> — a pop-up listing every OMISS net for today and tomorrow, with the time shown in <strong>both your local time and UTC</strong>, the scheduled net-control op, special-night notes, and an <strong>ON AIR</strong> / countdown / &ldquo;no net&rdquo; tag. If you&rsquo;re the scheduled NCS, your net is highlighted. It reads the live schedule, so seasonal bands (the high bands, 160m in winter) and holiday nets are already filtered to what&rsquo;s actually on.</li>
+    <li id="free-freq"><strong>Free Frequency Finder</strong> — finds a clear SSB frequency for a net. (The idea is Tony KA3BPN&rsquo;s.)
+      <ul>
+        <li>The strip is a band&rsquo;s <strong>General-class phone</strong> segment. Pick the band with the buttons along the top; it opens on the band your rig is on.</li>
+        <li>Each POTA activator spotted on SSB is a <strong>red</strong> block 3 kHz wide, on that band&rsquo;s sideband: LSB on 160, 80 and 40 m, USB from 20 m up. Each NetLogger net running right now is a <strong>yellow</strong> block the same size; a net whose frequency isn&rsquo;t a number (&ldquo;VOIP&rdquo;) is left off.</li>
+        <li>With rig control set up, a <strong>blue box</strong> shows where your rig is and follows you as you tune.</li>
+        <li><strong>Click</strong> the strip and the rig goes to the nearest clear 3 kHz, on a whole kHz. Without rig control, it tells you that frequency to tune by hand.</li>
+        <li>With rig control, the <strong>Rig</strong> row has <strong>Prev clear</strong> and <strong>Next clear</strong>, which move 3 kHz at a time to the next clear spot. <strong>Mark busy</strong> flags where you are (it turns <strong>purple</strong>) when someone hears traffic there that you can&rsquo;t, or a station is splattering wide. <strong>Clear here</strong> takes a mark off, or hides a spot or a net that has gone quiet. A mark lasts 3 hours.</li>
+        <li><strong>Always avoid</strong>, at the bottom, is your permanent list as plain commas: <code>7.200, 7.230-7.235</code>. One frequency gets 3 kHz like a spot; a range is held exactly. It shows as <strong>pink stripes</strong>. Press <strong>Save</strong>. The list and the marks are shared with the Net Buddy Client.</li>
+        <li>Spots come from pota.app and refresh every minute. A spot lasts up to 30 minutes unless the activator closes it.</li>
+      </ul>
+    </li>
     <li><strong>OMISS NCS Scripts</strong> — the ready-to-read net-opening scripts, auto-filled from the live net (see <a href="#scripts">its own section</a>). You can also open this with the leader key <strong>Ctrl+;</strong> then <strong>P</strong>.</li>
     <li><strong>WASA Scripts &amp; Schedule</strong> — the same net-opening scripts and schedule for the WASA net.</li>
     <li><strong>User Guide</strong> — open this page in your browser.</li>
@@ -409,6 +421,15 @@
   <p>Because it now includes Goodbye, an NCS or logger can run just about every net-control action from this one box &mdash; just keep tapping <strong>Ctrl+Space</strong>. Tick <strong>Stay open until Esc</strong> and the box stays up as you work, refreshing live as new AIM messages arrive and keeping your keyboard focus put after each action, so you can act on several stations in a row without reopening it. Note that <em>opening</em> the Status box needs net-control privileges (see below); if you don&rsquo;t have them, say goodbye with <strong>Ctrl+G</strong> (or <strong>Ctrl+;</strong> then <strong>G</strong>) instead &mdash; that path works for anyone.</p>
   <p>After any action, focus lands back in the AIM input box so you can keep typing.</p>
   <p><strong>Anyone can open the leader menu and its <code>?</code> help</strong> &mdash; nothing is hidden. But the actions that <em>edit the check-in list</em> need net-control privileges: <strong>Status box, Check-In, and Last Call</strong> only run if your own check-in shows you as net control <code>(nc)</code> or logger <code>(log)</code>. If you&rsquo;re not, those just beep and decline. <strong>Goodbye / 73 (Ctrl+G, or Ctrl+; then G) works for anyone.</strong></p>
+
+  <h3 id="waiting-room">The Waiting Room drawer</h3>
+  <p>On a long list the <strong>Waiting Room</strong> &mdash; stations checked in from AIM as U/A, waiting to be heard on the air &mdash; sits below the bottom of the window, and it is easy to go to the next station and forget them. While you are net control <code>(nc)</code> or logger <code>(log)</code>, NL Net Buddy watches for it for you:</p>
+  <ul>
+    <li>When a station lands in the Waiting Room, you hear a short <strong>four-note chime</strong> &mdash; a sound nothing else in the app makes.</li>
+    <li>An <strong>orange drawer</strong> of U/A-blue buttons drops down under the HUD: <strong>Waiting Room:</strong> and one button per station &mdash; line number, call, name and state, e.g. <strong>#34 W1AW Hiram CT</strong>. The line number is there so you can ask a relay to &ldquo;get a roger out of #34&rdquo;.</li>
+    <li>When you hear them, <strong>click their button</strong>. That clears their U/A and they leave the drawer. Stations can be heard in any order, and a station stays until its status changes &mdash; someone clears the U/A, or they check out.</li>
+  </ul>
+  <p>Only stations that arrive <em>while</em> you hold the role are shown; if you are promoted mid-net, anyone already waiting is not. A station that goes U/A later in the net (&ldquo;BRB&rdquo;) is an ordinary U/A, not the Waiting Room. The Net Buddy Client shows the same thing as a bar over its check-in list.</p>
 
   <h3>The dedicated Check-In and Last-Call boxes</h3>
   <p>The Status box is the fast path for changing a sender&rsquo;s status, but the <strong>dedicated Check-In and Last-Call boxes</strong> (<strong>Ctrl+/</strong> and <strong>Ctrl+.</strong>, or the leader key then <strong>/</strong> and <strong>.</strong>) do more:</p>
