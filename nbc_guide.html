@@ -183,7 +183,7 @@
 <div class="wrap">
 
   <h1>Net Buddy Client — Guide</h1>
-  <p class="subtitle">Version 3.5.53 · by N6WWW · what the client does, starting from what you know in NetLogger</p>
+  <p class="subtitle">Version 3.5.54 · by N6WWW · what the client does, starting from what you know in NetLogger</p>
 
   <div class="note" id="thanks"><strong>Thank you, NetLogger.</strong> Net Buddy is only possible because of AC0ZG and the team at <a href="https://www.netlogger.org/">NetLogger.org</a>, and the free service they give the amateur radio community. Please visit them and support their work.</div>
 
@@ -662,8 +662,36 @@
       <ol>
         <li>With focus in AIM, <kbd>Alt+F</kbd> takes you to its find box. Type there to search messages.</li>
         <li>Clear it to see everything again.</li>
+        <li>The red box at the far right, after the find box, shows only the messages you have marked
+            with a double-click. With none marked, it says how to mark one. <kbd>Esc</kbd> clears it.</li>
       </ol>
-      <p>If new messages arrive while the search hides them, an orange bar says how many. Click it to clear the search.</p>
+      <p>If new messages arrive while the search or the red box hides them, an orange bar says how many. Click it to show everything again.</p>
+    </div>
+  </details>
+
+  <details class="feat" id="aim-nb">
+    <summary>
+      <span><span class="fname">Quick answers: @nb commands</span> <span class="badge new">Not in NetLogger</span></span>
+      <span><span class="lbl">In NetLogger: </span>No.</span>
+      <span><span class="lbl">In Net Buddy Client: </span>Type <code>@nb</code> and a command in the AIM box. The answer shows only to you, with a Post button to share it.</span>
+    </summary>
+    <div class="howto">
+      <p class="howto-head">In Net Buddy Client (NBC):</p>
+      <ul>
+        <li><code>@nb ?</code> lists the commands. <code>@nb dist ?</code> explains one.</li>
+        <li><code>@nb dist me #21</code> &mdash; distance and beam heading to the station on line 21. A point is
+            <code>me</code>, a line number like <code>#21</code>, or a grid like <code>EM22lr</code>.</li>
+        <li><code>@nb wx</code> &mdash; the weather at your grid, or at any point.</li>
+        <li><code>@nb solar</code>, <code>@nb bands</code> &mdash; NOAA&rsquo;s solar numbers and the HF band conditions.</li>
+        <li><code>@nb muf 500</code> &mdash; the estimated MUF for a 500 km path, and which bands are under it.</li>
+        <li><code>@nb time #21</code> &mdash; their local time and UTC.</li>
+        <li><code>@nb who #21</code> &mdash; their FCC licence: name, place, class, expiry.</li>
+        <li><code>@nb qrz #21</code> &mdash; their QRZ record, with distance, email and QSL details. Needs your QRZ XML
+            key in Settings. The email is shown only to you; <strong>Copy email</strong> puts it on your clipboard.</li>
+        <li>The <code>@nb</code> line is never sent to the net. <strong>Post</strong> sends the answer, starting with
+            <code>[nb]</code>.</li>
+        <li>Your own grid comes from File &rarr; Station Locations, or from your line on the check-in list.</li>
+      </ul>
     </div>
   </details>
 
