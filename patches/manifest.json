@@ -1,189 +1,196 @@
 {
   "format": 1,
-  "version": "3.5.56",
+  "version": "3.5.57",
   "abi": "9cab3fd71defc0650505f041f16aa6ab27cc4a955367e5baa825690b2ea58f8c",
   "patches": [
     {
+      "from": "3.5.56",
+      "url": "https://github.com/NmX69/nl-net-buddy-releases/releases/download/v3.5.57/3.5.56-to-3.5.57.nbp",
+      "sha256": "a813cf70c8e0940a2db38a30a9ea5daef82813b3c44b4ce7457948b7a75d76e6",
+      "size": 469440,
+      "sig": "kSGwFx1uorKANxcNyqEHe66eIK3gIml+7Ejpl9xeepoFLoDsRgRpHpDmfLpWBEmHXn+IJBRW6eyuNqsl2spqCQ=="
+    },
+    {
       "from": "3.5.55",
-      "url": "https://github.com/NmX69/nl-net-buddy-releases/releases/download/v3.5.56/3.5.55-to-3.5.56.nbp",
-      "sha256": "efdcd79b3670cde6988bf41499772addd9cda23be25f6769945a8c9e046708b0",
-      "size": 606905,
-      "sig": "L1I4rQLRL40/ja7p/ET5Jk4m9Em5eTAokjFSYGxtAuDiBcc9HJoySHCCE1At3NfU+H/29EFsfuS5+DSvHfXpBg=="
+      "url": "https://github.com/NmX69/nl-net-buddy-releases/releases/download/v3.5.57/3.5.55-to-3.5.57.nbp",
+      "sha256": "9481dc2d45954156126d87e7af55a2a0575c0125f45fcc7d52942f8edf2b0e33",
+      "size": 724622,
+      "sig": "OxL8eM2annFvpFkHi/m4rMfxM/aMIOlhVy2O7+IoUASgTgBs7Z6LLfW8jYW9t1Hn5QAb1mVuo6RMSa5562WqCg=="
     },
     {
       "from": "3.5.54",
-      "url": "https://github.com/NmX69/nl-net-buddy-releases/releases/download/v3.5.56/3.5.54-to-3.5.56.nbp",
-      "sha256": "f51a20fbf462601334f5a70eb114073f573bb88731be078f139a0ca6756a420d",
-      "size": 818995,
-      "sig": "ufgdtGzpkhWUOyTDU3Lggy5xtpTS1DKVYzBRH6aJFSw38g3mAzsASy/Se4r705k3HFDniZImqUzU4p3an2T7BA=="
+      "url": "https://github.com/NmX69/nl-net-buddy-releases/releases/download/v3.5.57/3.5.54-to-3.5.57.nbp",
+      "sha256": "59f501a9b56cf1e5ee06328596f22bca34e48e079c3775167fd5beb3404ea997",
+      "size": 929972,
+      "sig": "LJhAnQ1/xbdICEz/v38MH7XeMKbSExdhhoiNmjXg8H5xWgyqdc1isgruq8dUZu8G8xblXYMeTBhjGGl/5CqtDw=="
     },
     {
       "from": "3.5.53",
-      "url": "https://github.com/NmX69/nl-net-buddy-releases/releases/download/v3.5.56/3.5.53-to-3.5.56.nbp",
-      "sha256": "f43429e7c2126e9cd8b763fbfa435d934e31972f357fb43acb1824178043e31c",
-      "size": 1704409,
-      "sig": "ecKSz/T4vn1jE1d7/Pd6lK2aNeMI9zPj8k1/NRwRTHfhW1bRzbYugcrkKgpK5jRnRoZGYeoIhe3IqHRqseazAQ=="
+      "url": "https://github.com/NmX69/nl-net-buddy-releases/releases/download/v3.5.57/3.5.53-to-3.5.57.nbp",
+      "sha256": "22c0a3eee8059a837a60e154062a5b667e8c6f6f49e7f8879da0a58f62f6517f",
+      "size": 1788916,
+      "sig": "8RTNtzUGw1sroclPIWqhMaAJU2K+uhkRVyzicYcjkWZ1M2z6Mkyh1lFNjNg1vU9hJzswcqlhaPWmb7EmMSy8Cw=="
     },
     {
       "from": "3.5.52",
-      "url": "https://github.com/NmX69/nl-net-buddy-releases/releases/download/v3.5.56/3.5.52-to-3.5.56.nbp",
-      "sha256": "84fe8435b9a586d6b96480b1d8f4d51b408f1ea51b828430f59ab278a57ba6b3",
-      "size": 1968224,
-      "sig": "YxgQsTpOeGvfO3TV9AuFK9elQRHoB98F+183BfeFkqKS6NdrpDyXqjjUZ9wNZoEXjKel3ZJL2qv7sPS0hwEMAg=="
+      "url": "https://github.com/NmX69/nl-net-buddy-releases/releases/download/v3.5.57/3.5.52-to-3.5.57.nbp",
+      "sha256": "be6081cf9512f2cdbc5b38f155d0abf9f29815cabf27dd89ca2c4ff893e12fe7",
+      "size": 2050967,
+      "sig": "ItcZazt+Hmh7EBYcPMMpydWjLQmbM3hzg1IvOeO9BsP1Tzn5UND5G0hHDcxrYk9/FdPA+JGfB60QxH9sZGvvAg=="
     },
     {
       "from": "3.5.51",
-      "url": "https://github.com/NmX69/nl-net-buddy-releases/releases/download/v3.5.56/3.5.51-to-3.5.56.nbp",
-      "sha256": "0b9e3d2b312a76c454ae75140f32b87a6080f33170d593ec1b82f98be9d90335",
-      "size": 2152133,
-      "sig": "FGBhsa4ut+qTcA+jB9kN+dTUH68pVHcprnvQc2w/Pd0wFD4Z4G1T53jS4tSHsgoLZygZWSR11Um3aGOcBBeiAw=="
+      "url": "https://github.com/NmX69/nl-net-buddy-releases/releases/download/v3.5.57/3.5.51-to-3.5.57.nbp",
+      "sha256": "9cc41110aea6889e93fcbe7a1ca6d64e3d8a19814de3dca298722203ad44b813",
+      "size": 2235508,
+      "sig": "Xf4YBLs7hbTrXXr3tcnpspPM/ReWnlkug/zs/feK6PUhlennCojBflf8Rxz2mGrzKIu67+CqglbzZ6tEj67wDg=="
     },
     {
       "from": "3.5.50",
-      "url": "https://github.com/NmX69/nl-net-buddy-releases/releases/download/v3.5.56/3.5.50-to-3.5.56.nbp",
-      "sha256": "aad919094408d2c27265ab1984c57e22ac737e0ddb50ed92dd2251f821a68ff5",
-      "size": 2452330,
-      "sig": "M4UMPdLNdpdMFJ7ElkLNUp5AySYEiqQ34TSj33xE7NkakG2N733vveR7BJuW/UM3YLxgcOIs9aN4KiQrHd48DQ=="
+      "url": "https://github.com/NmX69/nl-net-buddy-releases/releases/download/v3.5.57/3.5.50-to-3.5.57.nbp",
+      "sha256": "2d86f3d4e0418c4846b4fea1bfcfbfbb4c37befeb5206e8590407e174b9a8a59",
+      "size": 2534560,
+      "sig": "HHqVga+RmPd5eRnyThOkBmhR7z5/LzDZkuWdhVVORgtZHelDUP0xcko6kkZIQi/Hfvd4nHlo+Re+6GzduKf/AQ=="
     },
     {
       "from": "3.5.49",
-      "url": "https://github.com/NmX69/nl-net-buddy-releases/releases/download/v3.5.56/3.5.49-to-3.5.56.nbp",
-      "sha256": "51ce2c8fc5aa739971509221a66c5a5869f0918ce3ba12e63570cb2f25b848fb",
-      "size": 2776073,
-      "sig": "Y++ymkXiD70AyuCzVmHBaKruiGj57jN0SQo6qpBC4ndUVBoAh59Mfblc7CdWIbZCRDVG6tVl+NIBhKoqXq2KCA=="
+      "url": "https://github.com/NmX69/nl-net-buddy-releases/releases/download/v3.5.57/3.5.49-to-3.5.57.nbp",
+      "sha256": "667628a632e40ae128f1b49ea0d5a620727fb018576c8021d5faebc7a3b42ba7",
+      "size": 2793241,
+      "sig": "XqOoLsYqMEgvBwx6v5cQ79DF45iFwD3iRJhCSu+clES37Zm72fiO/hI+SRnqsdXkrowDNwG7DdpGVh9LCFb0Cg=="
     },
     {
       "from": "3.5.48",
-      "url": "https://github.com/NmX69/nl-net-buddy-releases/releases/download/v3.5.56/3.5.48-to-3.5.56.nbp",
-      "sha256": "083d50f89d575e5f114463256e16809dd876e4be46fb9f0928e78fc174b8b7ac",
-      "size": 2842613,
-      "sig": "NS4aVXFphRMlv2EL4wKlgKVUuWTnLDpjJUksEj48YlsnvYc5nQW7gTyBcdMaLKj41bIrLGwNdK5b5tt4uhwyBQ=="
+      "url": "https://github.com/NmX69/nl-net-buddy-releases/releases/download/v3.5.57/3.5.48-to-3.5.57.nbp",
+      "sha256": "419b087d128248f651dc21c0704c448e16aa845282437843d9ca78bc36809550",
+      "size": 2854587,
+      "sig": "Y5zQXIik4Ic8RHpFs4G8K8PMrKRxUMjMsSWYb1JPDBWlQUw3NkYFtTVnikoW1H81kkd1dWwBneJFzg5lZtbbAQ=="
     },
     {
       "from": "3.5.47",
-      "url": "https://github.com/NmX69/nl-net-buddy-releases/releases/download/v3.5.56/3.5.47-to-3.5.56.nbp",
-      "sha256": "780c6db1ba5597a19c5be7f5b907b86bf368dbcb168485d95f77c09e10c67976",
-      "size": 2941061,
-      "sig": "4Cymcl3cCIbL2kkjf/V+5s+E88V944q0Ff4byy/o++etZ6SHunB93o7n+juUb2Aa66XQsIzujQx2Rqk/utWUAg=="
+      "url": "https://github.com/NmX69/nl-net-buddy-releases/releases/download/v3.5.57/3.5.47-to-3.5.57.nbp",
+      "sha256": "68ead6db45f46b9e2ace566f33d8e28e85db1259f5de7f00f5de31c200bacfce",
+      "size": 2951027,
+      "sig": "4fj/TM2OmxQCNJjh7S958TIt5gnYczWdmV5jcvqBU+PZi2bGTjjRMAGnVtA64hdwK3Nhk+3UwuUHVv6nnrZ0Bg=="
     },
     {
       "from": "3.5.46",
-      "url": "https://github.com/NmX69/nl-net-buddy-releases/releases/download/v3.5.56/3.5.46-to-3.5.56.nbp",
-      "sha256": "621601b62ffb85217a27836595fbd5467b946b2ffd8e208e4818957190788cf0",
-      "size": 3010943,
-      "sig": "1PcLMt3yJgu3w0E2FnClAmcrGiDRvZvGnq3Y/r3HGS15YG3xyCnQoZcmFDLc4DzAXqFnWuMOcfuQBxU4/GQmCA=="
+      "url": "https://github.com/NmX69/nl-net-buddy-releases/releases/download/v3.5.57/3.5.46-to-3.5.57.nbp",
+      "sha256": "647cfc7c7290aa215e746f1b19ebf99465a71719ec7f6064c959c86f4f93698c",
+      "size": 3020539,
+      "sig": "V+S5cCOT+L0dewD27SIHtpIVityjagiSG3jE2nB2Wuby581coYymIxlO4plC0KzoSbYxyFKnofCsrbtlpKosAA=="
     },
     {
       "from": "3.5.45",
-      "url": "https://github.com/NmX69/nl-net-buddy-releases/releases/download/v3.5.56/3.5.45-to-3.5.56.nbp",
-      "sha256": "1c0bb41374c1ce6faffcc4eee4c9213b7d932b9c11e676f119b6b535877e4ca0",
-      "size": 3120514,
-      "sig": "Df3gvx+NdhLKcL8jk67i7xUIGD8b7palpwzxbo4A5lBWkePpXsLhQ27wmxFVz5FRiQc1L6btOcdOuuUnktX6Dg=="
+      "url": "https://github.com/NmX69/nl-net-buddy-releases/releases/download/v3.5.57/3.5.45-to-3.5.57.nbp",
+      "sha256": "d632ea0d5841887c71d6c779a5b55ea128ad97833e098a933269284fddcdeb1c",
+      "size": 3131709,
+      "sig": "q3IE87yAg3E/+dlM7XA9Ep1/StJyFlfEDa1xZ5XY6gARB5IDC+QpNyIaQ1uCXUobbErf26VUvhi9/LwcwtNLBA=="
     },
     {
       "from": "3.5.44",
-      "url": "https://github.com/NmX69/nl-net-buddy-releases/releases/download/v3.5.56/3.5.44-to-3.5.56.nbp",
-      "sha256": "cf5849f400e49f4b07443f432a8afeb6b5ac9d4227a9ef1538a464fc43c769c7",
-      "size": 3164573,
-      "sig": "Bz9ti0QcoM59Z1ee+PWgUrAALFwpL2xkYuTZf4M9Fz5GIsGj88XmCqnHVITGZDUMgbDq3cKtTh+R/n3ymvw+AA=="
+      "url": "https://github.com/NmX69/nl-net-buddy-releases/releases/download/v3.5.57/3.5.44-to-3.5.57.nbp",
+      "sha256": "a2399f5b2d6e247f119f1506015aa5683ca014539d1b1fd1b0a25142ad4005e2",
+      "size": 3174480,
+      "sig": "zOEMBQs3VpnVc+slpwFSGFU/9jQJ1w0Wk7CWT04O57id4y9b0RYU5+tTUBs8WIMe3NaCK5/IJmt8BGgfQ5PaBQ=="
     },
     {
       "from": "3.5.43",
-      "url": "https://github.com/NmX69/nl-net-buddy-releases/releases/download/v3.5.56/3.5.43-to-3.5.56.nbp",
-      "sha256": "fe9fe1e6452784aab4c86dc99406a5166d8af35286764276f9994ae1aa3f3a83",
-      "size": 3162928,
-      "sig": "NbVVQpz4pie/dkBiPpYZYUZISvQwyZMa/XdGez/kG5Vnmfrt1ThaDzNv0YM47q+UPWdyXExrxkkN5VU8tkvGAg=="
+      "url": "https://github.com/NmX69/nl-net-buddy-releases/releases/download/v3.5.57/3.5.43-to-3.5.57.nbp",
+      "sha256": "4d414f4ed99e3bdf609c3712f5d5218186a6032e25e0f8ac5f3a9976111df4e2",
+      "size": 3173809,
+      "sig": "rApFzfKl4KygAdNXvOBRPGJs95CbZMrLNesZP59W/CmwYD6fqUuTieKFzPwSbA5kxDE3psCRG108kiO8xucMBQ=="
     },
     {
       "from": "3.5.42",
-      "url": "https://github.com/NmX69/nl-net-buddy-releases/releases/download/v3.5.56/3.5.42-to-3.5.56.nbp",
-      "sha256": "142fdb98041d174ea7e607337b38c5d6e2f9f89cb2ccfe53aa4043d26555d193",
-      "size": 3166167,
-      "sig": "gJXp3jXjVRb5J8ZoPRD4zaeXIH5uhAxPuTo+3a8+xY8J6X6kP6118kX8EFMACe6R4pJB0eFHaZU1QmpkClS3Cg=="
+      "url": "https://github.com/NmX69/nl-net-buddy-releases/releases/download/v3.5.57/3.5.42-to-3.5.57.nbp",
+      "sha256": "6370fae50838f7a730157e5a6010f23eb53ba9cf85431956d2f723dc022c9e27",
+      "size": 3177291,
+      "sig": "YBFn83//lnilovtj4QUKVLJr2qUqfzhSrJldKPZZOvSEMroQ13lFRo4G57DuAaOVd85pkJpm8JyJnd93MJVPAA=="
     },
     {
       "from": "3.5.41",
-      "url": "https://github.com/NmX69/nl-net-buddy-releases/releases/download/v3.5.56/3.5.41-to-3.5.56.nbp",
-      "sha256": "85dbca548cfa2ca717eba3396641d815387d24c01dea0ca24b616da6028289af",
-      "size": 3251802,
-      "sig": "F4MIst3B5vSkSUdBBxNdXaJMrN5YLYl/PJEgcvzybNTrJ0P2JljMcC97Yrwz5G5wLlwJY6eUD8iZAJ6uY6a7Cg=="
+      "url": "https://github.com/NmX69/nl-net-buddy-releases/releases/download/v3.5.57/3.5.41-to-3.5.57.nbp",
+      "sha256": "e9829d7920bd08ce6209a29af492b6b2ebfbc43c1773dba0cff73c38ae8e6e61",
+      "size": 3262924,
+      "sig": "smjWWf32fQpdp6b3kNqd/2fuy0GVvT4upQC2xRoqWDsv3F8cWjmo5gZFTrjG5cUwpCA2peRtKEeJToIemDptCw=="
     },
     {
       "from": "3.5.40",
-      "url": "https://github.com/NmX69/nl-net-buddy-releases/releases/download/v3.5.56/3.5.40-to-3.5.56.nbp",
-      "sha256": "4b8bd13f5d4763f4812291ce0f5add6dc861c6113b32c197218625bdb5116aaa",
-      "size": 3365118,
-      "sig": "hBfL9EaRvC6y/3c9m3gMDW8gOrk3HaSENhil10M0Atymsb1KGnLMj39+Jk7D3my80bx1btalOQHSMY00b62YAw=="
+      "url": "https://github.com/NmX69/nl-net-buddy-releases/releases/download/v3.5.57/3.5.40-to-3.5.57.nbp",
+      "sha256": "c93c32eae9274db1a6968b53da8e7de3b9dd21dcace677931a796c22d99ef028",
+      "size": 3377638,
+      "sig": "Y+OqDchxHkPV1v4RfcPe6McLNGB6NiBKozE72GOBFYcrMYiJgOw/6vX8+9QanNDOG7aQw181XqwzHNQM8x1HBw=="
     },
     {
       "from": "3.5.39",
-      "url": "https://github.com/NmX69/nl-net-buddy-releases/releases/download/v3.5.56/3.5.39-to-3.5.56.nbp",
-      "sha256": "fdef18a79587054d509559b69ee27ec9a1205c730c209e9c75e9ba92bf096b2f",
-      "size": 3374408,
-      "sig": "x+4qbef56EX+4jffCfYC5hEFWRHiT5kplOKcZprVUEVQZmv0NNV7m8vMued17bzEX+Lh5ml8Pd05LL8i9KzoCw=="
+      "url": "https://github.com/NmX69/nl-net-buddy-releases/releases/download/v3.5.57/3.5.39-to-3.5.57.nbp",
+      "sha256": "728d16dec86c13a9a06c05b7bad97e81c2745ee98d6526ed6090f2c5854a8c62",
+      "size": 3387300,
+      "sig": "pbQu0ISokhq5F6le5zLge99wPn8q3EPUJJJxm80SioYvGyAWz9pNycQTuHud6sCqeDjMA91hyGbnofkNJUoLCA=="
     },
     {
       "from": "3.5.38",
-      "url": "https://github.com/NmX69/nl-net-buddy-releases/releases/download/v3.5.56/3.5.38-to-3.5.56.nbp",
-      "sha256": "78260cb4ed2c40cfd280db2a4c7345cdec0e27977b8d1f071e397ef6279067a1",
-      "size": 3620000,
-      "sig": "/LJoyZpdApEL/rWqTKpT+cd6kC3mW3N6SsHjXDgH6K8QJHDQ+3wtSIKTeyuE2btj62v7XDlZs7TNZ1DZKYOfDA=="
+      "url": "https://github.com/NmX69/nl-net-buddy-releases/releases/download/v3.5.57/3.5.38-to-3.5.57.nbp",
+      "sha256": "01f63da52625da2e43e29bd214296133726910f72f70773fb8b025d4d6344d95",
+      "size": 3629129,
+      "sig": "9GDihxIW3HQzCicXuu1fOZq1c7I5kH9tB8Cjzc9u1ceNjkeo1/e7mVY0nYeT4ehsQKfMvuTQVKFLIyncTOMpDQ=="
     },
     {
       "from": "3.5.37",
-      "url": "https://github.com/NmX69/nl-net-buddy-releases/releases/download/v3.5.56/3.5.37-to-3.5.56.nbp",
-      "sha256": "a1823bf45b49e4145000f3b5b51817f7bc8bbb9fc336bc17585ededef472eb36",
-      "size": 3625005,
-      "sig": "zFua9eHchnm3IdSotTKHdO1iertEzCTQf2KVy22go4O/ai/M37lH+A7kjleXonw5+Y+rP+x3lupc1R2NEtdHBA=="
+      "url": "https://github.com/NmX69/nl-net-buddy-releases/releases/download/v3.5.57/3.5.37-to-3.5.57.nbp",
+      "sha256": "d53f3e60043d5a576080c0cee7739c0fe6b0c8811f23e4150642e496b03579cc",
+      "size": 3635210,
+      "sig": "CTimempDFo6bQBI2kZmRM874Q5xRr3XraMH/0RLs1CQhxAOoeHtDXVVaiaSI1gqmRnLhAu0kVvg/ftZQ1Y1eDA=="
     },
     {
       "from": "3.5.36",
-      "url": "https://github.com/NmX69/nl-net-buddy-releases/releases/download/v3.5.56/3.5.36-to-3.5.56.nbp",
-      "sha256": "756783860879cad0a0c7acb9d2150765df3f4921a47dc46c95ce43baa0bc6e8a",
-      "size": 3640331,
-      "sig": "NyTNNQRRnboxtLlQSeN8W3doUHYE21E8LASwZMzsOavwtuV17u1Pmo5jySMrl9JDcO08QlQ95+mpvwUt1PO6DA=="
+      "url": "https://github.com/NmX69/nl-net-buddy-releases/releases/download/v3.5.57/3.5.36-to-3.5.57.nbp",
+      "sha256": "8922d7f44c8e372c3615436202b6ebc757bdab37601c971478df864a9bc35185",
+      "size": 3649091,
+      "sig": "eTOvkxqzNgQuSjW8O3FfE73dmSAVNbe8e4/m2ALJPuFw6bgoGymtKMSIz7C7W1sGtJIaMO34DWa5J1/5g/0kCg=="
     },
     {
       "from": "3.5.34",
-      "url": "https://github.com/NmX69/nl-net-buddy-releases/releases/download/v3.5.56/3.5.34-to-3.5.56.nbp",
-      "sha256": "db422fe1de0ddd3761e2117bfe4ab62658430f82c38663e308b05fe38a003733",
-      "size": 3703397,
-      "sig": "7/b+fMqh30in1wz115mCP4UN8aJsXd4LbNncoTXTmZ4aH9JerpMsou4m4R0jSmM0LGL1hWB9tbZlBmbqhSZcBw=="
+      "url": "https://github.com/NmX69/nl-net-buddy-releases/releases/download/v3.5.57/3.5.34-to-3.5.57.nbp",
+      "sha256": "22a656a16a0351d982a01fd19c5cdef2880f47ddc2058bf7d3f712c3d939d9d3",
+      "size": 3718990,
+      "sig": "GqY2snCzJ/5vB6vDBUwF40AvGNuow7K0yoQiFjmvcebRF1jqTQH2syrO1rKEoONWYUbDdAFzXQr0TJ7l4lwPDg=="
     },
     {
       "from": "3.5.33",
-      "url": "https://github.com/NmX69/nl-net-buddy-releases/releases/download/v3.5.56/3.5.33-to-3.5.56.nbp",
-      "sha256": "5f7137625bf2510cee05fc4c5096288efce64ddb41e3ac8e77080a0ac22baf38",
-      "size": 3759912,
-      "sig": "Uhl2ibEWHDiv5LAaLj6rivm6TwPZeWBPQSqE+Z2enNkgqnH8DEoWij+Ht3CL0UG/4feqyenGpNp/UmlEnwFICw=="
+      "url": "https://github.com/NmX69/nl-net-buddy-releases/releases/download/v3.5.57/3.5.33-to-3.5.57.nbp",
+      "sha256": "e4d4e7a6ff3c23e4d47a5af196e271802988c5e1ca8fd143b1d478d7fe564326",
+      "size": 3777281,
+      "sig": "V+7R2V1n8S6erpUXr5BHmCRGHXvx9fw+UNXeDVV99VH2lBVnFz3eHsEDPw41owSoUaPR672qGqPys8UhV3F/Dw=="
     },
     {
       "from": "3.5.32",
-      "url": "https://github.com/NmX69/nl-net-buddy-releases/releases/download/v3.5.56/3.5.32-to-3.5.56.nbp",
-      "sha256": "338b7b97125285010ca2495c9fcbac11608c354968669618951996fe42624ec4",
-      "size": 3814927,
-      "sig": "kQrsO6WXSSpwEeLzrEo7P0qFTmuKnExxzIsQPIF01U/rgi6qBQNBqHbv0sdQdsOOWP8hNdXeSuOW8EyhwHdYAA=="
+      "url": "https://github.com/NmX69/nl-net-buddy-releases/releases/download/v3.5.57/3.5.32-to-3.5.57.nbp",
+      "sha256": "ebdaa2ca539f1fcd89e80f6f1255aa5e1cfcdaa39f115cb22cf3ac79cbe5cd89",
+      "size": 3830008,
+      "sig": "kcLc9Aw4beULsuOlhQVUMRgF42lE2E+H8CVc177VvBLPDF6IN0+M8ozx0ADlN7tPkbXnc7CJyFQixP7Muuv5Bg=="
     },
     {
       "from": "3.5.31",
-      "url": "https://github.com/NmX69/nl-net-buddy-releases/releases/download/v3.5.56/3.5.31-to-3.5.56.nbp",
-      "sha256": "04b956935c8bca6b9271a7025c3ff87be09b1043b1eb2b51ba87ddb6dd1a2dc5",
-      "size": 7310335,
-      "sig": "TqXBJOlZTpLJlWaMmyu9gkKpsreOI5iR6b3CwsrZ8bUdH0pTTOs2WUR4sTcCQJ8KV8re6rw9z+VF4Q4cdm2VCQ=="
+      "url": "https://github.com/NmX69/nl-net-buddy-releases/releases/download/v3.5.57/3.5.31-to-3.5.57.nbp",
+      "sha256": "81e2b40af46502259e2441fb894e8104e43b4834f1a438e7403f0fe3dd258690",
+      "size": 7319102,
+      "sig": "DE+9+eBHijB6mQ9PPkMkdGWRWODkENQ5XtUFBbfT8qfTBchSLtq313Hh1itTwfix1OQIaRwvOAyJ1lll0fryAA=="
     },
     {
       "from": "3.5.30",
-      "url": "https://github.com/NmX69/nl-net-buddy-releases/releases/download/v3.5.56/3.5.30-to-3.5.56.nbp",
-      "sha256": "a5719c4a3788b592bf8626d4be00945044998e0e028b78cf54c6fb2510ad929b",
-      "size": 7310277,
-      "sig": "bVNeF+gD7r6XdRMu31n1dF1TSsEXseXCKuj7xsbfm/zhRmMEa0kgZoRNCMDiRJr0KeSPRXsLcQIX0r0Z/T6aCQ=="
+      "url": "https://github.com/NmX69/nl-net-buddy-releases/releases/download/v3.5.57/3.5.30-to-3.5.57.nbp",
+      "sha256": "4ccc5911189ce1cc1b1dc481470b3edf4a2f73717d1e60150291554b69a47308",
+      "size": 7319952,
+      "sig": "bs3qQpsS7vgWc5uDD5eXnafzLrZQiWMjCNwdKdT9F/i3kF2RXBNJD3PXEfchZt7pspf2ItCVSEicijXLIa7bDw=="
     },
     {
       "from": "3.5.29",
-      "url": "https://github.com/NmX69/nl-net-buddy-releases/releases/download/v3.5.56/3.5.29-to-3.5.56.nbp",
-      "sha256": "e5d5e6af396bccc130edf21d41abef466d7d5af2c7882bb62baa655fda37e3e8",
-      "size": 7317250,
-      "sig": "Yby2QjDSVxaSqjvwqgNo5T3aBYRv/Mdg8L6lxRfZIKmLW7LwlsZwVArxB8jY3M6xikUoZ8Y23q9oncTQHN2rDQ=="
+      "url": "https://github.com/NmX69/nl-net-buddy-releases/releases/download/v3.5.57/3.5.29-to-3.5.57.nbp",
+      "sha256": "f95e93faedc7e09ce2bba8d3c74137800d33b6cb423c1b25f2bf609ff42b6035",
+      "size": 7328619,
+      "sig": "zs0U9lxSalZdVI1vtaio//N0eRhcMeUrsbA5ZWuw28RSdZx+BGRHyCoLQBfpa0dq2IJLikJYx4IEbt7YE/XNAQ=="
     }
   ]
 }
