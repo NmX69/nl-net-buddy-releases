@@ -143,7 +143,7 @@
 <div class="wrap">
 
   <h1>NL Net Buddy — User Guide</h1>
-  <p class="subtitle">Version 3.5.54 · by N6WWW — a companion for NetLogger, featuring the OMISS Award Hunter platform</p>
+  <p class="subtitle">Version 3.5.55 · by N6WWW — a companion for NetLogger, featuring the OMISS Award Hunter platform</p>
 
   <div class="note" id="thanks"><strong>Thank you, NetLogger.</strong> Net Buddy is only possible because of AC0ZG and the team at <a href="https://www.netlogger.org/">NetLogger.org</a>, and the free service they give the amateur radio community. Please visit them and support their work.</div>
 
@@ -224,6 +224,23 @@
           <li><strong>BTN</strong> — Back to Net</li>
           <li><strong>C*</strong> — Custom (right-click to edit)</li>
         </ul>
+      </td></tr>
+      <tr><td class="area">HUD</td><td>@nb quick answers</td><td>The <strong>@nb</strong> button, under the gear, opens a small drawer under the HUD. Type a command (with or without the <code>@nb</code>) and press <strong>Enter</strong>; the answer shows only to you, and the box clears for the next one (<strong>Up</strong> brings the last command back). <strong>POST</strong> sends it to AIM as an ordinary message starting <code>[nb]</code>; <strong>OK</strong> or <strong>Esc</strong> closes the drawer. Commands:
+        <ul class="tight">
+          <li><code>dist me #21</code> &mdash; distance and beam heading to a line, a callsign, a grid, or yourself</li>
+          <li><code>wx</code>, <code>time</code> &mdash; weather and local time at a point</li>
+          <li><code>solar</code>, <code>bands</code>, <code>muf 500</code> &mdash; solar numbers, HF band conditions, estimated MUF</li>
+          <li><code>dnc #21</code> &mdash; has this station opted out of emailed digital QSL cards (KL1Y&rsquo;s registry)</li>
+          <li><code>far</code> &mdash; the three check-ins farthest from you</li>
+          <li><code>om 12</code> &mdash; an OMISS member by OM#, callsign, line or first name</li>
+          <li><code>sun</code>, <code>iss</code> &mdash; sunrise, sunset and greyline; the ISS now and its next pass over you</li>
+          <li><code>alerts</code>, <code>contests</code> &mdash; NWS warnings at a US point; contests on now (<code>contests week</code> for 7 days)</li>
+          <li><code>q QSB</code>, <code>cw CQ DX</code> &mdash; what a Q-code means; text in Morse</li>
+          <li><code>who #21</code> &mdash; FCC licence lookup</li>
+          <li><code>qrz #21</code> &mdash; QRZ record (needs your QRZ XML key); an email is shown to you with a <strong>Copy email</strong> button and is never posted</li>
+          <li><code>?</code> lists the commands; <code>dist ?</code> explains one</li>
+        </ul>
+        &ldquo;me&rdquo; uses the grid of NetLogger&rsquo;s current station location, else the grid on your own check-in.
       </td></tr>
       <tr><td class="area">HUD</td><td>Net-control panel</td><td>Announcement buttons, shown only when you run the net. 10 fully customizable message buttons &mdash; edit both the message and the button name (right-click the button).</td></tr>
       <tr><td class="area">HUD</td><td>Message variables</td><td>Custom and net-control buttons can auto-fill your call, line number, the NCS name, Zulu time, and more.</td></tr>
