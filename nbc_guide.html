@@ -183,7 +183,7 @@
 <div class="wrap">
 
   <h1>Net Buddy Client — Guide</h1>
-  <p class="subtitle">Version 3.5.54 · by N6WWW · what the client does, starting from what you know in NetLogger</p>
+  <p class="subtitle">Version 3.5.55 · by N6WWW · what the client does, starting from what you know in NetLogger</p>
 
   <div class="note" id="thanks"><strong>Thank you, NetLogger.</strong> Net Buddy is only possible because of AC0ZG and the team at <a href="https://www.netlogger.org/">NetLogger.org</a>, and the free service they give the amateur radio community. Please visit them and support their work.</div>
 
@@ -680,11 +680,25 @@
       <ul>
         <li><code>@nb ?</code> lists the commands. <code>@nb dist ?</code> explains one.</li>
         <li><code>@nb dist me #21</code> &mdash; distance and beam heading to the station on line 21. A point is
-            <code>me</code>, a line number like <code>#21</code>, or a grid like <code>EM22lr</code>.</li>
+            <code>me</code>, a line number like <code>#21</code>, a callsign like <code>W1AW</code>,
+            or a grid like <code>EM22lr</code>.</li>
         <li><code>@nb wx</code> &mdash; the weather at your grid, or at any point.</li>
-        <li><code>@nb solar</code>, <code>@nb bands</code> &mdash; NOAA&rsquo;s solar numbers and the HF band conditions.</li>
-        <li><code>@nb muf 500</code> &mdash; the estimated MUF for a 500 km path, and which bands are under it.</li>
+        <li><code>@nb solar</code>, <code>@nb bands</code> &mdash; space weather (flux, sunspots, A and K, storms, flares, solar wind, noise, aurora) and the HF band conditions.</li>
+        <li><code>@nb muf 500</code> &mdash; the estimated MUF for a 500 km path, and which bands are under it.
+            <code>@nb muf #21</code> works out the whole path from you to line 21, using the ionosonde near the
+            middle of it (a long path is split into hops, each read near its own midpoint).</li>
         <li><code>@nb time #21</code> &mdash; their local time and UTC.</li>
+        <li><code>@nb dnc #21</code> &mdash; has this station opted out of emailed digital QSL cards? From KL1Y&rsquo;s
+            Digital QSL Preference Registry (Sites menu).</li>
+        <li><code>@nb far</code> &mdash; the three check-ins farthest from you, from the grids on the list.</li>
+        <li><code>@nb om 12</code> &mdash; an OMISS member from the roster: by OM#, callsign, line, or first name
+            (<code>@nb om Ed</code> names the Eds on the net first).</li>
+        <li><code>@nb sun #21</code> &mdash; sunrise and sunset there, and the next greyline.</li>
+        <li><code>@nb iss</code> &mdash; where the ISS is now, and its next pass over you.</li>
+        <li><code>@nb alerts</code> &mdash; NWS watches and warnings at a US point.</li>
+        <li><code>@nb contests</code> &mdash; contests on now and in the next 24 hours; <code>@nb contests week</code>
+            for the next 7 days, or add a word like <code>qso</code> or <code>rtty</code>.</li>
+        <li><code>@nb q QSB</code> &mdash; what a Q-code means. <code>@nb cw CQ DX</code> &mdash; text in Morse (or Morse back to text).</li>
         <li><code>@nb who #21</code> &mdash; their FCC licence: name, place, class, expiry.</li>
         <li><code>@nb qrz #21</code> &mdash; their QRZ record, with distance, email and QSL details. Needs your QRZ XML
             key in Settings. The email is shown only to you; <strong>Copy email</strong> puts it on your clipboard.</li>
