@@ -143,7 +143,7 @@
 <div class="wrap">
 
   <h1>NL Net Buddy — User Guide</h1>
-  <p class="subtitle">Version 3.5.58 · by N6WWW — a companion for NetLogger, featuring the OMISS Award Hunter platform</p>
+  <p class="subtitle">Version 3.5.59 · by N6WWW — a companion for NetLogger, featuring the OMISS Award Hunter platform</p>
 
   <div class="note" id="thanks"><strong>Thank you, NetLogger.</strong> Net Buddy is only possible because of AC0ZG and the team at <a href="https://www.netlogger.org/">NetLogger.org</a>, and the free service they give the amateur radio community. Please visit them and support their work.</div>
 
@@ -262,7 +262,7 @@
       <tr><td class="area">HUD</td><td>Net Buddy Messenger</td><td>Chat directly with the other stations on your net &mdash; no server, no accounts, nothing to set up. Starts with Net Buddy as the <strong>NBM</strong> chip.</td></tr>
       <tr><td class="area">Sync</td><td>ACLog / N3FJP sync</td><td>Pushes new NetLogger contacts into your logging program.</td></tr>
       <tr><td class="area">Sync</td><td>ACLog comment handling</td><td>Choose what goes in ACLog&rsquo;s comment when a contact syncs: keep NetLogger&rsquo;s remark, a Formatted line (Red&nbsp;Line&nbsp;# + OM#), or Auto-fill from ACLog&rsquo;s prior comment.</td></tr>
-      <tr><td class="area">Sync</td><td>Reconcile (ACLog, QRZ)</td><td>Reads your ACLog or QRZ log, finds what it is missing, and sends only that &mdash; marking the rest as already there.</td></tr>
+      <tr><td class="area">Sync</td><td>Reconcile (ACLog, QRZ)</td><td>Reads your ACLog or QRZ log, finds what it is missing, and sends only that &mdash; marking the rest as already there. For ACLog it also fills in blank signal reports, and you tick exactly which changes to make.</td></tr>
       <tr><td class="area">Sync</td><td>UDP Log Sync (WSJT-X)</td><td>Sends new contacts to a logger that listens for the WSJT-X datagram — on its own or alongside ACLog. <strong>Proven with ACLog.</strong> Not for Ham Radio Deluxe or N1MM, which read a different format.</td></tr>
       <tr><td class="area">Sync</td><td>HRD Sync</td><td>Sends new contacts to <strong>Ham Radio Deluxe</strong> Logbook, the way WSJT-X does. In HRD: Tools &rarr; QSO Forwarding &rarr; UDP Receive, tick &ldquo;UDP9/ADIF &hellip; (eg. WSJT-X)&rdquo;, then enter that port here. The port and the format must both match the channel you enabled.</td></tr>
       <tr><td class="area">Sync</td><td>K1ALF sync (ALF button)</td><td>Pushes your OMISS contacts to K1ALF&rsquo;s online OMISS Awards Tracker.</td></tr>
@@ -950,7 +950,7 @@
   <ul>
     <li><strong>Hold new QSOs [N] minutes</strong> — waits before syncing, so you can fix a QSO first.</li>
     <li><strong>Sync from [date]</strong> — contacts before this date are not sent automatically.</li>
-    <li><strong>Reconcile…</strong> — find the contacts ACLog is missing and send only those (see below).</li>
+    <li><strong>Reconcile…</strong> — find the contacts ACLog is missing, and the ACLog contacts whose signal report is blank, then tick which to fix (see below).</li>
     <li><strong>Mark log synced</strong> — mark everything as already-synced without sending it.</li>
     <li><strong>Tag synced contacts</strong> — adds a marker (default <code>[NL]</code>) in ACLog so you can find them later.</li>
   </ul>
@@ -965,13 +965,27 @@
   <h3 id="reconcile">Reconcile (find the contacts ACLog or QRZ is missing)</h3>
   <p>Routine sync handles <em>new</em> contacts going forward, but if sync was off for a while, or you started using ACLog or QRZ after you&rsquo;d already logged some nets, they can be missing older contacts. <strong>Reconcile</strong> finds them &mdash; and it replaces the old blind Back-sync for ACLog and QRZ, because it checks what is already there before sending anything.</p>
   <p><strong>How it decides two contacts are the same QSO:</strong> the same call, on the same band, in the same mode, within 30 minutes. USB, LSB and SSB count as one mode, and the band&rsquo;s spelling (<code>20M</code> or <code>20m</code>) doesn&rsquo;t matter. A contact you logged twice by mistake is shown, but never sent twice.</p>
-  <p>On the <strong>ACLog</strong> or <strong>QRZ Sync</strong> settings tab, click <strong>Reconcile…</strong>. It reads your NetLogger log and the <strong>whole</strong> of ACLog or your QRZ logbook, then lists every contact that isn&rsquo;t there yet. (For ACLog, ACLog must be running with its TCP API on.)</p>
+  <h4>ACLog</h4>
+  <p>On the <strong>ACLog</strong> settings tab click <strong>Reconcile…</strong>. ACLog must be running with its TCP API on.</p>
   <ul>
-    <li><strong>Start</strong> — run the compare. <strong>From date</strong> starts at your sync start date; clear it to check your entire log.</li>
+    <li><strong>From date</strong> — leave it blank to check your whole log, or type a date (YYYY-MM-DD) to check from that day on.</li>
+    <li><strong>Read ACLog</strong> — reads all of ACLog and your NetLogger log, then shows a list with a tick box on every line:
+      <ul>
+        <li><strong>RST fixes</strong> — contacts ACLog already has whose signal report is blank, filled in from your NetLogger log. A report ACLog already has is never changed.</li>
+        <li><strong>Contacts ACLog does not have</strong> — sent to ACLog as new contacts.</li>
+        <li><strong>Left alone</strong> — shown so you can see them, never sent: a contact your log has two different reports for, or one you logged twice.</li>
+      </ul></li>
+    <li><strong>Send to ACLog</strong> — untick anything you don&rsquo;t want, then press it. It asks you to confirm first.</li>
+  </ul>
+  <p>Before it fills in any report, Net Buddy makes a checked backup copy of your ACLog log file, in the same folder as the log, named with the date and time. Afterwards it reads ACLog again to make sure every report landed and no contact was added by mistake. If ACLog can&rsquo;t be fully read, it tells you and changes nothing.</p>
+  <h4>QRZ</h4>
+  <p>On the <strong>QRZ Sync</strong> settings tab, click <strong>Reconcile…</strong>. It reads your NetLogger log and your <strong>whole</strong> QRZ logbook, then lists every contact that isn&rsquo;t there yet.</p>
+  <ul>
+    <li><strong>Start</strong> — run the compare. Leave <strong>From date</strong> blank to check your entire log.</li>
     <li><strong>Update</strong> — appears once there are results. It asks you to confirm, then marks the contacts that are already there as synced and sends only the missing ones.</li>
   </ul>
-  <p>Nothing is sent until you click Update. It&rsquo;s safe to run any time, and it only ever <em>adds</em> what&rsquo;s missing — it never changes or removes anything. (If ACLog or QRZ can&rsquo;t be fully read, it tells you and sends nothing, so a partial read can never create duplicates.)</p>
-  <p>In the <strong>Net Buddy Client</strong>, the same Reconcile is in Settings, under each sync section&rsquo;s Test button.</p>
+  <p>Nothing is sent until you click Update. It only ever <em>adds</em> what&rsquo;s missing. (Blank reports already in QRZ are fixed by <strong>QRZ Tools &rarr; Reconcile RSTs</strong>.)</p>
+  <p>In the <strong>Net Buddy Client</strong>, both are in Settings, under each sync section&rsquo;s Test button.</p>
 
   <h3>Keeping NetLogger&rsquo;s OMISS club profile current</h3>
   <p>NL Net Buddy downloads the OMISS roster it needs for the award rules. When NetLogger is installed, it also quietly copies that same roster into NetLogger&rsquo;s own OMISS club profile, so you never have to &ldquo;download club profile&rdquo; in NetLogger before a net — just run the HUD and NetLogger&rsquo;s profile stays current. It makes a one-time backup of your existing profile first, and does nothing if NetLogger isn&rsquo;t installed.</p>
