@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Net Buddy Junior Privacy Policy</title>
+<style>
+  :root { --bg: #0b1020; --fg: #f2f6ff; --accent: #8fe6ff; --rule: #3a4a6b; }
+  body { margin: 0; background: var(--bg); color: var(--fg); font: 18px/1.6 system-ui, sans-serif; }
+  main { max-width: 46rem; margin: 0 auto; padding: 1.5rem 1rem 3rem; }
+  h1 { font-size: 1.7rem; margin: 0 0 .25rem; }
+  h2 { font-size: 1.25rem; color: var(--accent); margin: 2rem 0 .5rem; border-top: 2px solid var(--rule); padding-top: 1rem; }
+  a { color: var(--accent); }
+  li { margin: .35rem 0; }
+  .lead { font-size: 1.05rem; }
+</style>
+</head>
+<body>
+<main>
+<h1>Net Buddy Junior Privacy Policy</h1>
+<p>Effective 20 October 2026. Applies to the Net Buddy Junior app (also shown as NB Junior) for Android and iPhone, made by N6WWW.</p>
+
+<p class="lead"><strong>In short:</strong> Net Buddy Junior has no accounts, no ads, no analytics and no tracking, and we run no servers of our own. What you enter stays on your phone, except what the app must send to amateur radio services to do the things you ask it to do. Those are listed below.</p>
+
+<h2>What stays on your phone</h2>
+<ul>
+  <li>Your settings: callsign, name, OMISS member number, saved messages, text size and receiver choice.</li>
+  <li>Your contact log (an ordinary ADIF file) and your saved station locations.</li>
+  <li>Pictures sent and received in Net Buddy Messenger, kept for 30 days. Message text is kept only while the app is open.</li>
+  <li>A diagnostic log of the app's messaging connections (callsigns, connection names, versions and counts; no message contents).</li>
+</ul>
+<p>Uninstalling the app deletes all of it.</p>
+
+<h2>What the app sends, and to whom</h2>
+<ul>
+  <li><strong>NetLogger</strong> (netlogger.org), the amateur radio net service the app reads: when you open a net, your callsign and name are sent so you appear as a listener, and any AIM chat message you send is shown to everyone on that net. Some of this travels unencrypted, as NetLogger's own service does.</li>
+  <li><strong>Net Buddy Messenger</strong>, through public message relays (broker.emqx.io, broker.hivemq.com, test.mosquitto.org): while Messenger is connected, your callsign, name, the net you are on, and your app version are announced publicly so other Net Buddy users can see you, and stay visible for up to 30 minutes. Private messages and pictures are end-to-end encrypted, so the relays cannot read them. Callsigns are not verified.</li>
+  <li><strong>Contact log sync</strong>, through the ntfy.sh relay, only if you set a Sync password: your contact log is exchanged with your own Net Buddy on a computer, encrypted with a key made from your callsign and Sync password.</li>
+  <li><strong>Your location</strong>, only when you tap <em>Fill from GPS</em>: the app takes one GPS reading while it is open (never in the background), works out your grid square on the phone, and sends the coordinates to the US FCC's public Area API to look up your state and county.</li>
+  <li><strong>@nb commands</strong> you type ask public services for answers: weather and sun times from Open-Meteo and the US National Weather Service (using the centre of a grid square, not your GPS position), callsign records from callook.info and the Digital QSL Registry, and the OMISS member roster from omiss.net.</li>
+  <li><strong>Listening</strong> to a net plays it through the WebSDR receiver you chose (Northern Utah, KFS or Twente), which receives the frequency to tune.</li>
+  <li><strong>GitHub</strong> (raw.githubusercontent.com): the app downloads the public list of Net Buddy supporters, and the Android version downloaded directly from our website (not from Google Play) also checks there for updates. Nothing about you is sent.</li>
+  <li><strong>Tips</strong> (iPhone): optional tips are handled entirely by Apple. We never see your payment details.</li>
+  <li><strong>Diagnostics on request</strong>: while Messenger is connected, the developer can ask the app to upload its messaging diagnostic log (described above, no message contents) to ntfy.sh, to help fix a connection problem.</li>
+  <li><strong>Sharing</strong>: when you use Export or Share, the file or link goes only where you choose.</li>
+</ul>
+<p>Any service you connect to also sees your internet address, as with any app.</p>
+
+<h2>What we do not do</h2>
+<ul>
+  <li>No accounts, no sign-in, no advertising identifiers.</li>
+  <li>No analytics, crash reporting or tracking of any kind.</li>
+  <li>We never sell or rent data. We have no database of users.</li>
+</ul>
+
+<h2>Permissions</h2>
+<ul>
+  <li><strong>Location</strong>, used only when you tap Fill from GPS, as described above.</li>
+  <li><strong>Internet</strong>, to reach the services above.</li>
+</ul>
+
+<h2>Children</h2>
+<p>Net Buddy Junior is made for licensed amateur radio operators and is not directed at children under 13.</p>
+
+<h2>Changes and contact</h2>
+<p>If this policy changes, the new version will be posted here with a new date. Questions: <a href="mailto:n6www@yahoo.com">n6www@yahoo.com</a>.</p>
+</main>
+</body>
+</html>
