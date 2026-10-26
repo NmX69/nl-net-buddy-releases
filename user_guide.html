@@ -370,9 +370,9 @@
     <li><code>{My_CS}</code> — your callsign</li>
     <li><code>{My_OM}</code> — your OM number</li>
     <li><code>{My_Line}</code> — your line number on the current check-in list</li>
-    <li><code>{NCS_Name}</code> — the net-control operator&rsquo;s name (from check-in line 1)</li>
-    <li><code>{NCS_CS}</code> — the net-control operator&rsquo;s callsign</li>
-    <li><code>{NCS_Rem}</code> — the remark on check-in line 1</li>
+    <li><code>{NCS_Name}</code> — net control&rsquo;s name: every station marked <strong>(nc)</strong> on the check-in list, e.g. &ldquo;Bob and Ann&rdquo; (line 1 if nobody is marked)</li>
+    <li><code>{NCS_CS}</code> — net control&rsquo;s callsign, or callsigns</li>
+    <li><code>{NCS_Rem}</code> — net control&rsquo;s remark</li>
     <li><code>{Time_UTC}</code> — the current time in Zulu, e.g. <code>1432Z</code></li>
   </ul>
   <p>For example, a button set to <code>Thanks {NCS_Name}! #{My_Line} {My_CS} 73</code> might post <code>Thanks Bob! #14 N6WWW 73</code>.</p>
