@@ -183,7 +183,7 @@
 <div class="wrap">
 
   <h1>Net Buddy Client — Guide</h1>
-  <p class="subtitle">Version 3.6.8 · by N6WWW · what the client does, starting from what you know in NetLogger</p>
+  <p class="subtitle">Version 3.6.9 · by N6WWW · what the client does, starting from what you know in NetLogger</p>
 
   <div class="note" id="thanks"><strong>Thank you, NetLogger.</strong> Net Buddy is only possible because of AC0ZG and the team at <a href="https://www.netlogger.org/">NetLogger.org</a>, and the free service they give the amateur radio community. Please visit them and support their work.</div>
 
@@ -694,7 +694,7 @@
             Digital QSL Preference Registry (Sites menu).</li>
         <li><code>@nb far</code> &mdash; the three check-ins farthest from you, from the grids on the list.</li>
         <li><code>@nb om 12</code> &mdash; an OMISS member from the roster: by OM#, callsign, line, or first name
-            (<code>@nb om Ed</code> names the Eds on the net first).</li>
+            (<code>@nb om Ed</code> names the Eds on the net first). The answer ends with their award count and a link to their omiss.net page.</li>
         <li><code>@nb sun #21</code> &mdash; sunrise and sunset there, and the next greyline.</li>
         <li><code>@nb iss</code> &mdash; where the ISS is now, and its next pass over you.</li>
         <li><code>@nb alerts</code> &mdash; NWS watches and warnings at a US point.</li>
@@ -1322,8 +1322,11 @@
       <ol>
         <li>Press <kbd>C</kbd> in the check-in list. The <strong>Check-in mode</strong> box opens.</li>
         <li>Type a call sign or member number — the shortcuts like <code>/m</code> work here too — and press <kbd>Enter</kbd>.</li>
-        <li><strong>Overwrite Remarks-only lines</strong> uses the first line without a call sign, including notes.
-            Choose <strong>Keep remarks</strong> or <strong>Clear remarks</strong>. Untick it to protect notes and use a blank line.
+        <li><strong>New check-ins go on:</strong> <strong>First Avail</strong> (the first line with no call sign, filling gaps) or
+            <strong>After Last Used</strong> (the line after the last check-in, leaving gaps blank).</li>
+        <li><strong>A remarks-only line:</strong> <strong>Overwrite</strong> treats it as a blank line and replaces the note,
+            <strong>Skip</strong> moves on to the next blank line, and <strong>Keep remark</strong> adds the station and keeps the note.
+            The Last Call list is never written over. These settings are shared with the HUD&rsquo;s CiM.
             These choices are remembered.</li>
         <li>The client reads the net fresh and writes the station on the next eligible line. The box clears for the next one.</li>
         <li>The box stays open and shows the last few that landed, with their line numbers.</li>
