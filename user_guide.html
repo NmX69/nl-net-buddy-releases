@@ -166,6 +166,7 @@
       <li><a href="#games">Net Buddy Games (beta)</a></li>
       <li><a href="#dashboard">Using the dashboard (offline review)</a></li>
       <li><a href="#apply">Applying for an award</a></li>
+      <li><a href="#nbsync">NB Sync: one log on your phone and all your computers</a></li>
       <li><a href="#sync">Syncing to your logging program</a></li>
       <li><a href="#hrdsync">Ham Radio Deluxe (HRD Sync)</a></li>
       <li><a href="#k1alf">Syncing to K1ALF</a></li>
@@ -235,6 +236,7 @@
           <li><code>om 12</code> &mdash; an OMISS member by OM#, callsign, line or first name</li>
           <li><code>sun</code>, <code>iss</code> &mdash; sunrise, sunset and greyline; the ISS now and its next pass over you</li>
           <li><code>alerts</code>, <code>contests</code> &mdash; NWS warnings at a US point; contests on now (<code>contests week</code> for 7 days)</li>
+          <li><code>ltg</code> &mdash; the nearest lightning within 300 miles, whether it is getting closer, and any NWS thunderstorm warning (NOAA, the Americas, Pacific and Atlantic; about 10&ndash;25 minutes behind, so not a safety warning)</li>
           <li><code>q QSB</code>, <code>cw CQ DX</code> &mdash; what a Q-code means; text in Morse</li>
           <li><code>who #21</code> &mdash; FCC licence lookup</li>
           <li><code>qrz #21</code> &mdash; QRZ record (needs your QRZ XML key); an email is shown to you with a <strong>Copy email</strong> button and is never posted</li>
@@ -943,6 +945,23 @@
     <li><strong>Copy email</strong> — copies a ready-to-send email; paste it into your mail program, attach the PDF, and send it to the OMISS awards manager.</li>
   </ul>
   <p>Your name and address come from Settings → Applications, so fill those in once.</p>
+
+  <h2 id="nbsync">NB Sync: one log on your phone and all your computers</h2>
+  <p><strong>NB Sync</strong> keeps the same contact log on every Net Buddy you use: Windows (Companion or Client mode), Mac, Linux, Raspberry Pi, and <strong>NB Junior</strong> on your phone. A contact you log on one shows up on the others when they sync.</p>
+  <p><strong>Set it up once on each device:</strong></p>
+  <ol>
+    <li>Use the <strong>same callsign</strong> and the <strong>same Sync password</strong> everywhere. Nothing else is needed to join.
+      <ul>
+        <li>Companion mode (the HUD): the gear menu, then <strong>🔄 Sync log…</strong></li>
+        <li>Client mode: <strong>Settings → NB Sync</strong></li>
+        <li>NB Junior: enter the Sync password and tap <strong>Save</strong></li>
+      </ul>
+    </li>
+    <li>Each computer is named in sync by its computer name. You can change it in the same place (<strong>This computer's name in sync</strong>).</li>
+    <li>On <strong>exactly one</strong> computer, tick <strong>This computer holds the main log</strong> — in <strong>🔄 Sync log…</strong> on the HUD, or <strong>Settings → NB Sync</strong> in the Client. Sync does not work until one computer holds it. A phone never holds the main log.</li>
+  </ol>
+  <p><strong>To sync:</strong> on the HUD, <strong>🔄 Sync log… → Sync now</strong>. In the Client, <strong>File → Sync log</strong> (or the Sync button on the contact log). In NB Junior, open the <strong>Log</strong> tab and tap <strong>Sync</strong>.</p>
+  <p>This is different from the sections below, which copy your contacts <em>out</em> to other logging programs.</p>
 
   <h2 id="sync">Syncing to your logging program (ACLog / N3FJP)</h2>
   <p>If you also keep a log in <strong>N3FJP ACLog</strong>, the HUD can copy each new NetLogger contact into it so you do not have to log twice.</p>
