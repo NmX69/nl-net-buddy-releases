@@ -143,7 +143,7 @@
 <div class="wrap">
 
   <h1>NL Net Buddy — User Guide</h1>
-  <p class="subtitle">Version 3.6.8 · by N6WWW — a companion for NetLogger, featuring the OMISS Award Hunter platform</p>
+  <p class="subtitle">Version 3.6.9 · by N6WWW — a companion for NetLogger, featuring the OMISS Award Hunter platform</p>
 
   <div class="note" id="thanks"><strong>Thank you, NetLogger.</strong> Net Buddy is only possible because of AC0ZG and the team at <a href="https://www.netlogger.org/">NetLogger.org</a>, and the free service they give the amateur radio community. Please visit them and support their work.</div>
 
@@ -234,7 +234,7 @@
           <li><code>solar</code>, <code>bands</code>, <code>muf 500</code> &mdash; solar numbers, HF band conditions, estimated MUF</li>
           <li><code>dnc #21</code> &mdash; has this station opted out of emailed digital QSL cards (KL1Y&rsquo;s registry)</li>
           <li><code>far</code> &mdash; the three check-ins farthest from you</li>
-          <li><code>om 12</code> &mdash; an OMISS member by OM#, callsign, line or first name</li>
+          <li><code>om 12</code> &mdash; an OMISS member by OM#, callsign, line or first name, with their award count and a link to their omiss.net page</li>
           <li><code>sun</code>, <code>iss</code> &mdash; sunrise, sunset and greyline; the ISS now and its next pass over you</li>
           <li><code>alerts</code>, <code>contests</code> &mdash; NWS warnings at a US point; contests on now (<code>contests week</code> for 7 days)</li>
           <li><code>ltg</code> &mdash; the nearest lightning within 300 miles, whether it is getting closer, and any NWS thunderstorm warning; <code>ltg net</code> lists which check-ins have lightning within 300 miles (NOAA, the Americas, Pacific and Atlantic; about 10&ndash;25 minutes behind, so not a safety warning)</li>
@@ -441,7 +441,7 @@
   </ul>
   <p>Because it now includes Goodbye, an NCS or logger can run just about every net-control action from this one box &mdash; just keep tapping <strong>Ctrl+Space</strong>. Tick <strong>Stay open until Esc</strong> and the box stays up as you work, refreshing live as new AIM messages arrive and keeping your keyboard focus put after each action, so you can act on several stations in a row without reopening it. Note that <em>opening</em> the Status box needs net-control privileges (see below); if you don&rsquo;t have them, say goodbye with <strong>Ctrl+G</strong> (or <strong>Ctrl+;</strong> then <strong>G</strong>) instead &mdash; that path works for anyone.</p>
   <p>After any action, focus lands back in the AIM input box so you can keep typing.</p>
-  <p><strong>Anyone can open the leader menu and its <code>?</code> help</strong> &mdash; nothing is hidden. But the actions that <em>edit the check-in list</em> need net-control privileges: <strong>Status box, Check-In, and Last Call</strong> only run if your own check-in shows you as net control <code>(nc)</code> or logger <code>(log)</code>. If you&rsquo;re not, those just beep and decline. <strong>Goodbye / 73 (Ctrl+G, or Ctrl+; then G) works for anyone.</strong></p>
+  <p><strong>Anyone can open the leader menu and its <code>?</code> help</strong> &mdash; nothing is hidden. But the actions that <em>edit the check-in list</em> need the net&rsquo;s <strong>logging token</strong>: <strong>Status box, Check-In, Last Call, TURN and CiM</strong> only run while you are the logger &mdash; you opened the net, were promoted, or entered its password. Your <code>(nc)</code> or <code>(log)</code> mark on the list doesn&rsquo;t matter. If you&rsquo;re not the logger, those just beep and decline. <strong>Goodbye / 73 (Ctrl+G, or Ctrl+; then G) works for anyone.</strong></p>
 
   <h3 id="waiting-room">The Waiting Room drawer</h3>
   <p>On a long list the <strong>Waiting Room</strong> &mdash; stations checked in from AIM as U/A, waiting to be heard on the air &mdash; sits below the bottom of the window, and it is easy to go to the next station and forget them. While you are net control <code>(nc)</code> or logger <code>(log)</code>, NL Net Buddy watches for it for you:</p>
@@ -466,11 +466,15 @@
   </ul>
 
   <h3 id="cim">CiM &mdash; Check-in Mode (loggers)</h3>
-  <p>When you hold the logger seat on a net, a green <strong>CiM</strong> button appears to the left of <strong>@nb</strong>. It shows only when your own check-in is marked <code>(nc)</code> or <code>(log)</code> <em>and</em> Net Buddy has found the net&rsquo;s logging token, so it can take a scan or two to appear after you are promoted.</p>
+  <p>When you hold the logger seat on a net, a green <strong>CiM</strong> button appears to the left of <strong>@nb</strong>. It shows whenever Net Buddy finds the net&rsquo;s <strong>logging token</strong> &mdash; your role mark on the list does not matter. It can take up to two minutes to appear after you are promoted.</p>
   <ul>
     <li><strong>One box.</strong> Type a <strong>call sign or member number</strong> and press <strong>Enter</strong>. Net Buddy reads the list fresh and puts the station on the <strong>next free line</strong>, so two loggers taking check-ins at once do not land on the same line.</li>
     <li><strong>Already checked in?</strong> You hear the &ldquo;already here&rdquo; sound, see which line they are on, and what you typed stays selected &mdash; type the next call straight over it.</li>
-    <li><strong>It stays open</strong> and lists the last few stations that landed. <strong>Esc</strong> closes it.</li>
+    <li><strong>It stays open</strong> and lists the last few stations that landed. <strong>Esc</strong> closes it.
+        Each entry queues as soon as you press Enter, so you can type the next call straight away.</li>
+    <li><strong>Where it goes</strong> is set under the line in the box: <strong>First Avail</strong> or <strong>After Last Used</strong>,
+        and whether a remarks-only line is <strong>Overwritten</strong>, <strong>Skipped</strong>, or kept with its remark.
+        The same settings apply to the Client&rsquo;s check-in mode and the Check-In box.</li>
   </ul>
   <p>It uses the same path as the Check-In box (<strong>Ctrl+/</strong>), so the duplicate check and sounds are the same.</p>
 
