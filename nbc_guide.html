@@ -636,6 +636,10 @@
       <p><strong>Someone not on screen?</strong> Press <kbd>Ctrl+D</kbd> then <kbd>S</kbd> (report)
       or <kbd>H</kbd> (history), and type a line number, call sign or member number. The same two
       are in the <strong>Tools</strong> menu.</p>
+      <p><strong>Fast:</strong> every right-click menu item shows a letter in a box on its right.
+      Right-click, then press that letter. On an AIM message: <kbd>R</kbd> reply, <kbd>G</kbd> 73,
+      <kbd>S</kbd> report, <kbd>H</kbd> history, <kbd>Q</kbd> QRZ, and for a logger <kbd>I</kbd>
+      <kbd>W</kbd> <kbd>C</kbd> <kbd>A</kbd> <kbd>L</kbd>, the same letters as log mode.</p>
     </div>
   </details>
 
@@ -732,7 +736,7 @@
         <li><code>@nb sun #21</code> &mdash; sunrise and sunset there, and the next greyline.</li>
         <li><code>@nb iss</code> &mdash; where the ISS is now, and its next pass over you.</li>
         <li><code>@nb alerts</code> &mdash; NWS watches and warnings at a US point.</li>
-        <li><code>@nb ltg</code> &mdash; the nearest lightning within 300 miles and whether it is getting closer; <code>@nb ltg net</code> lists which check-ins have lightning within 300 miles (NOAA; about 10&ndash;25 minutes behind, so not a safety warning).</li>
+        <li><code>@nb ltg</code> &mdash; the nearest lightning within 100 miles and whether it is getting closer; <code>@nb ltg net</code> lists which check-ins have lightning within 100 miles (NOAA; about 10&ndash;25 minutes behind, so not a safety warning).</li>
         <li><code>@nb contests</code> &mdash; contests on now and in the next 24 hours; <code>@nb contests week</code>
             for the next 7 days, or add a word like <code>qso</code> or <code>rtty</code>.</li>
         <li><code>@nb q QSB</code> &mdash; what a Q-code means. <code>@nb cw CQ DX</code> &mdash; text in Morse (or Morse back to text).</li>
@@ -761,7 +765,7 @@
         <li><kbd>G</kbd> says 73 and stays for the next one. <kbd>Enter</kbd> says 73 and leaves.</li>
         <li><kbd>Escape</kbd> leaves without sending.</li>
       </ol>
-      <p><strong>Just one station?</strong> Right-click their message and choose <strong>Say 73</strong>.</p>
+      <p><strong>Just one station?</strong> Right-click their message and choose <strong>Say 73</strong> (or press <kbd>G</kbd>). <strong>Reply to</strong> is just above it (<kbd>R</kbd>).</p>
       <p>No logger role needed.</p>
     </div>
   </details>
@@ -777,6 +781,7 @@
       <ul>
         <li><strong>NET</strong> is the people on this net with you. <strong>GLOBAL</strong> is everyone else, with the net they are on.</li>
         <li>Double-click a name to open a private chat window. <strong>+ Add</strong> brings in a third station.</li>
+        <li>Right-click a name: <strong>Send private message</strong> (<kbd>M</kbd>), <strong>Request log check</strong> (<kbd>K</kbd>), <strong>Look up on QRZ</strong> (<kbd>Q</kbd>).</li>
         <li><strong>Message receipts:</strong> a clock means receipt unconfirmed; a check means the intended recipients acknowledged receipt. Tap the indicator for details. Updated clients are required; a receipt does not mean someone read the message.</li>
         <li><strong>Computer and phone:</strong> Messenger uses one device at a time. In NB Junior choose <strong>Connect here</strong> to switch to the phone. After switching, NBC keeps logging and showing People, and a purple <strong>CONNECTED ELSEWHERE</strong> line says Messenger is off here. Right-click <strong>PEOPLE</strong>, or restart Net Buddy, to bring it straight back &mdash; there is no prompt.</li>
         <li>The same emoji as the net&rsquo;s chat work here, with an emoji button to pick from.</li>
@@ -1567,12 +1572,14 @@
             <li><kbd>I</kbd> check them in, as a regular check-in</li>
             <li><kbd>L</kbd> add them to the Last Call list</li>
             <li><kbd>G</kbd> say 73, and stay in log mode</li>
+            <li><kbd>R</kbd> reply: the send box starts <code>[small][i](to CALL-NAME):[/i][/small] </code>, which the net sees as a small italic <em>(to CALL-NAME):</em>. Type your message after it and press Enter</li>
             <li><kbd>N</kbd> TURN — no station needs picking</li>
             <li><kbd>J</kbd> jump to a line you name</li>
           </ul>
         </li>
         <li><kbd>Escape</kbd> or <kbd>Ctrl+Space</kbd> again leaves log mode.</li>
       </ol>
+      <p><strong>Not a logger?</strong> <kbd>Ctrl+Space</kbd> still works. The band says <strong>AIM</strong> and lists only <kbd>G</kbd> and <kbd>R</kbd>. The logger letters beep and say why.</p>
       <p>Someone talking in AIM need not be checked in, so &ldquo;not on the list — check them in first&rdquo; is an ordinary answer, not an error.</p>
     </div>
   </details>
