@@ -237,7 +237,7 @@
           <li><code>om 12</code> &mdash; an OMISS member by OM#, callsign, line or first name, with their award count and a link to their omiss.net page</li>
           <li><code>sun</code>, <code>iss</code> &mdash; sunrise, sunset and greyline; the ISS now and its next pass over you</li>
           <li><code>alerts</code>, <code>contests</code> &mdash; NWS warnings at a US point; contests on now (<code>contests week</code> for 7 days)</li>
-          <li><code>ltg</code> &mdash; the nearest lightning within 300 miles, whether it is getting closer, and any NWS thunderstorm warning; <code>ltg net</code> lists which check-ins have lightning within 300 miles (NOAA, the Americas, Pacific and Atlantic; about 10&ndash;25 minutes behind, so not a safety warning)</li>
+          <li><code>ltg</code> &mdash; the nearest lightning within 100 miles, whether it is getting closer, and any NWS thunderstorm warning; <code>ltg net</code> lists which check-ins have lightning within 100 miles (NOAA, the Americas, Pacific and Atlantic; about 10&ndash;25 minutes behind, so not a safety warning)</li>
           <li><code>q QSB</code>, <code>cw CQ DX</code> &mdash; what a Q-code means; text in Morse</li>
           <li><code>who #21</code> &mdash; FCC licence lookup</li>
           <li><code>qrz #21</code> &mdash; QRZ record (needs your QRZ XML key); an email is shown to you with a <strong>Copy email</strong> button and is never posted</li>
@@ -766,7 +766,8 @@
   <p>When you are the <strong>logger</strong> on a net &mdash; either because it is your net, or
   because net control promoted you &mdash; the client can do the whole job. A green
   <strong>LOGGER</strong> chip in the header is how you know you have it. Everything in this section
-  needs that chip; without it the client says so rather than failing quietly.</p>
+  needs that chip, except G and R in log mode (below); without it the client says so rather than
+  failing quietly.</p>
 
   <p><strong>Log mode &mdash; Ctrl+Space.</strong> This turns the AIM pane itself into a
   select-and-act list, so you never leave the screen you are already reading. An amber
@@ -785,8 +786,15 @@
     their line number, exactly as the HUD does it.</li>
     <li><strong>G</strong> &mdash; say <strong>73</strong> to them, and stay in log mode, because at
     the end of a net a run of 73s is one key each.</li>
+    <li><strong>R</strong> &mdash; <strong>reply</strong>. The send box starts with
+    &ldquo;[small][i](to CALL-NAME):[/i][/small] &rdquo; for that station, which the net sees as a
+    small italic <em>(to CALL-NAME):</em>. Type your message after it and press Enter.</li>
     <li><strong>Escape</strong> &mdash; leave log mode. A second Ctrl+Space does the same.</li>
   </ul>
+
+  <p><strong>Without the LOGGER chip</strong>, Ctrl+Space still works, for <strong>G</strong> and
+  <strong>R</strong> only. The band says <strong>AIM</strong> instead of LOG and lists just those
+  two. A logger letter beeps and says why.</p>
 
   <p>These are the same letters, on the same stations, as the HUD&rsquo;s own Status box. That is
   deliberate: your hands should not have to learn two sets.</p>
