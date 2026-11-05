@@ -1,0 +1,43 @@
+# THE SKY FEED JOB -- installed on the PUBLIC releases repo as .github/workflows/propfeed.yml by
+# tools/publish_propfeed.py (public repo: standard runners are free there). It runs
+# tools/propfeed/convert.py (published as propfeed/convert.py) and replaces ONE release asset,
+# propfeed.json.gz, on the pre-release "propfeed" -- no commit, so nothing grows.
+#
+# SCHEDULE: peak 15Z-05Z every 30 min, off-peak every 2 hours, always at :13 / :43 (off the top of
+# the hour, which GitHub delays; just after KC2G's :10 / :40 runs). The peak hours must agree with
+# convert.PEAK_UTC_HOURS -- tests/test_prop_feed.py fails if they drift.
+name: propfeed
+on:
+  schedule:
+    - cron: "13,43 15-23 * * *"
+    - cron: "13,43 0-5 * * *"
+    - cron: "13 6,8,10,12,14 * * *"
+  workflow_dispatch: {}
+permissions:
+  contents: write
+concurrency:
+  group: propfeed
+  cancel-in-progress: false
+jobs:
+  feed:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: propfeed/requirements.txt
+      - run: pip install -r propfeed/requirements.txt
+      - run: python propfeed/convert.py --out propfeed.json.gz
+      - name: Replace the one feed file, and never take "Latest" from the installer
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release upload propfeed propfeed.json.gz --clobber
+          latest=$(gh release view --json tagName -q .tagName)
+          if [ "$latest" = "propfeed" ]; then
+            echo "the propfeed release became Latest -- the installer download link would break" >&2
+            exit 1
+          fi
