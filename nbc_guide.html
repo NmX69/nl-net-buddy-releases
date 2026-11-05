@@ -183,7 +183,7 @@
 <div class="wrap">
 
   <h1>Net Buddy Client — Guide</h1>
-  <p class="subtitle">Version 3.6.19 · by N6WWW · what the client does, starting from what you know in NetLogger</p>
+  <p class="subtitle">Version 3.6.20 · by N6WWW · what the client does, starting from what you know in NetLogger</p>
 
   <div class="note" id="thanks"><strong>Thank you, NetLogger.</strong> Net Buddy is only possible because of AC0ZG and the team at <a href="https://www.netlogger.org/">NetLogger.org</a>, and the free service they give the amateur radio community. Please visit them and support their work.</div>
 
@@ -736,6 +736,7 @@
         <li><code>@nb sun #21</code> &mdash; sunrise and sunset there, and the next greyline.</li>
         <li><code>@nb iss</code> &mdash; where the ISS is now, and its next pass over you.</li>
         <li><code>@nb alerts</code> &mdash; NWS watches and warnings at a US point.</li>
+        <li><code>@nb hops #21</code> &mdash; how many hops a station takes and the take-off angle off your antenna (from KC2G&rsquo;s ionosphere map), marked strong or weak once your marks know your antenna; <code>@nb hops</code> alone gives your antenna&rsquo;s angles on this band.</li>
         <li><code>@nb ltg</code> &mdash; the nearest lightning within 100 miles and whether it is getting closer; <code>@nb ltg net</code> lists which check-ins have lightning within 100 miles (NOAA; about 10&ndash;25 minutes behind, so not a safety warning).</li>
         <li><code>@nb contests</code> &mdash; contests on now and in the next 24 hours; <code>@nb contests week</code>
             for the next 7 days, or add a word like <code>qso</code> or <code>rtty</code>.</li>
@@ -1320,15 +1321,17 @@
       <p class="howto-head">In Net Buddy Client (NBC):</p>
       <ol>
         <li>On a live net, choose <strong>View &rarr; Propagation map</strong>. It opens in its own window; make it as big as you like.</li>
-        <li>Every check-in with a grid square is a dot. <strong>Black</strong>: you have not marked them. <strong>Solid red</strong>: you have worked them on this net before. <strong>Bright green, blue, yellow</strong>, biggest to smallest: the S you gave them in their RST. A white dot with a <strong>red edge</strong>: Not Heard (F6, or a report under 21). <strong>Red</strong> round a dot: you worked them tonight, as in the check-in list.</li>
-        <li>Under the dots are your rings: <strong>green</strong> where you are likely to hear, <strong>red hatched</strong> where you are not, <strong>white</strong> where it is unknown. They are the same rings <strong>@nb prop</strong> reports, worked out from your marks of the last two hours.</li>
-        <li>Past your rings, and before you mark anyone, the map is filled in <strong>solid green or red with soft edges</strong>: a prediction from tonight&rsquo;s ionosonde readings (the MUF), with the skip zone you cannot hear into. As you mark, your rings replace it, and your marks also correct the prediction for the directions you have not marked yet.</li>
+        <li>Every check-in with a grid square is a dot. <strong>Black</strong>: you have not marked them. <strong>Solid red</strong>: you have worked them on this net before. <strong>Bright green, blue, yellow</strong>, biggest to smallest: the S you gave them in their RST. A white dot with a <strong>red edge</strong>: Not Heard (F6, or a report under 21). A <strong>red ring</strong> round a dot: you logged a contact with them today.</li>
+        <li>Under the dots are your rings: <strong>green</strong> where you are likely to hear, <strong>red hatched</strong> where you are not, a <strong>dashed outline</strong> where your marks leave it unknown. They are the same rings <strong>@nb prop</strong> reports, worked out from your marks of the last two hours.</li>
+        <li>Past your rings, and before you mark anyone, the map is filled in <strong>solid green or red with soft edges</strong>: a prediction of the skip zone you cannot hear into, from KC2G&rsquo;s real-time map of the ionosphere (prop.kc2g.com). The header shows which time it is for; <strong>Refresh sky</strong> fetches a newer one once there is one to fetch (every 30 minutes at most). As you mark, your open and dead rings cover it, the prediction still shows where your marks leave a gap, and your marks also correct it.</li>
         <li>Hover or tap a dot for its line number, call, report, distance and heading. Drag to move, scroll or use Zoom to get closer, Reset to start again.</li>
       </ol>
       <ul>
         <li>It redraws by itself every few seconds as you mark, so leave it open beside the net.</li>
         <li>It needs your grid square (Settings). With the internet down your rings still draw; only the paler prediction needs it.</li>
         <li>In Companion Mode (the HUD), <strong>Tools &rarr; Propagation map</strong> shows the prediction and the dots; the rings from your marks are Client-only.</li>
+        <li>Hover a dot for its hops and take-off angle: &ldquo;1 hop @ ~14&deg;&rdquo;.</li>
+        <li><strong>View &rarr; My antenna</strong> shows the take-off angles your antenna actually works at, learned from every RST and Not Heard you mark (with KC2G&rsquo;s map at that moment): a quarter-circle fan per band, horizon on the right. It needs about 15 marks on a band before it names your strongest and lowest angles, and gets truer with every net. It stays on your PC.</li>
       </ul>
     </div>
   </details>
