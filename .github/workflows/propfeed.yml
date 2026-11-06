@@ -6,6 +6,9 @@
 # SCHEDULE: peak 15Z-05Z every 30 min, off-peak every 2 hours, always at :13 / :43 (off the top of
 # the hour, which GitHub delays; just after KC2G's :10 / :40 runs). The peak hours must agree with
 # convert.PEAK_UTC_HOURS -- tests/test_prop_feed.py fails if they drift.
+#
+# IF GITHUB NEVER FIRES THE SCHEDULE: it did not for the first 9 hours (2026-11-05/06), even after
+# turning the workflow off and on; manual runs worked. A commit to THIS file re-registers the timer.
 name: propfeed
 on:
   schedule:
