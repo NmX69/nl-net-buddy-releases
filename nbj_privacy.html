@@ -18,7 +18,7 @@
 <body>
 <main>
 <h1>Net Buddy Junior Privacy Policy</h1>
-<p>Effective 30 October 2026. Applies to the Net Buddy Junior app (also shown as NB Junior) for Android and iPhone, made by N6WWW.</p>
+<p>Effective 10 November 2026. Applies to the Net Buddy Junior app (also shown as NB Junior) for Android and iPhone, made by N6WWW.</p>
 
 <p class="lead"><strong>In short:</strong> Net Buddy Junior has no accounts, no ads, no analytics and no tracking, and we run no servers of our own. What you enter stays on your phone, except what the app must send to amateur radio services to do the things you ask it to do. Those are listed below.</p>
 
@@ -36,7 +36,7 @@
   <li><strong>NetLogger</strong> (netlogger.org), the amateur radio net service the app reads: when you open a net, your callsign and name are sent so you appear as a listener, and any AIM chat message you send is shown to everyone on that net. Some of this travels unencrypted, as NetLogger's own service does.</li>
   <li><strong>Net Buddy Messenger</strong>, through public message relays (broker.emqx.io, broker.hivemq.com, test.mosquitto.org): while Messenger is connected, your callsign, name, the net you are on, and your app version are announced publicly so other Net Buddy users can see you, and stay visible for up to 30 minutes. Private messages and pictures are end-to-end encrypted, so the relays cannot read them. Callsigns are not verified.</li>
   <li><strong>Contact log sync</strong>, through the ntfy.sh relay, only if you set a Sync password: your contact log is exchanged with your own Net Buddy on a computer, encrypted with a key made from your callsign and Sync password.</li>
-  <li><strong>Your location</strong>, only when you tap <em>Fill from GPS</em>: the app takes one GPS reading while it is open (never in the background), works out your grid square on the phone, and sends the coordinates to the US FCC's public Area API to look up your state and county.</li>
+  <li><strong>Your location</strong>, only when you tap <em>Fill from GPS</em> or turn on <em>Active Mobile</em>: the app takes one GPS reading while it is open (never in the background), works out your grid square on the phone, and sends the coordinates to the US FCC's public Area API to look up your state and county. If you turn on <em>Active Mobile</em>, the app does the same every 1, 5 or 10 minutes while it is open, and never in the background.</li>
   <li><strong>@nb commands</strong> you type ask public services for answers: weather and sun times from Open-Meteo and the US National Weather Service (using the centre of a grid square, not your GPS position), callsign records from callook.info and the Digital QSL Registry, and the OMISS member roster from omiss.net.</li>
   <li><strong>Listening</strong> to a net plays it through the WebSDR receiver you chose (Northern Utah, KFS or Twente), which receives the frequency to tune.</li>
   <li><strong>GitHub</strong> (raw.githubusercontent.com): the app downloads the public lists of Net Buddy supporters and of stations banned from messaging, and the Android version downloaded directly from our website (not from Google Play) also checks there for updates. Nothing about you is sent.</li>
@@ -56,7 +56,7 @@
 
 <h2>Permissions</h2>
 <ul>
-  <li><strong>Location</strong>, used only when you tap Fill from GPS, as described above.</li>
+  <li><strong>Location</strong>, used only when you tap Fill from GPS or turn on Active Mobile, as described above.</li>
   <li><strong>Internet</strong>, to reach the services above.</li>
 </ul>
 
