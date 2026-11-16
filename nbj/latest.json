@@ -1,10 +1,10 @@
 {
   "format": 1,
-  "version": "3.6.17",
-  "code": 53,
-  "min_code": 53,
-  "apk": "https://github.com/NmX69/nl-net-buddy-releases/releases/download/nbj-latest/NB_Junior_3.6.17.apk",
-  "sha256": "36ebf7154edabbee8a9d7c53d82ffc68b1ab0ecaa47e1e8c7722e0bf397eabe4",
-  "size": 23480095,
-  "published": "2026-11-04"
+  "version": "3.6.31",
+  "code": 55,
+  "min_code": 55,
+  "apk": "https://github.com/NmX69/nl-net-buddy-releases/releases/download/nbj-latest/NB_Junior_3.6.31.apk",
+  "sha256": "03dd7f0eef43845b68971f92489164b8ccaa3b51292b12725e70f83d19adf636",
+  "size": 23807775,
+  "published": "2026-11-15"
 }
