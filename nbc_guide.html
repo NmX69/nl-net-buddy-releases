@@ -183,7 +183,7 @@
 <div class="wrap">
 
   <h1>Net Buddy Client — Guide</h1>
-  <p class="subtitle">Version 3.6.32 · by N6WWW · what the client does, starting from what you know in NetLogger</p>
+  <p class="subtitle">Version 3.6.33 · by N6WWW · what the client does, starting from what you know in NetLogger</p>
 
   <div class="note" id="thanks"><strong>Thank you, NetLogger.</strong> Net Buddy is only possible because of AC0ZG and the team at <a href="https://www.netlogger.org/">NetLogger.org</a>, and the free service they give the amateur radio community. Please visit them and support their work.</div>
 
@@ -795,6 +795,7 @@
         <li>Drag the pane&rsquo;s left edge to make it wider or narrower; People and Monitors share the one width. Double-click the edge to reset it.</li>
         <li>Click the word <strong>PEOPLE</strong> to fold the list away. <strong>View &rarr; People</strong>, <strong>Games</strong>, <strong>Lurkers</strong> or <strong>Monitors</strong> opens it onto that part.</li>
         <li>If it goes quiet and you think it should not, right-click the PEOPLE bar to reconnect.</li>
+        <li><strong>If it never connects</strong>, something on your network is usually blocking the three free public relays the chat goes out to: <strong>broker.emqx.io</strong>, <strong>broker.hivemq.com</strong> and <strong>test.mosquitto.org</strong> (port 8883, outgoing only, so there are no ports to open). <strong>Pi-hole or another network ad blocker:</strong> open its <strong>Query Log</strong>, look for those three names marked as blocked, and add them to the <strong>allowlist</strong>. <strong>A security suite</strong> such as Norton or McAfee: allow <strong>NL Net Buddy.exe</strong> in its firewall. <strong>Quick test:</strong> try from your phone&rsquo;s hotspot; if chat works there, the block is on your home network, not the computer.</li>
       </ul>
     </div>
   </details>
@@ -1299,6 +1300,23 @@
   <h3 id="g-open">Opening the net</h3>
   <div class="colhead" aria-hidden="true"><span>Job</span><span>In NetLogger</span><span>In Net Buddy Client</span></div>
 
+  <details class="feat" id="net-schedule">
+    <summary>
+      <span><span class="fname">Net Schedule</span> <span class="badge new">Not in NetLogger</span></span>
+      <span><span class="lbl">In NetLogger: </span>Check each club&rsquo;s website for its schedule.</span>
+      <span><span class="lbl">In Net Buddy Client: </span>The award clubs&rsquo; nets in one place, in your local time and UTC.</span>
+    </summary>
+    <div class="howto">
+      <p class="howto-head">In Net Buddy Client (NBC):</p>
+      <ul>
+        <li>Choose <strong>Features &rarr; Net schedule</strong> (<kbd>Alt</kbd>+<kbd>E</kbd> opens the Features menu).</li>
+        <li><strong>Up Next</strong> lists the nets coming up; <strong>Week</strong> shows the whole week. The clubs are OMISS, WASA, 3905, USTNET and HHH.</li>
+        <li>Each net shows its time in your local time with UTC beside it, its band and frequency, and the scheduled net control where the club publishes one. CW and digital nets are marked; no mark means SSB. A net you are scheduled to run says so.</li>
+        <li>In Companion Mode (the HUD), the same page is on the gear menu: <strong>Net Schedule&hellip;</strong></li>
+      </ul>
+    </div>
+  </details>
+
   <details class="feat" id="free-freq">
     <summary>
       <span><span class="fname">Free Frequency Finder</span> <span class="badge new">Not in NetLogger</span></span>
@@ -1308,7 +1326,7 @@
     <div class="howto">
       <p class="howto-head">In Net Buddy Client (NBC):</p>
       <ol>
-        <li>Choose <strong>View &rarr; Free Frequency Finder</strong>. It opens on the band your radio is on.</li>
+        <li>Choose <strong>Features &rarr; Free Frequency Finder</strong>. It opens on the band your radio is on.</li>
         <li>The strip is the band&rsquo;s <strong>General-class phone</strong> segment. Each POTA activator spotted on SSB is a <strong>red</strong> block 3 kHz wide, on that band&rsquo;s sideband (LSB on 160, 80 and 40 m; USB from 20 m up). Each NetLogger net running right now is a <strong>yellow</strong> block the same size. A net whose frequency is not a number (&ldquo;VOIP&rdquo;) is left off.</li>
         <li>With rig control set up, a <strong>blue box</strong> shows where your radio is, and follows you as you tune.</li>
         <li><strong>Click</strong> anywhere on the strip. Your radio goes to the nearest clear 3 kHz, on a whole kHz.</li>
@@ -1333,7 +1351,7 @@
     <div class="howto">
       <p class="howto-head">In Net Buddy Client (NBC):</p>
       <ol>
-        <li>Choose <strong>View &rarr; Propagation map</strong>. It opens in its own window; make it as big as you like. It works with or without a net: pick any band under <strong>Band</strong> at the top of the key. On a net, the net&rsquo;s band carries your marks; another band shows the prediction for it.</li>
+        <li>Choose <strong>Features &rarr; Propagation map</strong>. It opens in its own window; make it as big as you like. It works with or without a net: pick any band under <strong>Band</strong> at the top of the key. On a net, the net&rsquo;s band carries your marks; another band shows the prediction for it.</li>
         <li>Every check-in with a grid square is a dot. <strong>Black</strong>: you have not marked them. <strong>Solid red</strong>: you have worked them on this net before. <strong>Bright green, blue, yellow</strong>, biggest to smallest: the S you gave them in their RST. A white dot with a <strong>red edge</strong>: Not Heard (F6, or a report under 21). A <strong>red ring</strong> round a dot: you logged a contact with them today.</li>
         <li>Under the dots are your rings: <strong>green</strong> where you are likely to hear, <strong>red hatched</strong> where you are not, a <strong>dashed outline</strong> where your marks leave it unknown. They are the same rings <strong>@nb prop</strong> reports, worked out from your marks of the last two hours.</li>
         <li>Past your rings, and before you mark anyone, the map is filled in <strong>solid green or red with soft edges</strong>: a prediction of the skip zone you cannot hear into, from KC2G&rsquo;s real-time map of the ionosphere (prop.kc2g.com). The header shows which time it is for; <strong>Refresh sky</strong> fetches a newer one once there is one to fetch (every 30 minutes at most). As you mark, your open and dead rings cover it, the prediction still shows where your marks leave a gap, and your marks also correct it.</li>
@@ -1347,7 +1365,7 @@
         <li>It needs your grid square (Settings). With the internet down your rings still draw; only the paler prediction needs it.</li>
         <li>In Companion Mode (the HUD), <strong>Tools &rarr; Propagation map</strong> shows the prediction and the dots; the rings from your marks are Client-only.</li>
         <li>Hover a dot for its hops and take-off angle: &ldquo;1 hop @ ~14&deg;&rdquo;.</li>
-        <li><strong>View &rarr; My antenna</strong> shows the take-off angles your antenna actually works at, learned from every RST and Not Heard you mark (with KC2G&rsquo;s map at that moment): a quarter-circle fan per band, horizon on the right. It needs about 15 marks on a band before it names your strongest and lowest angles, and gets truer with every net. It stays on your PC.</li>
+        <li><strong>Features &rarr; My antenna</strong> shows the take-off angles your antenna actually works at, learned from every RST and Not Heard you mark (with KC2G&rsquo;s map at that moment): a quarter-circle fan per band, horizon on the right. It needs about 15 marks on a band before it names your strongest and lowest angles, and gets truer with every net. It stays on your PC.</li>
       </ul>
     </div>
   </details>
@@ -1614,7 +1632,7 @@
             <li><kbd>I</kbd> check them in, as a regular check-in</li>
             <li><kbd>L</kbd> add them to the Last Call list</li>
             <li><kbd>G</kbd> say 73, and stay in log mode</li>
-            <li><kbd>R</kbd> reply: the send box starts <code>[small][i](to CALL-NAME):[/i][/small] </code>, which the net sees as a small italic <em>(to CALL-NAME):</em>. Type your message after it and press Enter</li>
+            <li><kbd>R</kbd> reply: the send box starts <code>[b][i](to CALL-NAME):[/i][/b] </code>, which the net sees as a bold italic <em><strong>(to CALL-NAME):</strong></em>. Type your message after it and press Enter</li>
             <li><kbd>N</kbd> TURN — no station needs picking</li>
             <li><kbd>J</kbd> jump to a line you name</li>
           </ul>
