@@ -183,7 +183,7 @@
 <div class="wrap">
 
   <h1>Net Buddy Client — Guide</h1>
-  <p class="subtitle">Version 3.6.34 · by N6WWW · what the client does, starting from what you know in NetLogger</p>
+  <p class="subtitle">Version 3.6.35 · by N6WWW · what the client does, starting from what you know in NetLogger</p>
 
   <div class="note" id="thanks"><strong>Thank you, NetLogger.</strong> Net Buddy is only possible because of AC0ZG and the team at <a href="https://www.netlogger.org/">NetLogger.org</a>, and the free service they give the amateur radio community. Please visit them and support their work.</div>
 
@@ -501,7 +501,7 @@
         <li>Click <strong>show all</strong>, beside the find box at the top of the check-in list. It now reads <strong>not worked</strong>.</li>
         <li>The list keeps only stations you have not worked and can still call.</li>
         <li>Click it again for <strong>FREE</strong>: only stations whose remarks say FREE.</li>
-        <li>Again for <strong>Checked-In</strong>: everyone still on the net, worked or not, including stations you marked not heard, since conditions change during a net. The pink line and your own line always show here, so you can follow the net.</li>
+        <li>Again for <strong>Checked-In</strong>: everyone still on the net, worked or not, including stations marked U/A and stations you marked not heard, since conditions change during a net. Only checked-out and no-response stations are hidden. The pink line and your own line always show here, so you can follow the net.</li>
         <li>Once more for everyone.</li>
         <li>Press <kbd>Escape</kbd> in the list to clear it, fast, back to the full list.</li>
       </ol>
@@ -1437,10 +1437,11 @@
       <ol>
         <li>Press <kbd>C</kbd> in the check-in list. The <strong>Check-in mode</strong> box opens.</li>
         <li>Type a call sign or member number — the shortcuts like <code>/m</code> work here too — and press <kbd>Enter</kbd>.</li>
+        <li>Under the entry box, click <strong>CiM Settings</strong> to open the two settings below; it starts closed each time.</li>
         <li><strong>New check-ins go on:</strong> <strong>First Avail</strong> (the first line with no call sign, filling gaps) or
             <strong>After Last Used</strong> (the line after the last check-in, leaving gaps blank).</li>
         <li><strong>A remarks-only line:</strong> <strong>Overwrite</strong> treats it as a blank line and replaces the note,
-            <strong>Skip</strong> moves on to the next blank line, and <strong>Keep remark</strong> adds the station and keeps the note.
+            <strong>Skip</strong> moves on to the next blank line, and <strong>Keep</strong> adds the station and keeps the note.
             The Last Call list is never written over. These settings are shared with the HUD&rsquo;s CiM.
             These choices are remembered.</li>
         <li>The client reads the net fresh and writes the station on the next eligible line. The box clears for the next one.</li>
