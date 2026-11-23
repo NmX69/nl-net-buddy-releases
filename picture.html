@@ -43,11 +43,11 @@
 <body>
 <header>
   <h1>Picture shared from Net Buddy</h1>
-  <button type="button" class="btn" id="size" hidden>Whole picture</button>
+  <button type="button" class="btn" id="size" hidden>Actual size</button>
   <a class="btn" id="save" hidden download>Save picture</a>
 </header>
 <main>
-  <img id="pic" alt="The picture that was shared" hidden>
+  <img id="pic" class="whole" alt="The picture that was shared" hidden>
   <p id="msg" role="status">Loading the picture…</p>
 </main>
 <footer>
@@ -68,9 +68,9 @@
   }
   var file = "https://ntfy.sh/file/" + id + ".png";
 
-  // IT OPENS AT ACTUAL SIZE, never wider than the window: a tall check-in list squeezed onto one
-  // screen is too small to read (seen 2026-11-22), so readable comes first. "Whole picture" fits
-  // it all on one screen; a click on the picture switches too.
+  // IT OPENS ON THE WHOLE PICTURE (operator, 2026-11-22: "default to whole picture"), all of it on
+  // one screen. "Actual size" shows it as big as it was drawn, never wider than the window -- what
+  // a tall check-in list needs to be read row by row. A click on the picture switches too.
   // ACTUAL SIZE IS HALF THE PIXELS: the pictures are drawn at double resolution, so half is the
   // size the window was on screen, and the extra pixels keep it sharp when zoomed.
   function toggle() {
