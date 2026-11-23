@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Net Buddy picture</title>
+<!--
+  docs/picture.html : THE PICTURE VIEWER for Net Buddy's Share buttons. Published beside the guides
+  by tools/publish_guide.py ("picture"); engine/image_share.viewer_link builds the links to it.
+
+  WHY IT EXISTS (operator, 2026-11-22): a share link straight to ntfy.sh DOWNLOADED the PNG instead
+  of showing it, because ntfy serves files to be saved. A picture placed in a page is always shown,
+  so the AIM line links here and this page shows ntfy's file.
+
+  THE LINK IS  picture.html#<id>  and the page shows only  https://ntfy.sh/file/<id>.png . The id is
+  checked letter by letter, so the page can never be pointed at anything else. It is after the "#",
+  so it never reaches GitHub's servers.
+
+  HIGH CONTRAST BY RULE (the operator has low vision): white on navy, no grey anywhere.
+-->
+<style>
+  :root { --bg:#0b1020; --ink:#ffffff; --edge:#7fb2ff; --go:#2f6fe0; --bad:#ffb0b0; }
+  * { box-sizing:border-box; }
+  html, body { margin:0; background:var(--bg); color:var(--ink);
+    font-family:"Segoe UI", Arial, sans-serif; font-size:18px; line-height:1.4; }
+  header { display:flex; flex-wrap:wrap; align-items:center; gap:10px; padding:10px 16px;
+    border-bottom:2px solid var(--edge); }
+  header h1 { font-size:1.1em; margin:0; flex:1; min-width:10em; }
+  a { color:var(--edge); font-weight:700; }
+  .btn { font:inherit; font-weight:700; padding:6px 14px; border-radius:6px; cursor:pointer;
+    background:var(--bg); color:var(--ink); border:2px solid var(--edge); text-decoration:none; }
+  .btn:hover, .btn:focus-visible { background:var(--edge); color:var(--bg); outline:none; }
+  main { padding:16px; }
+  #pic { display:block; margin:0 auto; background:#fff; cursor:zoom-out; max-width:100%; height:auto; }
+  #pic.whole { width:auto !important; max-height:calc(100vh - 120px); cursor:zoom-in; }
+  #msg { max-width:36em; margin:40px auto; font-size:1.3em; font-weight:700; }
+  #msg.bad { color:var(--bad); }
+  footer { padding:10px 16px 20px; }
+  [hidden] { display:none !important; }
+</style>
+</head>
+<body>
+<header>
+  <h1>Picture shared from Net Buddy</h1>
+  <button type="button" class="btn" id="size" hidden>Whole picture</button>
+  <a class="btn" id="save" hidden download>Save picture</a>
+</header>
+<main>
+  <img id="pic" alt="The picture that was shared" hidden>
+  <p id="msg" role="status">Loading the picture…</p>
+</main>
+<footer>
+  Share links last about 3 hours. <a href="./">About Net Buddy</a>
+</footer>
+<script>
+(function () {
+  "use strict";
+  var pic = document.getElementById("pic"), msg = document.getElementById("msg");
+  var size = document.getElementById("size"), save = document.getElementById("save");
+  var id = (location.hash || "").replace(/^#/, "");
+
+  function fail(text) { pic.hidden = true; msg.hidden = false; msg.className = "bad"; msg.textContent = text; }
+
+  if (!/^[A-Za-z0-9]{6,40}$/.test(id)) {
+    fail("This link is not complete. Ask for the picture to be shared again.");
+    return;
+  }
+  var file = "https://ntfy.sh/file/" + id + ".png";
+
+  // IT OPENS AT ACTUAL SIZE, never wider than the window: a tall check-in list squeezed onto one
+  // screen is too small to read (seen 2026-11-22), so readable comes first. "Whole picture" fits
+  // it all on one screen; a click on the picture switches too.
+  // ACTUAL SIZE IS HALF THE PIXELS: the pictures are drawn at double resolution, so half is the
+  // size the window was on screen, and the extra pixels keep it sharp when zoomed.
+  function toggle() {
+    var whole = pic.classList.toggle("whole");
+    size.textContent = whole ? "Actual size" : "Whole picture";
+  }
+  size.addEventListener("click", toggle);
+  pic.addEventListener("click", toggle);
+
+  pic.onload = function () {
+    if (pic.naturalWidth) pic.style.width = Math.round(pic.naturalWidth / 2) + "px";
+    msg.hidden = true; pic.hidden = false; size.hidden = false; save.hidden = false;
+  };
+  pic.onerror = function () {
+    fail("This picture is no longer available. Net Buddy share links last about 3 hours.");
+  };
+  save.href = file;
+  pic.src = file;
+})();
+</script>
+</body>
+</html>
