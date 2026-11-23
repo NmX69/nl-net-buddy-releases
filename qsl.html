@@ -61,6 +61,10 @@
   form.reply .w4 { grid-column:span 4; } form.reply .w5 { grid-column:span 5; }
   form.reply .w6 { grid-column:span 6; } form.reply .w10 { grid-column:span 10; }
   form.reply .w4.first { grid-column:1 / span 4; }  /* the date row starts its own row */
+  form.reply .w8 { grid-column:span 8; }
+  form.reply label.chk { flex-direction:row; align-items:center; justify-content:flex-start; gap:8px; }
+  form.reply label.chk input { width:22px; height:22px; flex:none; }
+  #zipbox { display:contents; }
   @container (max-width:470px) {
     form.reply label, form.reply label[class] { grid-column:span 6; }
     form.reply .wfull { grid-column:1 / -1; }
@@ -186,6 +190,10 @@
         <label class="w2">Band<select name="band" required></select></label>
         <label class="w3">Mode<select name="mode" required></select></label>
         <label class="w2">RST<input name="rst" maxlength="3" aria-label="RST you gave them"></label>
+        <div id="zipbox" hidden>
+          <label class="w4 first">ZIP / postal code<input name="zip" maxlength="10" autocomplete="postal-code" aria-label="Your ZIP or postal code, to confirm it is you"></label>
+          <label class="w8 wfull chk"><input type="checkbox" name="zipchanged"> My postal code has changed</label>
+        </div>
         <label class="w10 wfull">A short note (optional)<input name="note" maxlength="60"></label>
         <div class="row" style="grid-column:1 / -1">
           <button type="submit" class="btn go" id="send">nbQSL Now</button>
@@ -222,7 +230,10 @@
   // engine/nbqsl.ENTRY_TEXT: every text field of a card and its longest length.
   var ENTRY_TEXT = [["name", 24], ["city", 30], ["state", 24], ["county", 30], ["country", 30],
                     ["grid", 6], ["band", 8], ["freq", 10], ["mode", 8], ["rst", 3], ["rst_r", 3],
-                    ["net", 40], ["note", 60]];
+                    ["net", 40], ["note", 60],
+                    ["to_name", 24], ["to_city", 30], ["to_state", 24], ["to_county", 30],
+                    ["to_country", 30], ["to_grid", 6]];
+  var ZC_LEN = 12;                                 // engine/nbqsl.ZC_LEN
   var NTFY = "https://ntfy.sh/";
   var INBOX_TOPIC = "nbqsl_inbox_v2";              // engine/nbqsl.INBOX_TOPIC
   var LEDGER = "https://raw.githubusercontent.com/NmX69/nl-net-buddy-releases/nbqsl-data/";  // nbclient/nbqsl.ledger_base
@@ -255,6 +266,24 @@
   function archiveKey(utc) { return "20" + utc.slice(0, 2) + "-" + utc.slice(2, 4); }
   function countryFor(call) { var c = norm(call); return US_CALL.test(c) ? "USA" : CA_CALL.test(c) ? "Canada" : ""; }
 
+  // THE POSTAL-CODE CHECK (operator, 2026-11-23): engine/nbqsl.zip_norm and zip_check, the same here.
+  // Friction for a casual prank, not a lock -- the engine's ZC_LEN comment says why.
+  function zipNorm(code) {
+    var c = String(code || "").toUpperCase().replace(/[^A-Z0-9]/g, "");
+    if (/^\d{9}$/.test(c)) c = c.slice(0, 5);
+    return c.slice(0, 10);
+  }
+  function zipCheck(id, code) {
+    var z = zipNorm(code);
+    if (!z) return Promise.resolve("");
+    var bytes = new TextEncoder().encode("nbqsl|" + id + "|" + z);
+    return crypto.subtle.digest("SHA-256", bytes).then(function (buf) {
+      return Array.prototype.map.call(new Uint8Array(buf), function (b) {
+        return (b < 16 ? "0" : "") + b.toString(16);
+      }).join("").slice(0, ZC_LEN);
+    });
+  }
+
   function parse(hash) {
     var parts = String(hash || "").replace(/^#/, "").split(LINK_SEP);
     if (parts.length !== LINK_FIELDS.length || parts[0] !== LINK_VERSION) return null;
@@ -274,6 +303,8 @@
     if (!/^\d{10}$/.test(out.utc)) return null;
     ENTRY_TEXT.forEach(function (f) { out[f[0]] = clip(e[f[0]], f[1]); });
     out.band = out.band.toLowerCase(); out.mode = out.mode.toUpperCase(); out.grid = out.grid.toUpperCase();
+    var zc = clip(e.zc, ZC_LEN).toLowerCase();
+    out.zc = new RegExp("^[a-f0-9]{" + ZC_LEN + "}$").test(zc) ? zc : "";
     var d = clip(e.design, 20);
     out.design = DESIGN.test(d) ? d : DEFAULT_DESIGN;
     return out;
@@ -448,8 +479,16 @@
     // (nbclient/nbqsl.handle), so the call is fixed here rather than offered as a box to fill.
     $("replyhead").textContent = "QSL back to " + L.from + " as " + L.to;
     f.from.value = L.to; f.date.value = w0.date; f.time.value = w0.time;
-    f.country.value = countryFor(L.to);
+    // FILLED IN FROM HOW THE SENDER LOGGED THEM (operator, 2026-11-23): they check it and send.
+    var c0 = card || {};
+    f.name.value = c0.to_name || ""; f.city.value = c0.to_city || ""; f.state.value = c0.to_state || "";
+    f.county.value = c0.to_county || ""; f.grid.value = c0.to_grid || "";
+    f.country.value = c0.to_country || countryFor(L.to);
     f.rst.value = card ? card.rst_r : "";
+    // ASKED ONLY WHEN THE SENDER HAD A POSTAL CODE FOR THEM.
+    $("zipbox").hidden = !c0.zc;
+    f.zip.required = !!c0.zc;
+    f.zipchanged.addEventListener("change", function () { f.zip.required = !!c0.zc && !f.zipchanged.checked; });
     choices(f.band, BANDS, L.band); choices(f.mode, MODES, L.mode);
     countyShown();
     f.country.addEventListener("input", countyShown);
@@ -473,22 +512,40 @@
 
   $("reply").addEventListener("submit", function (ev) {
     ev.preventDefault();
-    var me = L.to;
     var date = clip(f.date.value, 10), time = clip(f.time.value, 5);
     if (!/^\d{4}-\d{2}-\d{2}$/.test(date) || !/^\d{2}:\d{2}$/.test(time)) {
       say("Date as YYYY-MM-DD and time as HH:MM, in UTC.", "bad"); return;
     }
     var utc = date.slice(2, 4) + date.slice(5, 7) + date.slice(8, 10) + time.slice(0, 2) + time.slice(3, 5);
+    var asked = !!(card && card.zc), changed = f.zipchanged.checked;
+    if (asked && !changed && !zipNorm(f.zip.value)) {
+      say("Enter your ZIP or postal code, or tick \"My postal code has changed\".", "bad"); return;
+    }
+    $("send").disabled = true;
+    (asked && !changed ? zipCheck(L.id, f.zip.value) : Promise.resolve("")).then(function (zc) {
+      if (asked && !changed && zc !== card.zc) {
+        $("send").disabled = false;
+        say("That does not match the postal code on file for " + L.to + ". Try again, or tick \"My postal code has changed\".", "bad");
+        return;
+      }
+      sendReply(utc, zc);
+    }, function () {
+      $("send").disabled = false;
+      say("This browser could not check the postal code. Tick \"My postal code has changed\" to send anyway.", "bad");
+    });
+  });
+
+  function sendReply(utc, zc) {
+    var me = L.to;
     // THE REPLY IS A WHOLE CARD, like any other: engine/nbqsl's entry, clipped to ENTRY_TEXT.
     var entry = { v: ENTRY_V, k: "reply", id: L.id, from: me, to: L.from, utc: utc,
       name: f.name.value, city: f.city.value, state: f.state.value,
       county: countyShown() ? f.county.value : "", country: f.country.value, grid: f.grid.value,
       band: f.band.value, freq: "", mode: f.mode.value, rst: f.rst.value, rst_r: card ? card.rst : "",
       net: card ? card.net : "", note: f.note.value, design: DEFAULT_DESIGN, via: "link",
-      s: Math.floor(Date.now() / 1000) };
+      s: Math.floor(Date.now() / 1000), zc: zc };
     ENTRY_TEXT.forEach(function (x) { entry[x[0]] = clip(entry[x[0]], x[1]); });
     entry.band = entry.band.toLowerCase(); entry.mode = entry.mode.toUpperCase(); entry.grid = entry.grid.toUpperCase();
-    $("send").disabled = true;
     say("Sending…", "");
     var body = JSON.stringify(entry);
     // TWO PLACES AT ONCE (operator, 2026-11-23): the sender's own box, for an instant pickup, and the
@@ -503,7 +560,7 @@
       $("mine").hidden = false;
       drawCard($("minewrap"), entry);
     });
-  });
+  }
   $("printmine").addEventListener("click", function () { printOnly($("minewrap")); });
 
   function say(text, cls) { $("said").textContent = text; $("said").className = "msg " + (cls || ""); }
