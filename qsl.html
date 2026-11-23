@@ -1,0 +1,512 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>nbQSL card</title>
+<!--
+  docs/qsl.html : THE nbQSL CARD PAGE. Design owner docs/NB_QSL.md. Published beside the guides by
+  tools/publish_guide.py ("qsl"); engine/nbqsl.card_link builds the links to it.
+
+  THE LINK ONLY POINTS AT THE CARD (operator, 2026-11-23: "everything in link easily risks being too
+  big and getting cut off"). After the "#": the card's id, the two calls, the minute, the band and the
+  mode (engine/nbqsl.encode). The card itself -- name, address, grid, RSTs, net, design -- is the entry
+  Net Buddy posted to the recipient's ntfy box and the community inbox; this page looks it up there and
+  in the public ledger, and says whether it is ON RECORD. Not found, it draws the basic card from the
+  link alone. tests/test_nbqsl.py holds every format and name here equal to the engine's.
+
+  EVERY VALUE IS SHOWN AS PLAIN TEXT (textContent), never as markup: anyone can make a link, and this
+  page is on our own site.
+
+  THE REPLY is a whole card too, posted to two ntfy topics, the sender's own box and the community
+  inbox (engine/nbqsl.box_topic / INBOX_TOPIC). A collector moves the inbox into the public ledger.
+
+  HIGH CONTRAST BY RULE (the operator has low vision): no grey text anywhere.
+-->
+<style>
+  :root { --bg:#0b1020; --ink:#ffffff; --edge:#7fb2ff; --go:#2f6fe0; --bad:#ffb0b0; --good:#8affa8; }
+  * { box-sizing:border-box; }
+  html, body { margin:0; background:var(--bg); color:var(--ink);
+    font-family:"Segoe UI", Arial, sans-serif; font-size:18px; line-height:1.4; }
+  main { max-width:1180px; margin:0 auto; padding:16px; }
+  h1 { font-size:1.2em; margin:4px 0 12px; }
+  h2 { font-size:1.1em; margin:22px 0 8px; }
+  /* THE CARD AND THE REPLY SIDE BY SIDE (operator, 2026-11-23: "put the reply qsl stuff maybe to the
+     right of the received qsl so you don't have to scroll"). One column on a phone. */
+  .split { display:grid; grid-template-columns:1fr; gap:18px 28px; align-items:start; }
+  @media (min-width:900px) {
+    .split { grid-template-columns:minmax(0, 560px) minmax(330px, 1fr); }
+    #replybox h2:first-child { margin-top:0; }
+  }
+  a { color:var(--edge); font-weight:700; }
+  .btn { font:inherit; font-weight:700; padding:7px 16px; border-radius:6px; cursor:pointer;
+    background:var(--bg); color:var(--ink); border:2px solid var(--edge); text-decoration:none;
+    display:inline-block; }
+  .btn.go { background:var(--go); border-color:var(--go); color:#fff; }
+  .btn:hover, .btn:focus-visible { outline:3px solid #ffd400; outline-offset:2px; }
+  .btn[disabled] { border-style:dashed; cursor:not-allowed; }
+  .row { display:flex; flex-wrap:wrap; gap:10px; align-items:center; margin:10px 0; }
+  .msg { font-weight:700; margin:10px 0; }
+  .bad { color:var(--bad); } .good { color:var(--good); }
+  [hidden] { display:none !important; }
+  /* THE REPLY FORM, EACH BOX SIZED TO WHAT GOES IN IT (operator, 2026-11-23: "call sign field is
+     bigger than it needs to be... name might be a bit small"): twelve columns; w2..w12 is a box's
+     share. When the form itself is narrow (a phone, a small window), two to a row. */
+  #replybox { container-type:inline-size; }
+  form.reply { display:grid; grid-template-columns:repeat(12, minmax(0, 1fr)); gap:8px 10px; }
+  form.reply label { display:flex; flex-direction:column; justify-content:space-between; gap:3px;
+    font-weight:700; grid-column:span 6; }
+  form.reply .w2 { grid-column:span 2; } form.reply .w3 { grid-column:span 3; }
+  form.reply .w4 { grid-column:span 4; } form.reply .w5 { grid-column:span 5; }
+  form.reply .w6 { grid-column:span 6; } form.reply .w10 { grid-column:span 10; }
+  form.reply .w4.first { grid-column:1 / span 4; }  /* the date row starts its own row */
+  @container (max-width:470px) {
+    form.reply label, form.reply label[class] { grid-column:span 6; }
+    form.reply .wfull { grid-column:1 / -1; }
+    form.reply .w4.first { grid-column:1 / span 6; }
+  }
+  form.reply input, form.reply select { font:inherit; padding:5px 8px; border-radius:6px; border:2px solid var(--edge);
+    background:#fff; color:#0b1020; min-width:0; }
+  .ad { margin-top:26px; padding:12px 14px; border:2px solid var(--edge); border-radius:10px; }
+  .fine { margin-top:14px; }
+
+  /* ---- THE CARD: 6 x 4 inches, every size in card-width units so it scales and prints alike ---- */
+  .cardwrap { container-type:inline-size; width:100%; max-width:560px; margin:0 auto; }
+  .card { position:relative; aspect-ratio:3 / 2; width:100%; overflow:hidden; border-radius:1.6cqw;
+    display:flex; flex-direction:column; padding:4cqw 4.5cqw 3cqw; gap:1.6cqw;
+    font-size:2.6cqw; line-height:1.3; }
+  .c-top { display:flex; align-items:flex-start; justify-content:space-between; gap:2cqw; }
+  .c-call { font-size:12cqw; font-weight:900; line-height:0.95; letter-spacing:0.02em; }
+  .c-who { font-size:3.1cqw; font-weight:700; margin-top:0.8cqw; }
+  .c-addr { font-size:2.6cqw; font-weight:700; margin-top:0.3cqw; }
+  .c-badge { font-size:2.6cqw; font-weight:900; padding:0.7cqw 1.8cqw; border-radius:5cqw;
+    white-space:nowrap; }
+  .c-to { font-size:3.6cqw; font-weight:700; }
+  .c-to b { font-size:4.6cqw; }
+  table.c-qso { width:100%; border-collapse:collapse; font-size:2.7cqw; text-align:center; }
+  table.c-qso th, table.c-qso td { padding:0.8cqw 0.6cqw; border:0.3cqw solid currentColor; }
+  table.c-qso th { font-weight:700; font-size:2.2cqw; }
+  table.c-qso td { font-weight:800; font-size:3.2cqw; }
+  .c-net { font-size:2.8cqw; font-weight:700; }
+  .c-tag { font-size:3.2cqw; font-style:italic; font-weight:700; }
+  .c-foot { margin-top:auto; display:flex; justify-content:space-between; font-size:2.1cqw; font-weight:700; }
+
+  /* A: CLASSIC -- Net Buddy navy and orange */
+  .d-classic { background:#ffffff; color:#0b1a4a; padding-top:0; }
+  .d-classic .c-top { background:#0b1a4a; color:#fff; margin:0 -4.5cqw; padding:3.5cqw 4.5cqw 2.5cqw;
+    border-bottom:1.2cqw solid #ff8c1a; }
+  .d-classic .c-badge { background:#ff8c1a; color:#0b1a4a; }
+  .d-classic table.c-qso th { background:#0b1a4a; color:#fff; }
+
+  /* B: POSTCARD -- cream paper, airmail edge, a stamp */
+  .d-postcard { background:repeating-linear-gradient(0deg, #fbf5e6 0 4.2cqw, #efe3c4 4.2cqw 4.35cqw);
+    color:#3a2410; font-family:Georgia, "Times New Roman", serif;
+    border:2.2cqw solid transparent;
+    border-image:repeating-linear-gradient(45deg, #c8102e 0 3cqw, #fbf5e6 3cqw 6cqw, #12357a 6cqw 9cqw, #fbf5e6 9cqw 12cqw) 30; }
+  .d-postcard .c-badge { border:0.5cqw dashed #3a2410; border-radius:0.6cqw; transform:rotate(4deg);
+    padding:1.6cqw 2cqw; font-size:3cqw; background:#fff8e1; }
+  .d-postcard table.c-qso { background:#fffdf5; }
+
+  /* C: NIGHT -- big yellow call on deep blue */
+  .d-night { background:linear-gradient(135deg, #050a1f 0%, #14245a 60%, #1b3a7a 100%); color:#ffffff; }
+  .d-night .c-call { color:#ffd400; }
+  .d-night .c-badge { background:#ffd400; color:#050a1f; }
+  .d-night table.c-qso { color:#ffffff; }
+  .d-night table.c-qso th { color:#ffd400; }
+
+  /* D: MAP -- a chart grid and a globe */
+  .d-map { background:
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' fill='none' stroke='%230b3d91' stroke-width='3'%3E%3Ccircle cx='50' cy='50' r='46'/%3E%3Cellipse cx='50' cy='50' rx='21' ry='46'/%3E%3Cpath d='M50 4v92M4 50h92M11 28h78M11 72h78'/%3E%3C/svg%3E") 79% 26% / 17cqw 17cqw no-repeat,
+      repeating-linear-gradient(0deg, transparent 0 4cqw, #b9d6f5 4cqw 4.2cqw),
+      repeating-linear-gradient(90deg, transparent 0 4cqw, #b9d6f5 4cqw 4.2cqw), #eef6ff;
+    color:#0b2a66; }
+  .d-map .c-call { color:#0b3d91; }
+  .d-map .c-badge { background:#0b3d91; color:#fff; }
+  .d-map table.c-qso { background:rgba(255,255,255,0.92); }
+
+  /* THE SUPPORTER PERK (docs/NB_QSL.md section on custom cards): a palette and a pattern on any of
+     the four layouts, plus a tagline. All drawn here -- no uploaded pictures, so nothing to moderate. */
+  .p1 { --acc:#c8102e; } .p2 { --acc:#0a7d32; } .p3 { --acc:#6a1b9a; }
+  .p4 { --acc:#b35900; } .p5 { --acc:#00607a; } .p6 { --acc:#0b1a4a; }
+  .card[class*=" p"] .c-call { color:var(--acc); }
+  .d-classic[class*=" p"] .c-top { background:var(--acc); }
+  .d-classic[class*=" p"] table.c-qso th { background:var(--acc); }
+  .d-night[class*=" p"] .c-call { color:#ffd400; }
+  .d-classic[class*=" p"] .c-call { color:#ffffff; }    /* white on the coloured band, never colour on colour */
+  .card.g1::after, .card.g2::after, .card.g3::after, .card.g4::after { content:""; position:absolute;
+    inset:0; pointer-events:none; opacity:0.18; }
+  .card.g1::after { background:repeating-radial-gradient(circle at 100% 100%, currentColor 0 0.4cqw, transparent 0.4cqw 4cqw); }
+  .card.g2::after { background:repeating-linear-gradient(-45deg, currentColor 0 0.5cqw, transparent 0.5cqw 3.5cqw); }
+  .card.g3::after { background:radial-gradient(currentColor 0.45cqw, transparent 0.5cqw) 0 0 / 3cqw 3cqw; }
+  .card.g4::after { background:repeating-linear-gradient(0deg, transparent 0 2cqw, currentColor 2cqw 2.3cqw, transparent 2.3cqw 5cqw); }
+
+  /* PRINTING IS ONE CARD ON ONE 6 x 4 PAGE: a copy of the card goes into #printzone and only that
+     prints -- hiding the rest with visibility left its space behind, and three pages came out. */
+  #printzone { display:none; }
+  @media print {
+    @page { size:6in 4in; margin:0; }
+    html, body { background:#fff; margin:0; padding:0; }
+    main { display:none !important; }
+    #printzone { display:block; width:6in; }
+    #printzone .cardwrap { max-width:none; width:6in; }
+    #printzone .card { border-radius:0; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+  }
+</style>
+</head>
+<body>
+<main>
+  <h1 id="title">nbQSL card</h1>
+  <p class="msg bad" id="broken" hidden>This nbQSL link is not complete. Ask for the card to be sent again.</p>
+
+  <div id="have" hidden>
+   <div class="split">
+    <section id="received">
+      <div class="cardwrap" id="cardwrap"></div>
+      <div class="row">
+        <button type="button" class="btn" id="print">Print card</button>
+        <span id="keep">Print it, or choose "Save as PDF" when printing, to keep it.</span>
+      </div>
+      <p class="msg" id="record" role="status"></p>
+    </section>
+
+    <section id="replybox">
+      <h2 id="replyhead">QSL back</h2>
+      <p class="msg" id="window"></p>
+      <form class="reply" id="reply" autocomplete="off">
+        <label class="w3">Your call<input name="from" maxlength="12" readonly></label>
+        <label class="w6">Your name<input name="name" maxlength="24"></label>
+        <label class="w3">Grid<input name="grid" maxlength="6"></label>
+        <label class="w5">City<input name="city" maxlength="30"></label>
+        <label class="w3">State / Prov.<input name="state" maxlength="24"></label>
+        <label class="w4">Country<input name="country" maxlength="30"></label>
+        <label class="w6 wfull" id="countybox">County<input name="county" maxlength="30"></label>
+        <label class="w4 first">Date (UTC)<input name="date" maxlength="10" required aria-label="Date, UTC, as year-month-day"></label>
+        <label class="w3">Time (UTC)<input name="time" maxlength="5" required aria-label="Time, UTC, as hours colon minutes"></label>
+        <label class="w2">Band<select name="band" required></select></label>
+        <label class="w3">Mode<select name="mode" required></select></label>
+        <label class="w2">RST<input name="rst" maxlength="3" aria-label="RST you gave them"></label>
+        <label class="w10 wfull">A short note (optional)<input name="note" maxlength="60"></label>
+        <div class="row" style="grid-column:1 / -1">
+          <button type="submit" class="btn go" id="send">nbQSL Now</button>
+        </div>
+      </form>
+      <p class="msg" id="said" role="status"></p>
+      <!-- ONCE SENT, THE FORM GIVES WAY TO THE CARD THAT WENT BACK, in the same column. -->
+      <div id="mine" hidden>
+        <h2>Your card back</h2>
+        <div class="cardwrap" id="minewrap"></div>
+        <div class="row"><button type="button" class="btn" id="printmine">Print your card</button></div>
+      </div>
+    </section>
+   </div>
+
+    <div class="ad">
+      <strong>This card was sent with Net Buddy Client.</strong> Get Net Buddy and send instant nbQSLs of
+      your own: <a id="get" href="https://nmx69.github.io/nl-net-buddy-releases/">Download Net Buddy</a>
+      &nbsp;·&nbsp; <a id="video" href="https://youtu.be/Wf4YWuyYELs">Watch: About Net Buddy (video)</a>
+    </div>
+  </div>
+</main>
+<div id="printzone" aria-hidden="true"></div>
+<script>
+(function () {
+  "use strict";
+  // THE LINK: engine/nbqsl.LINK_FIELDS, in this order, "~"-separated, each value URL-encoded. It only
+  // POINTS at the card; the card itself is the entry in the recipient's ntfy box and the ledger.
+  // tests/test_nbqsl.py holds every list and name below equal to the engine's.
+  var LINK_FIELDS = ["v", "id", "from", "to", "utc", "band", "mode"];
+  var LINK_VERSION = "2";                          // engine/nbqsl.VERSION
+  var ENTRY_V = 2;                                 // engine/nbqsl.ENTRY_V
+  // engine/nbqsl.ENTRY_TEXT: every text field of a card and its longest length.
+  var ENTRY_TEXT = [["name", 24], ["city", 30], ["state", 24], ["county", 30], ["country", 30],
+                    ["grid", 6], ["band", 8], ["freq", 10], ["mode", 8], ["rst", 3], ["rst_r", 3],
+                    ["net", 40], ["note", 60]];
+  var NTFY = "https://ntfy.sh/";
+  var INBOX_TOPIC = "nbqsl_inbox_v2";              // engine/nbqsl.INBOX_TOPIC
+  var LEDGER = "https://raw.githubusercontent.com/NmX69/nl-net-buddy-releases/nbqsl-data/";  // nbclient/nbqsl.ledger_base
+  var WINDOW_H = 72;                               // engine/nbqsl.REPLY_WINDOW_H
+  var LAYOUTS = ["classic", "postcard", "night", "map"];
+  var DEFAULT_DESIGN = "postcard";                 // engine/nbqsl.DEFAULT_DESIGN -- the operator's pick
+  var US_CALL = /^(A[A-L]|[KNW])[A-Z]{0,2}[0-9]/;  // engine/nbqsl.US_CALL
+  var CA_CALL = /^(V[AEOY]|C[F-KYZ])[0-9]/;        // engine/nbqsl.CA_CALL
+  // THE BAND AND MODE CHOICES are Create Net's (frontend/src/CreateNetModal.jsx BANDS / MODES, which
+  // are NetLogger's), so a reply is spelled the way the log spells it (operator, 2026-11-23: "mirror
+  // what netlogger/nbc offer"). tests/test_nbqsl.py fails if the two lists ever differ.
+  var BANDS = ["160m", "80m", "60m", "40m", "30m", "20m", "17m", "15m", "12m", "10m", "6m", "2m",
+               "70cm"];
+  var MODES = ["SSB", "CW", "AM", "FM", "RTTY", "PSK31", "FT8", "DIGITAL"];
+  var CALL = /^[A-Z0-9]{1,3}[0-9][A-Z0-9]{0,4}(\/[A-Z0-9]{1,4})?$|^[A-Z0-9]{1,4}\/[A-Z0-9]{3,8}$/;
+  var DESIGN = /^(classic|postcard|night|map)(\.p[1-6](\.g[1-4])?)?$/;
+  var USA = /^(usa|us|u\.s\.a?\.?|united states( of america)?)$/i;
+
+  function $(id) { return document.getElementById(id); }
+  function norm(call) { return String(call || "").trim().toUpperCase().replace(/\+$/, ""); }
+  function boxTopic(call) { return "nbqsl_box_" + norm(call).toLowerCase().replace(/[^a-z0-9]/g, "_"); }
+  function dec(s) { try { return decodeURIComponent(String(s).replace(/\+/g, " ")); } catch (e) { return ""; } }
+  function clip(s, n) { return String(s == null ? "" : s).replace(/[\u0000-\u001f\u007f]/g, " ").replace(/~/g, "-").trim().slice(0, n); }
+  // engine/nbqsl.area_key: the first digit, then the first letter if A, K, N or W, else X.
+  function areaKey(call) {
+    var c = norm(call), m = c.match(/\d/), f = c.charAt(0);
+    return (m ? m[0] : "X") + ("AKNW".indexOf(f) >= 0 && f ? f : "X");
+  }
+  // engine/nbqsl.archive_key: the QSO's month.
+  function archiveKey(utc) { return "20" + utc.slice(0, 2) + "-" + utc.slice(2, 4); }
+  function countryFor(call) { var c = norm(call); return US_CALL.test(c) ? "USA" : CA_CALL.test(c) ? "Canada" : ""; }
+
+  function parse(hash) {
+    var parts = String(hash || "").replace(/^#/, "").split("~");
+    if (parts.length !== LINK_FIELDS.length || parts[0] !== LINK_VERSION) return null;
+    var L = {};
+    LINK_FIELDS.forEach(function (k, i) { L[k] = clip(dec(parts[i]), 12); });
+    L.from = norm(L.from); L.to = norm(L.to); L.band = L.band.toLowerCase(); L.mode = L.mode.toUpperCase();
+    if (!/^[a-f0-9]{10}$/.test(L.id) || !CALL.test(L.from) || !CALL.test(L.to) || !/^\d{10}$/.test(L.utc)) return null;
+    return L;
+  }
+
+  // AN ENTRY FROM A PUBLIC TOPIC IS DATA, NEVER TRUSTED: engine/nbqsl.valid_entry's checks, and it must
+  // be the card the link names.
+  function safeEntry(e, L) {
+    if (!e || e.v !== ENTRY_V || (e.k !== "send" && e.k !== "reply")) return null;
+    if (String(e.id) !== L.id || norm(e.from) !== L.from || norm(e.to) !== L.to) return null;
+    var out = { k: e.k, id: L.id, from: L.from, to: L.to, utc: clip(e.utc, 10), s: parseInt(e.s, 10) || 0 };
+    if (!/^\d{10}$/.test(out.utc)) return null;
+    ENTRY_TEXT.forEach(function (f) { out[f[0]] = clip(e[f[0]], f[1]); });
+    out.band = out.band.toLowerCase(); out.mode = out.mode.toUpperCase(); out.grid = out.grid.toUpperCase();
+    var d = clip(e.design, 20);
+    out.design = DESIGN.test(d) ? d : DEFAULT_DESIGN;
+    return out;
+  }
+
+  function when(utc) {
+    return { date: "20" + utc.slice(0, 2) + "-" + utc.slice(2, 4) + "-" + utc.slice(4, 6),
+             time: utc.slice(6, 8) + ":" + utc.slice(8, 10) };
+  }
+
+  function el(tag, cls, text) {
+    var n = document.createElement(tag);
+    if (cls) n.className = cls;
+    if (text != null) n.textContent = text;
+    return n;
+  }
+
+  // THE DESIGN: a layout name ... or the perk's "layout.pN.gN". Anything unknown draws the default.
+  function designClasses(design) {
+    var d = String(design || DEFAULT_DESIGN).split(".");
+    var cls = ["card", "d-" + (LAYOUTS.indexOf(d[0]) >= 0 ? d[0] : DEFAULT_DESIGN)];
+    if (/^p[1-6]$/.test(d[1] || "")) cls.push(d[1]);
+    if (/^g[1-4]$/.test(d[2] || "")) cls.push(d[2]);
+    return cls.join(" ");
+  }
+
+  // THE ADDRESS LINE: "Dallas, TX · Dallas County · USA · EM12" -- whatever the card carries.
+  function address(c) {
+    var place = c.city && c.state ? c.city + ", " + c.state : (c.city || c.state || "");
+    var county = c.county ? (/\b(county|parish|borough|census area)$/i.test(c.county) ? c.county : c.county + " County") : "";
+    return [place, county, c.country, c.grid].filter(Boolean).join("  ·  ");
+  }
+
+  /** Draw one card into `wrap`. c: an entry (safeEntry) or the link's basic fields. */
+  function drawCard(wrap, c) {
+    wrap.textContent = "";
+    var card = el("div", designClasses(c.design));
+    card.setAttribute("role", "img");
+    var w = when(c.utc);
+    card.setAttribute("aria-label", "QSL card from " + c.from + " to " + c.to + ", " + w.date + " "
+      + w.time + " UTC, " + c.band + " " + c.mode);
+    var top = el("div", "c-top");
+    var left = el("div");
+    left.appendChild(el("div", "c-call", c.from));
+    if (c.name) left.appendChild(el("div", "c-who", c.name));
+    var addr = address(c);
+    if (addr) left.appendChild(el("div", "c-addr", addr));
+    top.appendChild(left);
+    top.appendChild(el("div", "c-badge", "nbQSL"));
+    card.appendChild(top);
+    var to = el("div", "c-to");
+    to.appendChild(document.createTextNode("To "));
+    to.appendChild(el("b", "", c.to));
+    to.appendChild(document.createTextNode(c.k === "reply" ? "  —  returning your QSL" : "  —  confirming our QSO"));
+    card.appendChild(to);
+    var t = el("table", "c-qso");
+    var hr = el("tr"), dr = el("tr");
+    [["Date (UTC)", w.date], ["Time (UTC)", w.time], ["Band", c.band], ["MHz", c.freq],
+     ["Mode", c.mode], ["RST", c.rst]].forEach(function (x) {
+      if (x[0] === "MHz" && !x[1]) return;
+      hr.appendChild(el("th", "", x[0])); dr.appendChild(el("td", "", x[1] || "—"));
+    });
+    t.appendChild(hr); t.appendChild(dr);
+    card.appendChild(t);
+    if (c.net) card.appendChild(el("div", "c-net", "On the " + c.net));
+    // THE TAGLINE: the supporter's own words or the reply's note, else the default thanks.
+    card.appendChild(el("div", "c-tag", c.note || "Thanks for the QSO  ·  73"));
+    var foot = el("div", "c-foot");
+    foot.appendChild(el("span", "", "Net Buddy · instant nbQSL"));
+    foot.appendChild(el("span", "", "nbQSL " + c.id));
+    card.appendChild(foot);
+    wrap.appendChild(card);
+  }
+
+  function printOnly(wrap) {
+    var zone = $("printzone");
+    zone.textContent = "";
+    zone.appendChild(wrap.cloneNode(true));
+    window.print();
+  }
+
+  // ---- THE LOOKUP: the recipient's ntfy box (the first ~12 hours), then the ledger's archive file for
+  // the QSO's month and the recipient's area. Either can be down; each answers "found", "absent" or
+  // "unreachable".
+  function lookBox(L) {
+    return fetch(NTFY + boxTopic(L.to) + "/json?poll=1&since=all", { cache: "no-store" }).then(function (r) {
+      if (!r.ok) throw new Error(r.status);
+      return r.text();
+    }).then(function (text) {
+      var hit = null;
+      text.split("\n").forEach(function (line) {
+        if (hit || !line) return;
+        try {
+          var m = JSON.parse(line);
+          if (m.event === "message") hit = safeEntry(JSON.parse(m.message || "{}"), L);
+        } catch (e) { /* not ours */ }
+      });
+      return hit ? { found: hit } : { absent: true };
+    }).catch(function () { return { unreachable: true }; });
+  }
+
+  function lookLedger(L) {
+    var url = LEDGER + "archive/" + archiveKey(L.utc) + "/" + areaKey(L.to) + ".json";
+    return fetch(url, { cache: "no-store" }).then(function (r) {
+      if (r.status === 404) return [];
+      if (!r.ok) throw new Error(r.status);
+      return r.json();
+    }).then(function (list) {
+      var hit = null;
+      (Array.isArray(list) ? list : []).forEach(function (e) { if (!hit) hit = safeEntry(e, L); });
+      return hit ? { found: hit } : { absent: true };
+    }).catch(function () { return { unreachable: true }; });
+  }
+
+  var L = parse(location.hash);
+  if (!L) { $("broken").hidden = false; return; }
+  $("have").hidden = false;
+  document.title = "nbQSL from " + L.from + " to " + L.to;
+  $("title").textContent = "nbQSL card from " + L.from + " to " + L.to;
+  var basic = { k: "send", id: L.id, from: L.from, to: L.to, utc: L.utc, band: L.band, mode: L.mode,
+                design: DEFAULT_DESIGN };
+  drawCard($("cardwrap"), basic);
+  $("print").addEventListener("click", function () { printOnly($("cardwrap")); });
+  $("replyhead").textContent = "QSL back to " + L.from;
+  status("Looking up this card…", "");
+
+  var card = null;                                 // the full card, once found
+  Promise.all([lookLedger(L), lookBox(L)]).then(function (res) {
+    card = (res[0].found || res[1].found) || null;
+    if (card) {
+      drawCard($("cardwrap"), card);
+      status("On record: this card is in the nbQSL ledger.", "good");
+    } else if (res[0].unreachable && res[1].unreachable) {
+      status("The nbQSL record could not be reached just now. Only the details in the link are shown.", "bad");
+    } else {
+      status("Not on record. Only the details in the link are shown.", "bad");
+    }
+    ready();
+  });
+
+  function status(text, cls) { $("record").textContent = text; $("record").className = "msg " + (cls || ""); }
+
+  // ---- THE REPLY ------------------------------------------------------------------------------------
+  var f = $("reply").elements;
+
+  // A card from a contact logged on a band or mode not in the list (75m, FT4 ...) keeps its own value:
+  // it goes on top and is chosen, so the reply never silently changes what was logged.
+  function choices(sel, list, have) {
+    var all = list.slice();
+    if (have && all.indexOf(have) < 0) all.unshift(have);
+    all.forEach(function (v) { var o = el("option", "", v); o.value = v; sel.appendChild(o); });
+    sel.value = have && all.indexOf(have) >= 0 ? have : all[0];
+  }
+
+  // COUNTY IS A US THING: the box shows only while the country reads as the USA.
+  function countyShown() {
+    var us = USA.test(clip(f.country.value, 30));
+    $("countybox").hidden = !us;
+    return us;
+  }
+
+  function ready() {
+    if (card && card.k === "reply") {
+      // A CARD BACK IS NEVER ANSWERED (operator, 2026-11-23): nothing to reply to here.
+      $("replyhead").textContent = "This is " + L.from + "'s QSL back to " + L.to + ".";
+      $("reply").hidden = true;
+      return;
+    }
+    var w0 = when(L.utc);
+    // THE CARD WAS SENT TO ONE STATION, AND ONLY THAT STATION CAN SEND IT BACK (operator, 2026-11-23:
+    // the link is public on AIM). Net Buddy drops a reply carrying any other call
+    // (nbclient/nbqsl.handle), so the call is fixed here rather than offered as a box to fill.
+    $("replyhead").textContent = "QSL back to " + L.from + " as " + L.to;
+    f.from.value = L.to; f.date.value = w0.date; f.time.value = w0.time;
+    f.country.value = countryFor(L.to);
+    f.rst.value = card ? card.rst_r : "";
+    choices(f.band, BANDS, L.band); choices(f.mode, MODES, L.mode);
+    countyShown();
+    f.country.addEventListener("input", countyShown);
+    tick();
+  }
+
+  // THE REPLY WINDOW: REPLY_WINDOW_H from when the card was sent -- known once the card is found.
+  function tick() {
+    if (!card || !card.s) { $("window").textContent = ""; return; }
+    var left = card.s * 1000 + WINDOW_H * 3600 * 1000 - Date.now();
+    if (left <= 0) {
+      $("window").textContent = "The reply window for this nbQSL has closed. The card is still yours to print.";
+      $("window").className = "msg bad";
+      $("send").disabled = true;
+      return;
+    }
+    var h = Math.floor(left / 3600000), m = Math.floor((left % 3600000) / 60000);
+    $("window").textContent = "You can nbQSL back for " + h + "h " + m + "m more.";
+    setTimeout(tick, 30000);
+  }
+
+  $("reply").addEventListener("submit", function (ev) {
+    ev.preventDefault();
+    var me = L.to;
+    var date = clip(f.date.value, 10), time = clip(f.time.value, 5);
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(date) || !/^\d{2}:\d{2}$/.test(time)) {
+      say("Date as YYYY-MM-DD and time as HH:MM, in UTC.", "bad"); return;
+    }
+    var utc = date.slice(2, 4) + date.slice(5, 7) + date.slice(8, 10) + time.slice(0, 2) + time.slice(3, 5);
+    // THE REPLY IS A WHOLE CARD, like any other: engine/nbqsl's entry, clipped to ENTRY_TEXT.
+    var entry = { v: ENTRY_V, k: "reply", id: L.id, from: me, to: L.from, utc: utc,
+      name: f.name.value, city: f.city.value, state: f.state.value,
+      county: countyShown() ? f.county.value : "", country: f.country.value, grid: f.grid.value,
+      band: f.band.value, freq: "", mode: f.mode.value, rst: f.rst.value, rst_r: card ? card.rst : "",
+      net: card ? card.net : "", note: f.note.value, design: DEFAULT_DESIGN, via: "link",
+      s: Math.floor(Date.now() / 1000) };
+    ENTRY_TEXT.forEach(function (x) { entry[x[0]] = clip(entry[x[0]], x[1]); });
+    entry.band = entry.band.toLowerCase(); entry.mode = entry.mode.toUpperCase(); entry.grid = entry.grid.toUpperCase();
+    $("send").disabled = true;
+    say("Sending…", "");
+    var body = JSON.stringify(entry);
+    // TWO PLACES AT ONCE (operator, 2026-11-23): the sender's own box, for an instant pickup, and the
+    // community inbox, which the collector keeps in the public ledger.
+    Promise.all([NTFY + boxTopic(L.from), NTFY + INBOX_TOPIC].map(function (u) {
+      return fetch(u, { method: "POST", body: body }).then(function (r) { return r.ok; }, function () { return false; });
+    })).then(function (ok) {
+      if (!ok[0] && !ok[1]) { $("send").disabled = false; say("That did not send. Check your internet and try again.", "bad"); return; }
+      say("Sent. " + L.from + "'s Net Buddy picks it up the next time it is open.", "good");
+      $("reply").hidden = true;
+      $("window").hidden = true;
+      $("mine").hidden = false;
+      drawCard($("minewrap"), entry);
+    });
+  });
+  $("printmine").addEventListener("click", function () { printOnly($("minewrap")); });
+
+  function say(text, cls) { $("said").textContent = text; $("said").className = "msg " + (cls || ""); }
+})();
+</script>
+</body>
+</html>
