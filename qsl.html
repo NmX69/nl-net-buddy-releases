@@ -60,6 +60,7 @@
   form.reply .w2 { grid-column:span 2; } form.reply .w3 { grid-column:span 3; }
   form.reply .w4 { grid-column:span 4; } form.reply .w5 { grid-column:span 5; }
   form.reply .w6 { grid-column:span 6; } form.reply .w10 { grid-column:span 10; }
+  form.reply .w7 { grid-column:span 7; }
   form.reply .w4.first { grid-column:1 / span 4; }  /* the date row starts its own row */
   /* THE POSTAL-CODE GATE (operator, 2026-11-23: "when you first load the nbQSL page, there's an
      overlay that asks for the postal code... you don't go in without that quick validation"). */
@@ -95,6 +96,7 @@
     white-space:nowrap; }
   .c-to { font-size:3.6cqw; font-weight:700; }
   .c-to b { font-size:4.6cqw; }
+  .c-num { font-size:0.75em; }   /* the recipient's member number: kept small so the line stays one line */
   table.c-qso { width:100%; border-collapse:collapse; font-size:2.7cqw; text-align:center; }
   table.c-qso th, table.c-qso td { padding:0.8cqw 0.6cqw; border:0.3cqw solid currentColor; }
   table.c-qso th { font-weight:700; font-size:2.2cqw; }
@@ -278,7 +280,8 @@
         <label class="w2">Band<select name="band" required></select></label>
         <label class="w3">Mode<select name="mode" required></select></label>
         <label class="w2">RST<input name="rst" maxlength="3" aria-label="RST you gave them"></label>
-        <label class="w10 wfull">A short note (optional)<input name="note" maxlength="60"></label>
+        <label class="w3" id="numbox" hidden>Member #<input name="num" maxlength="10" aria-label="Your club member number"></label>
+        <label class="w10 wfull" id="notebox">A short note (optional)<input name="note" maxlength="60"></label>
         <div class="row" style="grid-column:1 / -1">
           <button type="submit" class="btn go" id="send">nbQSL Now</button>
         </div>
@@ -325,7 +328,8 @@
                     ["grid", 6], ["band", 8], ["freq", 10], ["mode", 8], ["rst", 3], ["rst_r", 3],
                     ["net", 40], ["note", 60],
                     ["to_name", 30], ["to_city", 30], ["to_state", 24], ["to_county", 30],
-                    ["to_country", 30], ["to_grid", 6]];
+                    ["to_country", 30], ["to_grid", 6],
+                    ["num", 10], ["to_num", 10], ["numl", 6]];
   var ZC_LEN = 12;                                 // engine/nbqsl.ZC_LEN
   var NTFY = "https://ntfy.sh/";
   var INBOX_TOPIC = "nbqsl_inbox_v2";              // engine/nbqsl.INBOX_TOPIC
@@ -482,7 +486,9 @@
     var top = el("div", "c-top");
     var left = el("div");
     left.appendChild(el("div", "c-call", c.from));
-    if (c.name) left.appendChild(el("div", "c-who", c.name));
+    // THE CLUB MEMBER NUMBER beside the name, when the club has them (operator, 2026-11-23).
+    var who = [c.name, memberText(c.numl, c.num)].filter(Boolean).join("  ·  ");
+    if (who) left.appendChild(el("div", "c-who", who));
     var addr = address(c);
     if (addr) left.appendChild(el("div", "c-addr", addr));
     top.appendChild(left);
@@ -491,6 +497,7 @@
     var to = el("div", "c-to");
     to.appendChild(document.createTextNode("To "));
     to.appendChild(el("b", "", c.to));
+    if (c.to_num) to.appendChild(el("span", "c-num", " (" + memberText(c.numl, c.to_num) + ")"));
     to.appendChild(document.createTextNode(c.k === "reply" ? "  —  returning your QSL" : "  —  confirming our QSO"));
     body.appendChild(to);
     var t = el("table", "c-qso");
@@ -510,6 +517,12 @@
     foot.appendChild(el("span", "", "nbQSL " + c.id));
     body.appendChild(foot);
     wrap.appendChild(card);
+  }
+
+  // "OM# 14292", or "#981" for a club whose numbers have no name of their own.
+  function memberText(label, num) {
+    if (!num) return "";
+    return !label || label === "#" ? "#" + num : label + " " + num;
   }
 
   function printOnly(wrap) {
@@ -653,6 +666,11 @@
     f.county.value = c0.to_county || ""; f.grid.value = c0.to_grid || "";
     f.country.value = c0.to_country || countryFor(L.to);
     f.rst.value = card ? card.rst_r : "";
+    // THE MEMBER NUMBER BOX, only for a club that has them: filled from how the sender logged them.
+    var hasNum = !!(c0.numl);
+    $("numbox").hidden = !hasNum;
+    $("notebox").className = hasNum ? "w7 wfull" : "w10 wfull";
+    f.num.value = c0.to_num || "";
     choices(f.band, BANDS, L.band); choices(f.mode, MODES, L.mode);
     countyShown();
     f.country.addEventListener("input", countyShown);
@@ -693,7 +711,10 @@
       name: f.name.value, city: f.city.value, state: f.state.value,
       county: countyShown() ? f.county.value : "", country: f.country.value, grid: f.grid.value,
       band: f.band.value, freq: "", mode: f.mode.value, rst: f.rst.value, rst_r: card ? card.rst : "",
-      net: card ? card.net : "", note: f.note.value, design: DEFAULT_DESIGN, via: "link",
+      // A REPLY TO A NET CARD COMES BACK ON THE SAME NET'S CARD; anything else on the standard one.
+      net: card ? card.net : "", note: f.note.value,
+      design: card && NET_CARDS[card.design] ? card.design : DEFAULT_DESIGN, via: "link",
+      num: card && card.numl ? f.num.value : "", numl: card ? card.numl : "", to_num: card ? card.num : "",
       s: Math.floor(Date.now() / 1000), zc: zc };
     ENTRY_TEXT.forEach(function (x) { entry[x[0]] = clip(entry[x[0]], x[1]); });
     entry.band = entry.band.toLowerCase(); entry.mode = entry.mode.toUpperCase(); entry.grid = entry.grid.toUpperCase();
