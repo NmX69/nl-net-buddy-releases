@@ -152,6 +152,86 @@
   .card.g3::after { background:radial-gradient(currentColor 0.45cqw, transparent 0.5cqw) 0 0 / 3cqw 3cqw; }
   .card.g4::after { background:repeating-linear-gradient(0deg, transparent 0 2cqw, currentColor 2cqw 2.3cqw, transparent 2.3cqw 5cqw); }
 
+  /* THE NET CARDS (operator, 2026-11-23: "qsl's on that net get that net's branded QSL card"), each
+     from the club's own site and with the club's own logo (nbqsl/<club>.png, published beside this
+     page). engine/nbqsl.NET_CARDS picks one by the net the contact was on. */
+  /* A NET CARD HAS A BANNER ON TOP OF EVERYTHING THE STANDARD CARD CARRIES, so it is set tighter: the
+     footer must stay on the card (tests/test_nbqsl.py cannot see layout -- the browser check can). */
+  .card.netcard { padding-top:0; padding-bottom:2.4cqw; gap:0.8cqw; }
+  .card.netcard .c-call { font-size:9cqw; }
+  .card.netcard .c-who { font-size:2.8cqw; margin-top:0.3cqw; }
+  .card.netcard .c-addr { font-size:2.3cqw; }
+  .card.netcard .c-to { font-size:3cqw; } .card.netcard .c-to b { font-size:3.9cqw; }
+  .card.netcard table.c-qso th, .card.netcard table.c-qso td { padding:0.5cqw 0.6cqw; }
+  .card.netcard table.c-qso td { font-size:2.9cqw; }
+  .card.netcard .c-net { font-size:2.5cqw; }
+  .card.netcard .c-tag { font-size:2.8cqw; }
+  .n-banner { display:flex; align-items:center; gap:2.4cqw; margin:0 -4.5cqw; padding:1.6cqw 4.5cqw; }
+  .n-logo { display:block; height:9.5cqw; width:auto; flex:none; }
+  .n-name { font-weight:900; line-height:1.05; }
+  .n-sub { font-weight:700; font-size:2.2cqw; margin-top:0.4cqw; }
+
+  /* OMISS: an award certificate -- copper double frame, logo and serif society name, cream paper */
+  .net-omiss { background:#fffdf6; color:#3c1f01; padding:0 !important; }
+  .net-omiss .o-frame { position:absolute; inset:1.6cqw; border:0.9cqw solid #a25100; outline:0.35cqw solid #a25100;
+    outline-offset:-2.2cqw; pointer-events:none; border-radius:0.6cqw; }
+  .net-omiss .o-in { position:relative; display:flex; flex-direction:column; gap:0.7cqw; height:100%;
+    padding:3.8cqw 5.8cqw 3.4cqw; }
+  .net-omiss .n-banner { margin:0; padding:0; }
+  .net-omiss .n-logo { height:6.6cqw; }
+  .net-omiss .n-name { font:700 3.7cqw Georgia, "Times New Roman", serif; letter-spacing:0.02em; }
+  .net-omiss .n-sub { font:italic 700 2.2cqw Georgia, serif; color:#a25100; letter-spacing:0.12em; }
+  .net-omiss .c-call { color:#1a3fa8; }
+  .net-omiss .c-badge { background:#a25100; color:#fff; }
+  .net-omiss table.c-qso { color:#3c1f01; }
+  .net-omiss table.c-qso th { background:#f3e7cf; }
+
+  /* 3905 CENTURY CLUB: the deep-blue-to-cyan sky and the club's round seal */
+  .net-3905 { background:#ffffff; color:#1b1a6e; }
+  .net-3905 .n-banner { color:#fff; background:linear-gradient(180deg, #272391 0%, #2a6fd0 55%, #2ee0e8 100%); }
+  .net-3905 .n-logo { height:11cqw; }
+  .net-3905 .n-name { font-family:Arial, Helvetica, sans-serif; font-size:4.6cqw; font-weight:700;
+    text-shadow:0 0.3cqw 0.6cqw rgba(0,0,40,0.5); }
+  .net-3905 .n-sub { color:#e8fbff; font-weight:600; }
+  .net-3905 .c-call { color:#272391; }
+  .net-3905 .c-badge { background:#0f8304; color:#fff; }
+  .net-3905 table.c-qso th { background:#1863f0; color:#fff; }
+  .net-3905 table.c-qso { color:#1b1a6e; background:#f2fbff; }
+
+  /* WASA: gold "WASA NET" on navy, the four seasons, "All Are Welcome!" */
+  .net-wasa { background:linear-gradient(180deg, #0b1a3a 0%, #13295a 100%); color:#fff; }
+  .net-wasa .n-banner { padding-bottom:0.6cqw; }
+  .net-wasa .n-logo { height:9cqw; background:#fff; border-radius:50%; padding:0.6cqw; }
+  .net-wasa .n-name { font-family:Georgia, "Times New Roman", serif; font-size:5.6cqw;
+    background:linear-gradient(180deg, #fff2b0 0%, #f2c14e 45%, #b7791f 100%);
+    -webkit-background-clip:text; background-clip:text; color:transparent; letter-spacing:0.03em; }
+  .net-wasa .n-sub { color:#ffe08a; font-style:italic; }
+  .net-wasa .seasons { display:flex; height:1.6cqw; margin:0 -4.5cqw; }
+  .net-wasa .seasons i { flex:1; }
+  .net-wasa .c-call { color:#ffd84a; }
+  .net-wasa .c-badge { background:#f2c14e; color:#0b1a3a; }
+  .net-wasa table.c-qso { color:#fff; }
+  .net-wasa table.c-qso th { color:#ffd84a; }
+  .net-wasa .c-tag { color:#ffe08a; }
+
+  /* TRIPLE H: sky and clouds, the HHH 50-years logo, Cooper-style type */
+  .net-hhh { color:#000099;
+    background:
+      radial-gradient(ellipse 18cqw 8cqw at 15% 30%, rgba(255,255,255,0.85), transparent 70%),
+      radial-gradient(ellipse 22cqw 9cqw at 70% 18%, rgba(255,255,255,0.8), transparent 70%),
+      radial-gradient(ellipse 20cqw 8cqw at 40% 78%, rgba(255,255,255,0.75), transparent 70%),
+      radial-gradient(ellipse 16cqw 7cqw at 88% 70%, rgba(255,255,255,0.8), transparent 70%),
+      linear-gradient(180deg, #7fbaf5 0%, #b9dcff 100%); }
+  .net-hhh .n-logo { height:10cqw; }
+  .net-hhh .n-name { font-family:"Cooper Black", "Cooper Std", Georgia, serif; font-size:4.6cqw; color:#000099;
+    text-decoration:underline; text-decoration-thickness:0.4cqw; text-underline-offset:0.6cqw; }
+  .net-hhh .n-sub { color:#dd0000; font-family:Arial, sans-serif; font-weight:800; }
+  .net-hhh .c-call { color:#000099; font-family:"Cooper Black", "Cooper Std", Georgia, serif; }
+  .net-hhh .c-badge { background:#dd0000; color:#fff; }
+  .net-hhh table.c-qso { background:rgba(255,255,255,0.9); color:#000099; }
+  .net-hhh table.c-qso th { color:#990000; }
+  .net-hhh .c-tag { color:#990000; }
+
   /* PRINTING IS ONE CARD ON ONE 6 x 4 PAGE: a copy of the card goes into #printzone and only that
      prints -- hiding the rest with visibility left its space behind, and three pages came out. */
   #printzone { display:none; }
@@ -262,7 +342,18 @@
                "70cm"];
   var MODES = ["SSB", "CW", "AM", "FM", "RTTY", "PSK31", "FT8", "DIGITAL"];
   var CALL = /^[A-Z0-9]{1,3}[0-9][A-Z0-9]{0,4}(\/[A-Z0-9]{1,4})?$|^[A-Z0-9]{1,4}\/[A-Z0-9]{3,8}$/;
-  var DESIGN = /^(classic|postcard|night|map)(\.p[1-6](\.g[1-4])?)?$/;
+  var DESIGN = /^((classic|postcard|night|map)(\.p[1-6](\.g[1-4])?)?|net-3905|net-hhh|net-omiss|net-wasa)$/;
+  // THE NET CARDS: engine/nbqsl.NET_CARDS's designs, each with its club's logo and words.
+  var NET_CARDS = {
+    "net-omiss": { logo: "nbqsl/omiss.png", alt: "OMISS", name: "O.M. International Sideband Society",
+                   sub: "AN AWARDS NET SINCE 1981", frame: true },
+    "net-3905": { logo: "nbqsl/3905.png", alt: "The 3905 Century Club", name: "The 3905 Century Club",
+                  sub: "Worked All States and DX Awards Amateur Radio Club" },
+    "net-wasa": { logo: "nbqsl/wasa.png", alt: "WASA Net", name: "WASA NET",
+                  sub: "Worked All States & Awards Net · Wherever You Are, All Are Welcome!", seasons: true },
+    "net-hhh": { logo: "nbqsl/hhh.png", alt: "The Triple H Net, 50 years", name: "The Triple H Net",
+                 sub: "“Hank’s Helping Hand” · Founded 1976" }
+  };
   var USA = /^(usa|us|u\.s\.a?\.?|united states( of america)?)$/i;
 
   function $(id) { return document.getElementById(id); }
@@ -337,6 +428,7 @@
 
   // THE DESIGN: a layout name ... or the perk's "layout.pN.gN". Anything unknown draws the default.
   function designClasses(design) {
+    if (NET_CARDS[design]) return "card netcard " + design;
     var d = String(design || DEFAULT_DESIGN).split(".");
     var cls = ["card", "d-" + (LAYOUTS.indexOf(d[0]) >= 0 ? d[0] : DEFAULT_DESIGN)];
     if (/^p[1-6]$/.test(d[1] || "")) cls.push(d[1]);
@@ -359,6 +451,34 @@
     var w = when(c.utc);
     card.setAttribute("aria-label", "QSL card from " + c.from + " to " + c.to + ", " + w.date + " "
       + w.time + " UTC, " + c.band + " " + c.mode);
+    // A NET CARD: the club's banner first; OMISS's sits inside a certificate frame.
+    var net = NET_CARDS[c.design], body = card;
+    if (net) {
+      if (net.frame) {
+        card.appendChild(el("div", "o-frame"));
+        body = el("div", "o-in");
+        card.appendChild(body);
+      }
+      var ban = el("div", "n-banner");
+      var img = el("img", "n-logo");
+      // EACH CLUB'S LOGO IS PUBLISHED ONLY ONCE THAT CLUB SAYS YES (tools/publish_guide.py, one entry
+      // per club). Until then the file is not there, and the card shows without it -- never a broken image.
+      img.onerror = function () { img.remove(); };
+      img.src = net.logo; img.alt = net.alt;
+      ban.appendChild(img);
+      var words = el("div");
+      words.appendChild(el("div", "n-name", net.name));
+      words.appendChild(el("div", "n-sub", net.sub));
+      ban.appendChild(words);
+      body.appendChild(ban);
+      if (net.seasons) {
+        var band = el("div", "seasons");
+        ["#9fd3ff", "#ff8fc2", "#ffb020", "#d9431e"].forEach(function (col) {
+          var i = el("i"); i.style.background = col; band.appendChild(i);
+        });
+        body.appendChild(band);
+      }
+    }
     var top = el("div", "c-top");
     var left = el("div");
     left.appendChild(el("div", "c-call", c.from));
@@ -367,12 +487,12 @@
     if (addr) left.appendChild(el("div", "c-addr", addr));
     top.appendChild(left);
     top.appendChild(el("div", "c-badge", "nbQSL"));
-    card.appendChild(top);
+    body.appendChild(top);
     var to = el("div", "c-to");
     to.appendChild(document.createTextNode("To "));
     to.appendChild(el("b", "", c.to));
     to.appendChild(document.createTextNode(c.k === "reply" ? "  —  returning your QSL" : "  —  confirming our QSO"));
-    card.appendChild(to);
+    body.appendChild(to);
     var t = el("table", "c-qso");
     var hr = el("tr"), dr = el("tr");
     [["Date (UTC)", w.date], ["Time (UTC)", w.time], ["Band", c.band], ["MHz", c.freq],
@@ -381,14 +501,14 @@
       hr.appendChild(el("th", "", x[0])); dr.appendChild(el("td", "", x[1] || "—"));
     });
     t.appendChild(hr); t.appendChild(dr);
-    card.appendChild(t);
-    if (c.net) card.appendChild(el("div", "c-net", "On the " + c.net));
+    body.appendChild(t);
+    if (c.net) body.appendChild(el("div", "c-net", "On the " + c.net));
     // THE TAGLINE: the supporter's own words or the reply's note, else the default thanks.
-    card.appendChild(el("div", "c-tag", c.note || "Thanks for the QSO  ·  73"));
+    body.appendChild(el("div", "c-tag", c.note || "Thanks for the QSO  ·  73"));
     var foot = el("div", "c-foot");
     foot.appendChild(el("span", "", "Net Buddy · instant nbQSL"));
     foot.appendChild(el("span", "", "nbQSL " + c.id));
-    card.appendChild(foot);
+    body.appendChild(foot);
     wrap.appendChild(card);
   }
 
