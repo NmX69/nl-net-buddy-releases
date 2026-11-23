@@ -183,7 +183,7 @@
 <div class="wrap">
 
   <h1>Net Buddy Client — Guide</h1>
-  <p class="subtitle">Version 3.6.37 · by N6WWW · what the client does, starting from what you know in NetLogger</p>
+  <p class="subtitle">Version 3.6.38 · by N6WWW · what the client does, starting from what you know in NetLogger</p>
 
   <div class="note" id="thanks"><strong>Thank you, NetLogger.</strong> Net Buddy is only possible because of AC0ZG and the team at <a href="https://www.netlogger.org/">NetLogger.org</a>, and the free service they give the amateur radio community. Please visit them and support their work.</div>
 
@@ -193,7 +193,7 @@
   Each open row has a <strong>Copy a link to this</strong> button, so you can send someone
   straight to the answer.</p>
   <p>The NetLogger column comes from NetLogger&rsquo;s own Help (version 3.1.7).</p>
-  <p>Award tracking in the dashboard, logbook sync setup, and Companion mode (Net Buddy running
+  <p>Award tracking in the dashboard, logbook sync setup, and HUD Mode (Net Buddy running
   beside NetLogger) are in the <a href="user_guide.html">Net Buddy User Guide</a>.</p>
 
   <nav class="toc" aria-label="Contents">
@@ -744,7 +744,7 @@
         <li><code>@nb contests</code> &mdash; contests on now and in the next 24 hours; <code>@nb contests week</code>
             for the next 7 days, or add a word like <code>qso</code> or <code>rtty</code>.</li>
         <li><code>@nb q QSB</code> &mdash; what a Q-code means. <code>@nb cw CQ DX</code> &mdash; text in Morse (or Morse back to text).</li>
-        <li><code>@nb who #21</code> &mdash; their FCC licence: name, place, class, expiry.</li>
+        <li><code>@nb who #21</code> &mdash; their US or Canadian licence: name, place, class, expiry.</li>
         <li><code>@nb qrz #21</code> &mdash; their QRZ record, with distance, email and QSL details. Needs your QRZ XML
             key in Settings. The email is shown only to you; <strong>Copy email</strong> puts it on your clipboard.</li>
         <li>The <code>@nb</code> line is never sent to the net. <strong>Post</strong> sends the answer, starting with
@@ -1119,7 +1119,7 @@
         <li>Pick someone and press <strong>Vote</strong>. A box shows exactly what will be sent: your pick, you (name, call, OM#) and your email. Press <strong>Send vote</strong> to send it, and OMISS&rsquo;s answer is shown.</li>
         <li>Who may vote is the club&rsquo;s rule: Top Op is NCS and VIP members only, Relay of the Quarter is NCS members only, and the other two are every member.</li>
         <li><strong>The reminder:</strong> while a vote is open that you may cast, a bright-blue <strong>Vote for Top Op</strong> button (or <strong>Vote for RoQ</strong>, <strong>NCSoQ</strong>, <strong>OMY</strong>) shows in the footer while you are on an OMISS net. Press it to open Vote For on that award. It goes away once you send that vote from Net Buddy, or when voting closes.</li>
-        <li>In Companion Mode (the HUD), the same window is <strong>Tools &rarr; OMISS Tools &rarr; Vote for&hellip;</strong>, and the reminder is a blue banner in the HUD&rsquo;s info line.</li>
+        <li>In HUD Mode, the same window is <strong>Tools &rarr; OMISS Tools &rarr; Vote for&hellip;</strong>, and the reminder is a blue banner in the HUD&rsquo;s info line.</li>
       </ul>
     </div>
   </details>
@@ -1172,7 +1172,7 @@
         <li>Station notes go into the QSO&rsquo;s Notes field, the same as NetLogger.</li>
         <li>After you log a contact, the footer names the location it came from, and how many records it wrote when a club or additional call multiplied it.</li>
       </ul>
-      <p>A location only changes what Net Buddy logs. When another logger checks you in, their roster still shows your home QTH &mdash; this cannot change that. In Companion Mode, NetLogger does the logging, so none of this applies there.</p>
+      <p>A location only changes what Net Buddy logs. When another logger checks you in, their roster still shows your home QTH &mdash; this cannot change that. In HUD Mode, NetLogger does the logging, so none of this applies there.</p>
       <p>To upload to LoTW, use TQSL&rsquo;s own &ldquo;Sign a log and upload&rdquo; on your log file &mdash; the log already carries the station fields TQSL needs.</p>
     </div>
   </details>
@@ -1220,7 +1220,7 @@
       <p class="howto-head">In Net Buddy Client (NBC):</p>
       <ul>
         <li><strong>Tools &rarr; Sound</strong> turns all sounds on or off.</li>
-        <li><strong>Settings &rarr; Sounds</strong> has a switch for each kind: action beeps, warning beeps, the AIM alert-word sound, your-callsign chime, the Waiting Room chime, Messenger alerts and game sounds. Companion Mode&rsquo;s Settings shows the same switches.</li>
+        <li><strong>Settings &rarr; Sounds</strong> has a switch for each kind: action beeps, warning beeps, the AIM alert-word sound, your-callsign chime, the Waiting Room chime, Messenger alerts and game sounds. HUD Mode&rsquo;s Settings shows the same switches.</li>
         <li><strong>Test sound</strong> in Settings &rarr; Sounds plays a tone so you can check your speakers.</li>
         <li><strong>Test sound</strong>, in the gear menu, plays a tone and tells you whether it worked.</li>
       </ul>
@@ -1332,7 +1332,7 @@
         <li>Choose <strong>Features &rarr; Net schedule</strong> (<kbd>Alt</kbd>+<kbd>E</kbd> opens the Features menu).</li>
         <li><strong>Up Next</strong> lists the nets coming up; <strong>Week</strong> shows the whole week. The clubs are OMISS, WASA, 3905, USTNET, HHH and RVRN.</li>
         <li>Each net shows its time in your local time with UTC beside it, its band and frequency, and the scheduled net control where the club publishes one. CW and digital nets are marked; no mark means SSB. A net you are scheduled to run says so.</li>
-        <li>In Companion Mode (the HUD), the same page is on the gear menu: <strong>Net Schedule&hellip;</strong></li>
+        <li>In HUD Mode, the same page is on the gear menu: <strong>Net Schedule&hellip;</strong></li>
       </ul>
     </div>
   </details>
@@ -1356,8 +1356,8 @@
       <ul>
         <li>No rig control? A click still tells you the nearest clear frequency to tune by hand.</li>
         <li>Spots come from pota.app, refreshed every minute. A spot lasts up to 30 minutes unless the activator closes it.</li>
-        <li>A mark lasts 3 hours. The avoid list stays until you change it. Both are shared with Companion Mode.</li>
-        <li>The idea is Tony KA3BPN&rsquo;s. Companion Mode has the same window on the gear menu.</li>
+        <li>A mark lasts 3 hours. The avoid list stays until you change it. Both are shared with HUD Mode.</li>
+        <li>The idea is Tony KA3BPN&rsquo;s. HUD Mode has the same window on the gear menu.</li>
       </ul>
     </div>
   </details>
@@ -1383,7 +1383,7 @@
       <ul>
         <li>It redraws by itself every few seconds as you mark, so leave it open beside the net.</li>
         <li>It needs your grid square (Settings). With the internet down your rings still draw; only the paler prediction needs it.</li>
-        <li>In Companion Mode (the HUD), <strong>Tools &rarr; Propagation map</strong> shows the prediction and the dots; the rings from your marks are Client-only.</li>
+        <li>In HUD Mode, <strong>Tools &rarr; Propagation map</strong> shows the prediction and the dots; the rings from your marks are Client-only.</li>
         <li>Hover a dot for its hops and take-off angle: &ldquo;1 hop @ ~14&deg;&rdquo;.</li>
         <li><strong>Features &rarr; My antenna</strong> shows the take-off angles your antenna actually works at, learned from every RST and Not Heard you mark (with KC2G&rsquo;s map at that moment): a quarter-circle fan per band, horizon on the right. It needs about 15 marks on a band before it names your strongest and lowest angles, and gets truer with every net. It stays on your PC.</li>
       </ul>
@@ -1547,7 +1547,7 @@
         <li><strong>Go to WR</strong> jumps the list and your selection to the first station waiting.</li>
         <li>When you hear a station, <strong>click its button</strong>. Their U/A is cleared and they leave the bar. If another logger already cleared them, nothing is sent.</li>
       </ol>
-      <p>Only stations that arrive while you hold the seat are shown, and a station that goes U/A later in the net is an ordinary U/A. Companion Mode shows the same buttons in a drawer under the HUD.</p>
+      <p>Only stations that arrive while you hold the seat are shown, and a station that goes U/A later in the net is an ordinary U/A. HUD Mode shows the same buttons in a drawer under the HUD.</p>
     </div>
   </details>
 
