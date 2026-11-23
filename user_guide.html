@@ -143,7 +143,7 @@
 <div class="wrap">
 
   <h1>NL Net Buddy — User Guide</h1>
-  <p class="subtitle">Version 3.6.37 · by N6WWW — a companion for NetLogger, featuring the OMISS Award Hunter platform</p>
+  <p class="subtitle">Version 3.6.38 · by N6WWW — a companion for NetLogger, featuring the OMISS Award Hunter platform</p>
 
   <div class="note" id="thanks"><strong>Thank you, NetLogger.</strong> Net Buddy is only possible because of AC0ZG and the team at <a href="https://www.netlogger.org/">NetLogger.org</a>, and the free service they give the amateur radio community. Please visit them and support their work.</div>
 
@@ -241,7 +241,7 @@
           <li><code>alerts</code>, <code>contests</code> &mdash; NWS warnings at a US point; contests on now (<code>contests week</code> for 7 days)</li>
           <li><code>ltg</code> &mdash; the nearest lightning within 100 miles, whether it is getting closer, and any NWS thunderstorm warning; <code>ltg net</code> lists which check-ins have lightning within 100 miles (NOAA, the Americas, Pacific and Atlantic; about 10&ndash;25 minutes behind, so not a safety warning)</li>
           <li><code>q QSB</code>, <code>cw CQ DX</code> &mdash; what a Q-code means; text in Morse</li>
-          <li><code>who #21</code> &mdash; FCC licence lookup</li>
+          <li><code>who #21</code> &mdash; US or Canadian licence lookup</li>
           <li><code>qrz #21</code> &mdash; QRZ record (needs your QRZ XML key); an email is shown to you with a <strong>Copy email</strong> button and is never posted</li>
           <li><code>?</code> lists the commands; <code>dist ?</code> explains one</li>
         </ul>
@@ -296,11 +296,11 @@
   <h3>2. Choose how Net Buddy runs</h3>
   <p>The first time you open Net Buddy it asks a question, with two big buttons:</p>
   <ul>
-    <li><strong>Companion Mode</strong> — works alongside NetLogger, the way Net Buddy always has. The HUD strip, the logging hotkeys and the Messenger chip. <em>Windows only.</em></li>
+    <li><strong>HUD Mode</strong> (Heads-Up Display) — works alongside NetLogger, the way Net Buddy always has. The HUD strip, the logging hotkeys and the Messenger chip. <em>Windows only.</em></li>
     <li><strong>Client Mode</strong> — Net Buddy&rsquo;s own NetLogger client, in a window of its own. You do not need NetLogger running.</li>
   </ul>
   <p>There is an <strong>Always ask which mode to use</strong> tick box, and it starts ticked. If you untick it, the mode you pick becomes your default and you will not be asked again. You can change your mind at any time in <strong>Config &rarr; Setup</strong>, including turning the question back on — it takes effect the next time you start Net Buddy.</p>
-  <p>On macOS and Linux there is no question: Client Mode is the only mode those platforms can run, because Companion Mode reads NetLogger&rsquo;s own window and that machinery is Windows-only.</p>
+  <p>On macOS and Linux there is no question: Client Mode is the only mode those platforms can run, because HUD Mode reads NetLogger&rsquo;s own window and that machinery is Windows-only.</p>
   <p>In Client Mode there is no HUD on screen and no second Net Buddy button on the taskbar &mdash; the client is the whole of Net Buddy. Settings, the game tables, the sound cues and the hotkeys still work from the client, and closing the client window closes Net Buddy.</p>
 
   <h3>3. First-time setup</h3>
@@ -621,7 +621,7 @@
 
   <p><strong>Closing the client closes Net Buddy</strong>, when you started in Client Mode. The
   client is the only window there, so shutting it shuts the program &mdash; there is no second
-  window left running behind it. If you reached the client from the HUD instead (Companion Mode),
+  window left running behind it. If you reached the client from the HUD instead (HUD Mode),
   closing it simply gives you the HUD back, as before.</p>
 
   <p><strong>The row above the check-in list</strong> holds the controls that change what the list
@@ -988,12 +988,12 @@
   <p>Two newer Client-mode features are described in the Client guide: your <strong>club&rsquo;s logo</strong> above the check-in list (click it for the club&rsquo;s website), and <strong>Tools &rarr; Welcome new stations</strong> for a club&rsquo;s net leaders.</p>
 
   <h2 id="nbsync">NB Sync: one log on your phone and all your computers</h2>
-  <p><strong>NB Sync</strong> keeps the same contact log on every Net Buddy you use: Windows (Companion or Client mode), Mac, Linux, Raspberry Pi, and <strong>NB Junior</strong> on your phone. A contact you log on one shows up on the others when they sync.</p>
+  <p><strong>NB Sync</strong> keeps the same contact log on every Net Buddy you use: Windows (HUD Mode or Client Mode), Mac, Linux, Raspberry Pi, and <strong>NB Junior</strong> on your phone. A contact you log on one shows up on the others when they sync.</p>
   <p><strong>Set it up once on each device:</strong></p>
   <ol>
     <li>Use the <strong>same callsign</strong> and the <strong>same Sync password</strong> everywhere. Nothing else is needed to join.
       <ul>
-        <li>Companion mode (the HUD): the gear menu, then <strong>🔄 Sync log…</strong></li>
+        <li>HUD Mode: the gear menu, then <strong>🔄 Sync log…</strong></li>
         <li>Client mode: <strong>Settings → NB Sync</strong></li>
         <li>NB Junior: enter the Sync password and tap <strong>Save</strong></li>
       </ul>
