@@ -212,11 +212,12 @@
 <script>
 (function () {
   "use strict";
-  // THE LINK: engine/nbqsl.LINK_FIELDS, in this order, "~"-separated, each value URL-encoded. It only
+  // THE LINK: engine/nbqsl.LINK_FIELDS, in this order, LINK_SEP-separated, each value URL-encoded. It only
   // POINTS at the card; the card itself is the entry in the recipient's ntfy box and the ledger.
   // tests/test_nbqsl.py holds every list and name below equal to the engine's.
   var LINK_FIELDS = ["v", "id", "from", "to", "utc", "band", "mode"];
   var LINK_VERSION = "2";                          // engine/nbqsl.VERSION
+  var LINK_SEP = "_";                              // engine/nbqsl.LINK_SEP -- "~" did not survive AIM
   var ENTRY_V = 2;                                 // engine/nbqsl.ENTRY_V
   // engine/nbqsl.ENTRY_TEXT: every text field of a card and its longest length.
   var ENTRY_TEXT = [["name", 24], ["city", 30], ["state", 24], ["county", 30], ["country", 30],
@@ -255,7 +256,7 @@
   function countryFor(call) { var c = norm(call); return US_CALL.test(c) ? "USA" : CA_CALL.test(c) ? "Canada" : ""; }
 
   function parse(hash) {
-    var parts = String(hash || "").replace(/^#/, "").split("~");
+    var parts = String(hash || "").replace(/^#/, "").split(LINK_SEP);
     if (parts.length !== LINK_FIELDS.length || parts[0] !== LINK_VERSION) return null;
     var L = {};
     LINK_FIELDS.forEach(function (k, i) { L[k] = clip(dec(parts[i]), 12); });
