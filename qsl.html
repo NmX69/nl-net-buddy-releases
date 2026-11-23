@@ -61,10 +61,17 @@
   form.reply .w4 { grid-column:span 4; } form.reply .w5 { grid-column:span 5; }
   form.reply .w6 { grid-column:span 6; } form.reply .w10 { grid-column:span 10; }
   form.reply .w4.first { grid-column:1 / span 4; }  /* the date row starts its own row */
-  form.reply .w8 { grid-column:span 8; }
-  form.reply label.chk { flex-direction:row; align-items:center; justify-content:flex-start; gap:8px; }
-  form.reply label.chk input { width:22px; height:22px; flex:none; }
-  #zipbox { display:contents; }
+  /* THE POSTAL-CODE GATE (operator, 2026-11-23: "when you first load the nbQSL page, there's an
+     overlay that asks for the postal code... you don't go in without that quick validation"). */
+  #gate { position:fixed; inset:0; background:var(--bg); display:flex; align-items:center;
+    justify-content:center; padding:16px; z-index:10; }
+  #gate form { width:100%; max-width:420px; border:2px solid var(--edge); border-radius:12px;
+    padding:20px 22px; display:flex; flex-direction:column; gap:12px; }
+  #gate h2 { margin:0; }
+  #gate p { margin:0; }
+  #gate label { display:flex; flex-direction:column; gap:4px; font-weight:700; }
+  #gate input { font:inherit; font-size:1.2em; padding:7px 10px; border-radius:6px; border:2px solid var(--edge);
+    background:#fff; color:#0b1020; letter-spacing:0.06em; }
   @container (max-width:470px) {
     form.reply label, form.reply label[class] { grid-column:span 6; }
     form.reply .wfull { grid-column:1 / -1; }
@@ -162,6 +169,7 @@
 <main>
   <h1 id="title">nbQSL card</h1>
   <p class="msg bad" id="broken" hidden>This nbQSL link is not complete. Ask for the card to be sent again.</p>
+  <p class="msg" id="loading" role="status" hidden>Looking up this card…</p>
 
   <div id="have" hidden>
    <div class="split">
@@ -179,7 +187,7 @@
       <p class="msg" id="window"></p>
       <form class="reply" id="reply" autocomplete="off">
         <label class="w3">Your call<input name="from" maxlength="12" readonly></label>
-        <label class="w6">Your name<input name="name" maxlength="24"></label>
+        <label class="w6">Your name<input name="name" maxlength="30"></label>
         <label class="w3">Grid<input name="grid" maxlength="6"></label>
         <label class="w5">City<input name="city" maxlength="30"></label>
         <label class="w3">State / Prov.<input name="state" maxlength="24"></label>
@@ -190,10 +198,6 @@
         <label class="w2">Band<select name="band" required></select></label>
         <label class="w3">Mode<select name="mode" required></select></label>
         <label class="w2">RST<input name="rst" maxlength="3" aria-label="RST you gave them"></label>
-        <div id="zipbox" hidden>
-          <label class="w4 first">ZIP / postal code<input name="zip" maxlength="10" autocomplete="postal-code" aria-label="Your ZIP or postal code, to confirm it is you"></label>
-          <label class="w8 wfull chk"><input type="checkbox" name="zipchanged"> My postal code has changed</label>
-        </div>
         <label class="w10 wfull">A short note (optional)<input name="note" maxlength="60"></label>
         <div class="row" style="grid-column:1 / -1">
           <button type="submit" class="btn go" id="send">nbQSL Now</button>
@@ -216,6 +220,15 @@
     </div>
   </div>
 </main>
+<div id="gate" hidden>
+  <form id="gateform" autocomplete="off">
+    <h2 id="gatehead">An nbQSL card</h2>
+    <p>Enter your ZIP or postal code to open it.</p>
+    <label>ZIP / postal code<input name="zip" maxlength="10" autocomplete="postal-code" required></label>
+    <div><button type="submit" class="btn go" id="gatego">Open</button></div>
+    <p class="msg" id="gatemsg" role="status"></p>
+  </form>
+</div>
 <div id="printzone" aria-hidden="true"></div>
 <script>
 (function () {
@@ -228,10 +241,10 @@
   var LINK_SEP = "_";                              // engine/nbqsl.LINK_SEP -- "~" did not survive AIM
   var ENTRY_V = 2;                                 // engine/nbqsl.ENTRY_V
   // engine/nbqsl.ENTRY_TEXT: every text field of a card and its longest length.
-  var ENTRY_TEXT = [["name", 24], ["city", 30], ["state", 24], ["county", 30], ["country", 30],
+  var ENTRY_TEXT = [["name", 30], ["city", 30], ["state", 24], ["county", 30], ["country", 30],
                     ["grid", 6], ["band", 8], ["freq", 10], ["mode", 8], ["rst", 3], ["rst_r", 3],
                     ["net", 40], ["note", 60],
-                    ["to_name", 24], ["to_city", 30], ["to_state", 24], ["to_county", 30],
+                    ["to_name", 30], ["to_city", 30], ["to_state", 24], ["to_county", 30],
                     ["to_country", 30], ["to_grid", 6]];
   var ZC_LEN = 12;                                 // engine/nbqsl.ZC_LEN
   var NTFY = "https://ntfy.sh/";
@@ -421,7 +434,7 @@
 
   var L = parse(location.hash);
   if (!L) { $("broken").hidden = false; return; }
-  $("have").hidden = false;
+  $("loading").hidden = false;
   document.title = "nbQSL from " + L.from + " to " + L.to;
   $("title").textContent = "nbQSL card from " + L.from + " to " + L.to;
   var basic = { k: "send", id: L.id, from: L.from, to: L.to, utc: L.utc, band: L.band, mode: L.mode,
@@ -432,6 +445,7 @@
   status("Looking up this card…", "");
 
   var card = null;                                 // the full card, once found
+  var gateZc = "";                                 // the postal-code check the gate accepted
   Promise.all([lookLedger(L), lookBox(L)]).then(function (res) {
     card = (res[0].found || res[1].found) || null;
     if (card) {
@@ -442,8 +456,42 @@
     } else {
       status("Not on record. Only the details in the link are shown.", "bad");
     }
-    ready();
+    // THE GATE (operator, 2026-11-23: "you don't go in without that quick validation"): a card the
+    // sender had a postal code for opens only once the code matches. No way round it on the page.
+    // A card BACK is never gated -- its code is the replier's, not the reader's.
+    if (card && card.k === "send" && card.zc) gate(); else enter();
   });
+
+  function enter() {
+    $("loading").hidden = true;
+    $("gate").hidden = true;
+    $("have").hidden = false;
+    ready();
+  }
+
+  function gate() {
+    $("loading").hidden = true;
+    $("gatehead").textContent = "An nbQSL card for " + L.to + " from " + L.from;
+    $("gate").hidden = false;
+    var g = $("gateform"), box = g.elements.zip;
+    box.focus();
+    g.addEventListener("submit", function (ev) {
+      ev.preventDefault();
+      var msg = $("gatemsg");
+      $("gatego").disabled = true;
+      zipCheck(L.id, box.value).then(function (zc) {
+        $("gatego").disabled = false;
+        if (zc && zc === card.zc) { gateZc = zc; enter(); return; }
+        msg.textContent = "That does not match the postal code on file for " + L.to + ".";
+        msg.className = "msg bad";
+        box.select();
+      }, function () {
+        $("gatego").disabled = false;
+        msg.textContent = "This browser could not check the code. Try another browser.";
+        msg.className = "msg bad";
+      });
+    });
+  }
 
   function status(text, cls) { $("record").textContent = text; $("record").className = "msg " + (cls || ""); }
 
@@ -485,10 +533,6 @@
     f.county.value = c0.to_county || ""; f.grid.value = c0.to_grid || "";
     f.country.value = c0.to_country || countryFor(L.to);
     f.rst.value = card ? card.rst_r : "";
-    // ASKED ONLY WHEN THE SENDER HAD A POSTAL CODE FOR THEM.
-    $("zipbox").hidden = !c0.zc;
-    f.zip.required = !!c0.zc;
-    f.zipchanged.addEventListener("change", function () { f.zip.required = !!c0.zc && !f.zipchanged.checked; });
     choices(f.band, BANDS, L.band); choices(f.mode, MODES, L.mode);
     countyShown();
     f.country.addEventListener("input", countyShown);
@@ -517,22 +561,9 @@
       say("Date as YYYY-MM-DD and time as HH:MM, in UTC.", "bad"); return;
     }
     var utc = date.slice(2, 4) + date.slice(5, 7) + date.slice(8, 10) + time.slice(0, 2) + time.slice(3, 5);
-    var asked = !!(card && card.zc), changed = f.zipchanged.checked;
-    if (asked && !changed && !zipNorm(f.zip.value)) {
-      say("Enter your ZIP or postal code, or tick \"My postal code has changed\".", "bad"); return;
-    }
     $("send").disabled = true;
-    (asked && !changed ? zipCheck(L.id, f.zip.value) : Promise.resolve("")).then(function (zc) {
-      if (asked && !changed && zc !== card.zc) {
-        $("send").disabled = false;
-        say("That does not match the postal code on file for " + L.to + ". Try again, or tick \"My postal code has changed\".", "bad");
-        return;
-      }
-      sendReply(utc, zc);
-    }, function () {
-      $("send").disabled = false;
-      say("This browser could not check the postal code. Tick \"My postal code has changed\" to send anyway.", "bad");
-    });
+    // THE CODE THE GATE ACCEPTED goes back with the reply; the sender's Net Buddy checks it again.
+    sendReply(utc, gateZc);
   });
 
   function sendReply(utc, zc) {
