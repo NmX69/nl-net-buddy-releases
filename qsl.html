@@ -71,8 +71,16 @@
   #gate h2 { margin:0; }
   #gate p { margin:0; }
   #gate label { display:flex; flex-direction:column; gap:4px; font-weight:700; }
+  #gate label[hidden] { display:none; }
   #gate input { font:inherit; font-size:1.2em; padding:7px 10px; border-radius:6px; border:2px solid var(--edge);
     background:#fff; color:#0b1020; letter-spacing:0.06em; }
+  /* SIDE BY SIDE, EACH AS WIDE AS ITS ANSWER (operator, 2026-11-23): a postal code is 5 or 6
+     characters, an RST at most 3 digits. */
+  #gate .gaterow { display:flex; gap:18px; align-items:flex-end; }
+  #gate .gaterow label { flex:0 1 auto; min-width:0; align-items:center; text-align:center; }
+  /* each box centred under its label (operator, 2026-11-23); a narrow phone wraps the words, not the boxes */
+  #gate input[name=zip] { width:calc(8.2ch + 24px); }
+  #gate input[name=rpt] { width:calc(3.6ch + 24px); }
   @container (max-width:470px) {
     form.reply label, form.reply label[class] { grid-column:span 6; }
     form.reply .wfull { grid-column:1 / -1; }
@@ -306,8 +314,10 @@
 <div id="gate" hidden>
   <form id="gateform" autocomplete="off">
     <h2 id="gatehead">An nbQSL card</h2>
-    <p>Enter your ZIP or postal code to open it.</p>
-    <label>ZIP / postal code<input name="zip" maxlength="10" autocomplete="postal-code" required></label>
+    <div class="gaterow">
+      <label>Zip/Postal Code:<input name="zip" maxlength="10" autocomplete="postal-code" required></label>
+      <label id="gaterpt" hidden><span id="gaterptlbl">RST Sent:</span><input name="rpt" maxlength="3" inputmode="numeric" autocomplete="off"></label>
+    </div>
     <div><button type="submit" class="btn go" id="gatego">Open</button></div>
     <p class="msg" id="gatemsg" role="status"></p>
   </form>
@@ -329,11 +339,11 @@
                     ["net", 40], ["note", 60],
                     ["to_name", 30], ["to_city", 30], ["to_state", 24], ["to_county", 30],
                     ["to_country", 30], ["to_grid", 6],
-                    ["num", 10], ["to_num", 10], ["numl", 6]];
+                    ["num", 10], ["to_num", 10], ["numl", 6], ["rq", 1]];
   var ZC_LEN = 12;                                 // engine/nbqsl.ZC_LEN
   var NTFY = "https://ntfy.sh/";
   var INBOX_TOPIC = "nbqsl_inbox_v2";              // engine/nbqsl.INBOX_TOPIC
-  var LEDGER = "https://raw.githubusercontent.com/NmX69/nl-net-buddy-releases/nbqsl-data/";  // nbclient/nbqsl.ledger_base
+  var LEDGER = "https://raw.githubusercontent.com/NmX69/nl-net-buddy-releases/nbqsl-data/";  // engine/nbqsl_service.ledger_base
   var WINDOW_H = 72;                               // engine/nbqsl.REPLY_WINDOW_H
   var LAYOUTS = ["classic", "postcard", "night", "map"];
   var DEFAULT_DESIGN = "postcard";                 // engine/nbqsl.DEFAULT_DESIGN -- the operator's pick
@@ -381,10 +391,12 @@
     if (/^\d{9}$/.test(c)) c = c.slice(0, 5);
     return c.slice(0, 10);
   }
-  function zipCheck(id, code) {
-    var z = zipNorm(code);
+  function rstNorm(r) { return String(r || "").replace(/[^0-9]/g, "").slice(0, 3); }  // engine/nbqsl.rst_norm
+  // engine/nbqsl.zip_check: the postal code, and the signal report too when the card asks for it.
+  function zipCheck(id, code, rst) {
+    var z = zipNorm(code), r = rstNorm(rst);
     if (!z) return Promise.resolve("");
-    var bytes = new TextEncoder().encode("nbqsl|" + id + "|" + z);
+    var bytes = new TextEncoder().encode("nbqsl|" + id + "|" + z + (r ? "|" + r : ""));
     return crypto.subtle.digest("SHA-256", bytes).then(function (buf) {
       return Array.prototype.map.call(new Uint8Array(buf), function (b) {
         return (b < 16 ? "0" : "") + b.toString(16);
@@ -413,6 +425,7 @@
     out.band = out.band.toLowerCase(); out.mode = out.mode.toUpperCase(); out.grid = out.grid.toUpperCase();
     var zc = clip(e.zc, ZC_LEN).toLowerCase();
     out.zc = new RegExp("^[a-f0-9]{" + ZC_LEN + "}$").test(zc) ? zc : "";
+    out.rq = out.zc && out.rq === "1" ? "1" : "";
     var d = clip(e.design, 20);
     out.design = DESIGN.test(d) ? d : DEFAULT_DESIGN;
     return out;
@@ -578,7 +591,8 @@
   status("Looking up this card…", "");
 
   var card = null;                                 // the full card, once found
-  var gateZc = "";                                 // the postal-code check the gate accepted
+  var gateZc = "";                                 // the check the gate accepted
+  var gateRst = "";                                // the report typed at the gate (fills the reply)
   Promise.all([lookLedger(L), lookBox(L)]).then(function (res) {
     card = (res[0].found || res[1].found) || null;
     if (card) {
@@ -606,16 +620,26 @@
     $("loading").hidden = true;
     $("gatehead").textContent = "An nbQSL card for " + L.to + " from " + L.from;
     $("gate").hidden = false;
-    var g = $("gateform"), box = g.elements.zip;
+    var g = $("gateform"), box = g.elements.zip, rbox = g.elements.rpt;
+    // TWO PIECES (operator, 2026-11-23): the postal code, and the signal report they gave the sender,
+    // when the sender logged one -- one check over both, so neither can be worked out alone.
+    var two = card.rq === "1";
+    $("gaterpt").hidden = !two;
+    rbox.required = two;
+    // THE OPERATOR'S WORDS AND NOTHING MORE (2026-11-23: "we can't make this so hard people say
+    // fuck it"): Zip/Postal Code, RST Sent to <sender>, Open.
+    $("gaterptlbl").textContent = "RST Sent to " + L.from + ":";
     box.focus();
     g.addEventListener("submit", function (ev) {
       ev.preventDefault();
       var msg = $("gatemsg");
       $("gatego").disabled = true;
-      zipCheck(L.id, box.value).then(function (zc) {
+      zipCheck(L.id, box.value, two ? rbox.value : "").then(function (zc) {
         $("gatego").disabled = false;
-        if (zc && zc === card.zc) { gateZc = zc; enter(); return; }
-        msg.textContent = "That does not match the postal code on file for " + L.to + ".";
+        if (zc && zc === card.zc) { gateZc = zc; gateRst = two ? rstNorm(rbox.value) : ""; enter(); return; }
+        // NEVER SAYS WHICH ONE IS WRONG: that would let the two be guessed one at a time.
+        msg.textContent = two ? "That does not match what " + L.from + " has on file for " + L.to + "."
+                              : "That does not match the postal code on file for " + L.to + ".";
         msg.className = "msg bad";
         box.select();
       }, function () {
@@ -657,7 +681,7 @@
     var w0 = when(L.utc);
     // THE CARD WAS SENT TO ONE STATION, AND ONLY THAT STATION CAN SEND IT BACK (operator, 2026-11-23:
     // the link is public on AIM). Net Buddy drops a reply carrying any other call
-    // (nbclient/nbqsl.handle), so the call is fixed here rather than offered as a box to fill.
+    // (engine/nbqsl_service.handle), so the call is fixed here rather than offered as a box to fill.
     $("replyhead").textContent = "QSL back to " + L.from + " as " + L.to;
     f.from.value = L.to; f.date.value = w0.date; f.time.value = w0.time;
     // FILLED IN FROM HOW THE SENDER LOGGED THEM (operator, 2026-11-23): they check it and send.
@@ -665,7 +689,8 @@
     f.name.value = c0.to_name || ""; f.city.value = c0.to_city || ""; f.state.value = c0.to_state || "";
     f.county.value = c0.to_county || ""; f.grid.value = c0.to_grid || "";
     f.country.value = c0.to_country || countryFor(L.to);
-    f.rst.value = card ? card.rst_r : "";
+    // THE REPORT THEY GAVE, as typed at the gate -- a link card no longer carries it (engine/nbqsl.card).
+    f.rst.value = gateRst || (card ? card.rst_r : "");
     // THE MEMBER NUMBER BOX, only for a club that has them: filled from how the sender logged them.
     var hasNum = !!(c0.numl);
     $("numbox").hidden = !hasNum;
@@ -715,7 +740,7 @@
       net: card ? card.net : "", note: f.note.value,
       design: card && NET_CARDS[card.design] ? card.design : DEFAULT_DESIGN, via: "link",
       num: card && card.numl ? f.num.value : "", numl: card ? card.numl : "", to_num: card ? card.num : "",
-      s: Math.floor(Date.now() / 1000), zc: zc };
+      s: Math.floor(Date.now() / 1000), zc: zc, rq: card ? card.rq : "" };
     ENTRY_TEXT.forEach(function (x) { entry[x[0]] = clip(entry[x[0]], x[1]); });
     entry.band = entry.band.toLowerCase(); entry.mode = entry.mode.toUpperCase(); entry.grid = entry.grid.toUpperCase();
     say("Sending…", "");
