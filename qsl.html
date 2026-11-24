@@ -72,6 +72,8 @@
   #gate p { margin:0; }
   #gate label { display:flex; flex-direction:column; gap:4px; font-weight:700; }
   #gate label[hidden] { display:none; }
+  #gate .gateqso { font-size:1.05em; }
+  #gate #gatenet { font-weight:700; }
   #gate input { font:inherit; font-size:1.2em; padding:7px 10px; border-radius:6px; border:2px solid var(--edge);
     background:#fff; color:#0b1020; letter-spacing:0.06em; }
   /* SIDE BY SIDE, EACH AS WIDE AS ITS ANSWER (operator, 2026-11-23): a postal code is 5 or 6
@@ -314,6 +316,8 @@
 <div id="gate" hidden>
   <form id="gateform" autocomplete="off">
     <h2 id="gatehead">An nbQSL card</h2>
+    <p id="gatenet" class="gateqso"></p>
+    <p id="gatewhen" class="gateqso"></p>
     <div class="gaterow">
       <label>Zip/Postal Code:<input name="zip" maxlength="10" autocomplete="postal-code" required></label>
       <label id="gaterpt" hidden><span id="gaterptlbl">RST Sent:</span><input name="rpt" maxlength="3" inputmode="numeric" autocomplete="off"></label>
@@ -429,6 +433,19 @@
     var d = clip(e.design, 20);
     out.design = DESIGN.test(d) ? d : DEFAULT_DESIGN;
     return out;
+  }
+
+  // WHICH CONTACT, IN THE READER'S OWN CLOCK (operator, 2026-11-23: "the Title needs to also give the
+  // Date & Time of the QSO"): "Today, 10:02 PM your time (04:02Z)", or "Sun Nov 23, ..." on another day.
+  function localWhen(utc) {
+    var d = new Date(Date.UTC(2000 + +utc.slice(0, 2), +utc.slice(2, 4) - 1, +utc.slice(4, 6),
+                              +utc.slice(6, 8), +utc.slice(8, 10)));
+    if (isNaN(d.getTime())) return "";
+    var now = new Date();
+    var day = d.toDateString() === now.toDateString() ? "Today"
+            : d.toLocaleDateString(undefined, { weekday: "short", month: "short", day: "numeric" });
+    var t = d.toLocaleTimeString(undefined, { hour: "numeric", minute: "2-digit" });
+    return day + ", " + t + " your time (" + utc.slice(6, 8) + ":" + utc.slice(8, 10) + "Z)";
   }
 
   function when(utc) {
@@ -597,11 +614,13 @@
     card = (res[0].found || res[1].found) || null;
     if (card) {
       drawCard($("cardwrap"), card);
-      status("On record: this card is in the nbQSL ledger.", "good");
+      // NO "ON RECORD" CLAIM (operator, 2026-11-23: "not sure if we want to claim anything on record
+      // right now honestly.... it's a responsibility.... and we're still developing it").
+      status("", "");
     } else if (res[0].unreachable && res[1].unreachable) {
-      status("The nbQSL record could not be reached just now. Only the details in the link are shown.", "bad");
+      status("This card could not be looked up just now. Only the details in the link are shown.", "bad");
     } else {
-      status("Not on record. Only the details in the link are shown.", "bad");
+      status("This card could not be found. Only the details in the link are shown.", "bad");
     }
     // THE GATE (operator, 2026-11-23: "you don't go in without that quick validation"): a card the
     // sender had a postal code for opens only once the code matches. No way round it on the page.
@@ -618,7 +637,11 @@
 
   function gate() {
     $("loading").hidden = true;
-    $("gatehead").textContent = "An nbQSL card for " + L.to + " from " + L.from;
+    $("gatehead").textContent = "nbQSL from " + L.from + " to " + L.to;
+    $("gatenet").textContent = card.net || "";
+    $("gatenet").hidden = !card.net;
+    $("gatewhen").textContent = [localWhen(L.utc), (card.band || L.band) + " " + (card.mode || L.mode),
+                                 card.freq].filter(Boolean).join(" · ");
     $("gate").hidden = false;
     var g = $("gateform"), box = g.elements.zip, rbox = g.elements.rpt;
     // TWO PIECES (operator, 2026-11-23): the postal code, and the signal report they gave the sender,
