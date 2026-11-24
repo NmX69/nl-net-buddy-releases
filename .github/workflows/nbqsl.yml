@@ -1,0 +1,47 @@
+# THE nbQSL LEDGER JOB -- installed on the PUBLIC releases repo as .github/workflows/nbqsl.yml by
+# tools/publish_nbqsl.py (public repo: standard runners are free there). Design owner: docs/NB_QSL.md
+# section 3. It runs tools/nbqsl/collect.py (published as nbqsl/collect.py, with engine/nbqsl.py
+# beside it as nbqsl/nbqsl_core.py) over a copy of the ledger branch "nbqsl-data"
+# (engine/nbqsl.LEDGER_BRANCH), then REPLACES that branch with one commit of the result -- so the
+# branch never grows, and Net Buddy and the card page read its files straight from
+# raw.githubusercontent.com. Release files are not used: a web page cannot read them.
+#
+# STARTED HOURLY by the cron-job.org timer (the operator's account, like the sky feed's) calling the
+# workflow-dispatch API; GitHub's own schedule below is the backup, since GitHub drops scheduled runs
+# under load. ntfy keeps ~12 hours, so even many missed runs lose nothing.
+name: nbqsl
+on:
+  schedule:
+    - cron: "27 * * * *"
+  workflow_dispatch: {}
+permissions:
+  contents: write
+concurrency:
+  group: nbqsl
+  cancel-in-progress: false
+jobs:
+  ledger:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: The ledger as it stands (none on the very first run)
+        run: |
+          mkdir ledger
+          if git fetch --depth=1 origin nbqsl-data; then
+            git archive FETCH_HEAD | tar -x -C ledger
+          fi
+      - run: python nbqsl/collect.py --data ledger
+      - name: Replace the ledger branch with one commit
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          cd ledger
+          git init -q -b nbqsl-data
+          git add -A
+          git -c user.name="nbqsl-collector" -c user.email="nbqsl-collector@users.noreply.github.com" \
+            commit -q -m "nbQSL ledger"
+          git push -q -f "https://x-access-token:${GH_TOKEN}@github.com/${{ github.repository }}.git" nbqsl-data
