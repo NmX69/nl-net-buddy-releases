@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Net Buddy Video Uploader</title>
+<style>
+  :root { --bg: #0b1020; --fg: #f2f6ff; --accent: #8fe6ff; --rule: #3a4a6b; --yt: #ff4e45; }
+  body { margin: 0; background: var(--bg); color: var(--fg); font: 18px/1.6 system-ui, sans-serif; }
+  main { max-width: 46rem; margin: 0 auto; padding: 1.5rem 1rem 3rem; }
+  h1 { font-size: 1.7rem; margin: 0 0 .25rem; }
+  h2 { font-size: 1.25rem; color: var(--accent); margin: 2rem 0 .5rem; border-top: 2px solid var(--rule); padding-top: 1rem; }
+  h3 { font-size: 1.08rem; margin: 1.4rem 0 .3rem; }
+  a { color: var(--accent); }
+  li { margin: .35rem 0; }
+  .lead { font-size: 1.05rem; }
+  .yt { display: inline-block; border: 2px solid var(--yt); border-radius: 8px; padding: .3rem .7rem; font-weight: 700; }
+  .yt b { color: var(--yt); }
+  nav a { margin-right: 1.2rem; font-weight: 700; }
+</style>
+</head>
+<body>
+<main>
+<h1>Net Buddy Video Uploader</h1>
+<p class="yt">Developed using <b>YouTube</b> API Services</p>
+
+<nav><a href="#privacy">Privacy Policy</a><a href="#terms">Terms of Service</a><a href="./">Net Buddy home</a></nav>
+
+<p class="lead">The Net Buddy Video Uploader is a private command-line tool, made by N6WWW, that publishes the
+<a href="https://www.youtube.com/@n6www">Net Buddy tutorial videos</a> to the developer's own YouTube channel. It runs
+only on the developer's own computer and is not offered, sold or distributed to anyone else.</p>
+
+<p>For each lesson of a tutorial course it uploads the video, sets its title, description, tags and thumbnail,
+adds it to the course playlist in order, and reads the result back to confirm it.</p>
+
+<h2 id="privacy">Privacy Policy</h2>
+<p>Effective 25 November 2026.</p>
+
+<h3>YouTube and Google</h3>
+<ul>
+  <li>This tool uses YouTube API Services. By using it you agree to be bound by the
+      <a href="https://www.youtube.com/t/terms">YouTube Terms of Service</a>.</li>
+  <li>Google's handling of your data is covered by the
+      <a href="https://policies.google.com/privacy">Google Privacy Policy</a>.</li>
+</ul>
+
+<h3>What the tool accesses</h3>
+<ul>
+  <li>After you sign in with Google and give consent, the tool uses the YouTube Data API to read the signed-in
+      channel's ID, title and handle, and to create and update videos, thumbnails and playlists on that channel only.</li>
+  <li>It reads no viewer data, comments, subscribers, analytics or earnings, and no data about any other channel.</li>
+</ul>
+
+<h3>What is stored, and where</h3>
+<ul>
+  <li>The Google sign-in token is stored only on the computer running the tool, encrypted by Windows (in Windows
+      Credential Manager, or in a Windows-encrypted file if Credential Manager is unavailable). It is never written
+      to a plain file and never sent anywhere except Google.</li>
+  <li>The tool keeps a small local record of each upload (the file's fingerprint, the video ID and which steps
+      finished) so that a failed run never uploads the same video twice.</li>
+  <li>Nothing is stored on any server. No cookies, analytics or tracking are used.</li>
+</ul>
+
+<h3>Sharing</h3>
+<p>No data obtained through YouTube API Services is shared with, sold or rented to anyone.</p>
+
+<h3>Revoking access and deleting data</h3>
+<ul>
+  <li>You can revoke the tool's access to your Google account at any time at
+      <a href="https://myaccount.google.com/permissions">Google Account &rsaquo; Third-party connections</a>
+      (also reachable at <a href="https://security.google.com/settings/security/permissions">security.google.com/settings/security/permissions</a>).</li>
+  <li>Revoking access makes the stored token useless at once. Deleting the tool's folder and its stored token
+      removes everything the tool stored. When access is revoked, the token and the upload records are deleted
+      within 7 days.</li>
+  <li>Videos and playlists the tool published stay on YouTube until you delete them there.</li>
+</ul>
+
+<h3>Changes and contact</h3>
+<p>Changes to this policy are posted on this page with a new effective date. Questions: contact N6WWW through the
+email address on <a href="https://www.qrz.com/db/N6WWW">N6WWW's QRZ.com page</a>.</p>
+
+<h2 id="terms">Terms of Service</h2>
+<p>Effective 25 November 2026.</p>
+<ul>
+  <li><strong>Who may use it.</strong> The tool is for the developer's own use, on the developer's own YouTube
+      channel. It is not offered to the public.</li>
+  <li><strong>YouTube's terms apply.</strong> Use of the tool is subject to the
+      <a href="https://www.youtube.com/t/terms">YouTube Terms of Service</a> and the
+      <a href="https://policies.google.com/privacy">Google Privacy Policy</a>, and it must be used in line with the
+      <a href="https://developers.google.com/youtube/terms/developer-policies">YouTube API Services Developer Policies</a>.</li>
+  <li><strong>Content.</strong> Only content the channel owner made and has the right to publish is uploaded.</li>
+  <li><strong>No warranty.</strong> The tool is provided as is, free of charge, without warranty of any kind.</li>
+  <li><strong>Privacy.</strong> See the <a href="#privacy">Privacy Policy</a> above.</li>
+  <li><strong>Changes.</strong> Changes to these terms are posted on this page with a new effective date.</li>
+</ul>
+</main>
+</body>
+</html>
