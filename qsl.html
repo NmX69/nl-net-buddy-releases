@@ -48,6 +48,10 @@
   .btn[disabled] { border-style:dashed; cursor:not-allowed; }
   .row { display:flex; flex-wrap:wrap; gap:10px; align-items:center; margin:10px 0; }
   .msg { font-weight:700; margin:10px 0; }
+  .priorhead { font-weight:700; margin:6px 0 4px; }
+  .prioritem, form.reply label.prioritem { display:flex; flex-direction:row; justify-content:flex-start;
+    gap:10px; align-items:flex-start; padding:4px 0; font-weight:600; }
+  .prioritem input { width:1.3em; height:1.3em; margin-top:2px; flex:none; }
   .bad { color:var(--bad); } .good { color:var(--good); }
   [hidden] { display:none !important; }
   /* THE REPLY FORM, EACH BOX SIZED TO WHAT GOES IN IT (operator, 2026-11-23: "call sign field is
@@ -292,6 +296,12 @@
         <label class="w2">RST<input name="rst" maxlength="3" aria-label="RST you gave them"></label>
         <label class="w3" id="numbox" hidden>Member #<input name="num" maxlength="10" aria-label="Your club member number"></label>
         <label class="w10 wfull" id="notebox">A short note (optional)<input name="note" maxlength="60"></label>
+        <!-- EARLIER CONTACTS (operator, 2026-11-24): up to 5 earlier contacts with the sender that are
+             not confirmed yet, ticked; "nbQSL Now" answers every ticked one with this same reply. -->
+        <div id="priorbox" class="wfull" style="grid-column:1 / -1" hidden>
+          <p class="priorhead" id="priorhead">Earlier contacts not confirmed yet</p>
+          <div id="priorlist"></div>
+        </div>
         <div class="row" style="grid-column:1 / -1">
           <button type="submit" class="btn go" id="send">nbQSL Now</button>
         </div>
@@ -345,6 +355,8 @@
                     ["to_country", 30], ["to_grid", 6],
                     ["num", 10], ["to_num", 10], ["numl", 6], ["rq", 1]];
   var ZC_LEN = 12;                                 // engine/nbqsl.ZC_LEN
+  var PRIOR_MAX = 5;                               // engine/nbqsl.PRIOR_MAX
+  var PRIOR_TEXT = [["band", 8], ["freq", 10], ["mode", 8], ["rst", 3], ["net", 40]];  // engine/nbqsl.PRIOR_TEXT
   var NTFY = "https://ntfy.sh/";
   var INBOX_TOPIC = "nbqsl_inbox_v2";              // engine/nbqsl.INBOX_TOPIC
   var LEDGER = "https://raw.githubusercontent.com/NmX69/nl-net-buddy-releases/nbqsl-data/";  // engine/nbqsl_service.ledger_base
@@ -430,6 +442,17 @@
     var zc = clip(e.zc, ZC_LEN).toLowerCase();
     out.zc = new RegExp("^[a-f0-9]{" + ZC_LEN + "}$").test(zc) ? zc : "";
     out.rq = out.zc && out.rq === "1" ? "1" : "";
+    // EARLIER CONTACTS (engine/nbqsl.valid_entry, PRIOR_MAX, PRIOR_TEXT): a sent card only.
+    out.prior = [];
+    if (out.k === "send" && Array.isArray(e.prior)) {
+      e.prior.slice(0, PRIOR_MAX).forEach(function (x) {
+        if (!x || typeof x !== "object") return;
+        var p = { id: clip(x.id, 10).toLowerCase(), utc: clip(x.utc, 10) };
+        PRIOR_TEXT.forEach(function (f) { p[f[0]] = clip(x[f[0]], f[1]); });
+        p.band = p.band.toLowerCase(); p.mode = p.mode.toUpperCase();
+        if (/^[a-f0-9]{10}$/.test(p.id) && /^\d{10}$/.test(p.utc) && p.id !== out.id) out.prior.push(p);
+      });
+    }
     var d = clip(e.design, 20);
     out.design = DESIGN.test(d) ? d : DEFAULT_DESIGN;
     return out;
@@ -720,6 +743,18 @@
     $("notebox").className = hasNum ? "w7 wfull" : "w10 wfull";
     f.num.value = c0.to_num || "";
     choices(f.band, BANDS, L.band); choices(f.mode, MODES, L.mode);
+    // EARLIER CONTACTS, all ticked: one line each -- when, band and mode, frequency, net.
+    var prior = (card && card.prior) || [];
+    $("priorbox").hidden = !prior.length;
+    $("priorhead").textContent = "Also confirm earlier contacts with " + L.from + " (not confirmed yet):";
+    prior.forEach(function (p) {
+      var lab = el("label", "prioritem");
+      var box = el("input"); box.type = "checkbox"; box.checked = true; box.value = p.id;
+      lab.appendChild(box);
+      lab.appendChild(el("span", "", [localWhen(p.utc), p.band + " " + p.mode, p.freq, p.net]
+                                       .filter(Boolean).join(" · ")));
+      $("priorlist").appendChild(lab);
+    });
     countyShown();
     f.country.addEventListener("input", countyShown);
     tick();
@@ -767,18 +802,38 @@
     ENTRY_TEXT.forEach(function (x) { entry[x[0]] = clip(entry[x[0]], x[1]); });
     entry.band = entry.band.toLowerCase(); entry.mode = entry.mode.toUpperCase(); entry.grid = entry.grid.toUpperCase();
     say("Sending…", "");
-    var body = JSON.stringify(entry);
+    // THE EARLIER CONTACTS STILL TICKED: the same reply, once per contact, each under its own id.
+    var ticked = {};
+    Array.prototype.forEach.call($("priorlist").querySelectorAll("input:checked"), function (b) { ticked[b.value] = 1; });
+    var extra = ((card && card.prior) || []).filter(function (p) { return ticked[p.id]; }).map(function (p) {
+      var x = JSON.parse(JSON.stringify(entry));
+      x.id = p.id; x.utc = p.utc; x.band = p.band; x.mode = p.mode; x.freq = ""; x.rst = ""; x.rst_r = p.rst;
+      x.net = p.net;
+      return x;
+    });
     // TWO PLACES AT ONCE (operator, 2026-11-23): the sender's own box, for an instant pickup, and the
     // community inbox, which the collector keeps in the public ledger.
-    Promise.all([NTFY + boxTopic(L.from), NTFY + INBOX_TOPIC].map(function (u) {
-      return fetch(u, { method: "POST", body: body }).then(function (r) { return r.ok; }, function () { return false; });
-    })).then(function (ok) {
+    function post(one) {
+      var body = JSON.stringify(one);
+      return Promise.all([NTFY + boxTopic(L.from), NTFY + INBOX_TOPIC].map(function (u) {
+        return fetch(u, { method: "POST", body: body }).then(function (r) { return r.ok; }, function () { return false; });
+      }));
+    }
+    post(entry).then(function (ok) {
       if (!ok[0] && !ok[1]) { $("send").disabled = false; say("That did not send. Check your internet and try again.", "bad"); return; }
-      say("Sent. " + L.from + "'s Net Buddy picks it up the next time it is open.", "good");
-      $("reply").hidden = true;
-      $("window").hidden = true;
-      $("mine").hidden = false;
-      drawCard($("minewrap"), entry);
+      // One after another, so ntfy never sees a burst.
+      var chain = Promise.resolve(0);
+      extra.forEach(function (x) {
+        chain = chain.then(function (n) { return post(x).then(function (k) { return n + ((k[0] || k[1]) ? 1 : 0); }); });
+      });
+      return chain.then(function (n) {
+        say("Sent. " + (n ? n + " earlier contact" + (n > 1 ? "s" : "") + " confirmed too. " : "")
+            + L.from + "'s Net Buddy picks it up the next time it is open.", "good");
+        $("reply").hidden = true;
+        $("window").hidden = true;
+        $("mine").hidden = false;
+        drawCard($("minewrap"), entry);
+      });
     });
   }
   $("printmine").addEventListener("click", function () { printOnly($("minewrap")); });
