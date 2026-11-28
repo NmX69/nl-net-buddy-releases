@@ -143,7 +143,7 @@
 <div class="wrap">
 
   <h1>NL Net Buddy — User Guide</h1>
-  <p class="subtitle">Version 3.6.41 · by N6WWW — a companion for NetLogger, featuring the OMISS Award Hunter platform</p>
+  <p class="subtitle">Version 3.6.42 · by N6WWW — a companion for NetLogger, featuring the OMISS Award Hunter platform</p>
 
   <div class="note" id="thanks"><strong>Thank you, NetLogger.</strong> Net Buddy is only possible because of AC0ZG and the team at <a href="https://www.netlogger.org/">NetLogger.org</a>, and the free service they give the amateur radio community. Please visit them and support their work.</div>
 
@@ -304,7 +304,7 @@
   <p>In Client Mode there is no HUD on screen and no second Net Buddy button on the taskbar &mdash; the client is the whole of Net Buddy. Settings, the game tables, the sound cues and the hotkeys still work from the client, and closing the client window closes Net Buddy.</p>
 
   <h3>3. First-time setup</h3>
-  <p>Click the <strong>⚙</strong> gear button on the HUD and choose <strong>Config</strong> to open Settings. (The same gear menu also has this User Guide, About &amp; Share, the Net Schedule, the OMISS NCS Scripts, and the Debug Helper.) Settings has twelve tabs: <strong>Setup, HUD, Sounds, Applications, ACLog, Rig, UDP Log Sync, HRD Sync, QRZ Sync, eQSL Sync, K1ALF,</strong> and <strong>OMISS website</strong>. Every tab scrolls if it&rsquo;s tall, and Save / Close always stay visible at the bottom.</p>
+  <p>Click the <strong>⚙</strong> gear button on the HUD and choose <strong>Config</strong> to open Settings. (The same gear menu also has this User Guide, About &amp; Share, the Net Schedule, the NCS Scripts, and the Debug Helper.) Settings has twelve tabs: <strong>Setup, HUD, Sounds, Applications, ACLog, Rig, UDP Log Sync, HRD Sync, QRZ Sync, eQSL Sync, K1ALF,</strong> and <strong>OMISS website</strong>. Every tab scrolls if it&rsquo;s tall, and Save / Close always stay visible at the bottom.</p>
   <p><strong>Sounds tab.</strong> Every sound Net Buddy makes has a switch here. <strong>All sounds</strong> turns everything off at once, the Messenger and games included. Or keep the warnings and lose the rest: <strong>Action beeps</strong> are the short &ldquo;sent&rdquo;, &ldquo;done&rdquo; and &ldquo;didn&rsquo;t work&rdquo; tones, and <strong>Warning beeps</strong> are the ones that mean something needs doing by hand (a duplicate check-in, a write that didn&rsquo;t reach the net). There are also switches for the AIM tones, the alert-word sound, the Waiting Room chime, the net-moved beeps and the new-version ding, plus the Messenger&rsquo;s alerts and game sounds. The same switches appear in Net Buddy Client&rsquo;s Settings, and changing one in either place changes it in both. <strong>Test sound</strong> plays a tone so you can check your speakers.</p>
   <p><strong>Setup tab</strong> (do this first):</p>
   <ul>
@@ -336,7 +336,7 @@
     <li><strong>Hide 30s</strong> — minimize the HUD for 30 seconds; it pops back on its own. Handy for reaching NetLogger's menus or net selector along the top of the screen without losing the HUD. (To keep it down, use the window's own minimize button.)</li>
     <li><strong>Dash</strong> — build and open the dashboard.</li>
     <li><strong>Pink</strong> / <strong>Next</strong> — <em>(when you're in a net)</em> jump NetLogger's check-in list to the active <strong>pink</strong> line (<strong>Pink</strong>) or the <strong>green</strong> &ldquo;needed next&rdquo; line (<strong>Next</strong>) — so you don't have to move the HUD off NetLogger's own arrow buttons to reach them. <strong>Right-click</strong> the Pink / Select-Net button to <strong>Stop Monitoring</strong> (leave the net you&rsquo;re on). It invokes NetLogger&rsquo;s &ldquo;Stop Monitoring&rdquo; button <em>by name</em>, so it can <strong>never</strong> trigger &ldquo;Close Net&rdquo; — closing a net stays a deliberate manual action.</li>
-    <li><strong>⚙</strong> (gear) — a dropdown menu: <strong>Config</strong> (Settings), <strong>Net Schedule</strong>, <strong>Free Frequency Finder</strong>, <strong>OMISS NCS Scripts</strong>, <strong>WASA Scripts &amp; Schedule</strong>, <strong>User Guide</strong> (this page), <strong>About &amp; Share</strong>, <strong>Debug Helper</strong>, and <strong>Supporter Perks</strong>.</li>
+    <li><strong>⚙</strong> (gear) — a dropdown menu: <strong>Config</strong> (Settings), <strong>Net Schedule</strong>, <strong>Free Frequency Finder</strong>, <strong>NCS Scripts</strong> (one item per club), <strong>User Guide</strong> (this page), <strong>About &amp; Share</strong>, <strong>Debug Helper</strong>, and <strong>Supporter Perks</strong>.</li>
     <li><strong>ALF</strong> — push your new OMISS contacts to K1ALF&rsquo;s online awards tracker (second row, below the gear button — see below).</li>
   </ul>
 
@@ -356,8 +356,7 @@
         <li>Spots come from pota.app and refresh every minute. A spot lasts up to 30 minutes unless the activator closes it.</li>
       </ul>
     </li>
-    <li><strong>OMISS NCS Scripts</strong> — the ready-to-read net-opening scripts, auto-filled from the live net (see <a href="#scripts">its own section</a>). You can also open this with the leader key <strong>Ctrl+;</strong> then <strong>P</strong>.</li>
-    <li><strong>WASA Scripts &amp; Schedule</strong> — the same net-opening scripts and schedule for the WASA net.</li>
+    <li><strong>NCS Scripts</strong> — the ready-to-read net scripts, auto-filled from the live net (see <a href="#scripts">its own section</a>). There is one item per club: <strong>OMISS NCS Scripts</strong>, <strong>WASA NCS Scripts</strong> (a short list: <strong>SSB</strong>, with the WASA schedule, or <strong>CW</strong>) and <strong>RVRN NCS Scripts</strong> (<strong>HF</strong> or <strong>Multimode</strong>). The leader key <strong>Ctrl+;</strong> then <strong>P</strong> opens the script for the net you are on.</li>
     <li><strong>User Guide</strong> — open this page in your browser.</li>
     <li><strong>About &amp; Share</strong> — an editable &ldquo;tell a friend&rdquo; message you can copy or post in AIM, plus clickable donate and QRZ links. If you like NL Net Buddy, this is the easy way to spread the word.</li>
     <li><strong>Debug Helper</strong> — one-click tools to zip your logs and show you the file, so it&rsquo;s easy to send them in if something ever needs troubleshooting (see <a href="#tips">Tips &amp; troubleshooting</a>).</li>
@@ -496,7 +495,7 @@
   <p>When your own check-in shows you as NCS, Logger, or Relay, a panel of <strong>announcement buttons</strong> appears automatically (10 buttons; right-click any to edit its label or message). These are just AIM chat macros &mdash; no special privilege needed. Supporters can turn on <strong>&ldquo;Always show the NCS panel&rdquo;</strong> in Supporter Perks, handy if your role isn&rsquo;t auto-detected.</p>
 
   <h2 id="scripts">Net Preamble / Scripts</h2>
-  <p>Open it from the <strong>gear menu</strong> (📋 OMISS NCS Scripts) or with the leader key <strong>Ctrl+;</strong> then <strong>P</strong>. It shows the full net-opening script for whichever net you&rsquo;re on &mdash; <strong>Net Start</strong>, <strong>Preamble</strong>, and <strong>Closing</strong> &mdash; ready to read on the air.</p>
+  <p>Open it from the <strong>gear menu</strong> (📋 <strong>OMISS</strong>, <strong>WASA</strong> or <strong>RVRN NCS Scripts</strong>) or with the leader key <strong>Ctrl+;</strong> then <strong>P</strong>. It shows the full script for whichever net you&rsquo;re on &mdash; for OMISS, <strong>Net Start</strong>, <strong>Preamble</strong>, and <strong>Closing</strong> &mdash; ready to read on the air. The script is picked by club, then by mode: a WASA net with CW in its name opens the WASA CW script, and an RVRN multimode or EchoLink net opens the RVRN Multimode one.</p>
   <p>Everything variable is <strong>filled in live</strong> and shown in <strong>bold yellow</strong> so it jumps out as you read: your call, name, and OM number; the band, frequency, and current Zulu time; the <strong>relays and loggers</strong> checked in (with names); the <strong>newcomers</strong>; and the net&rsquo;s meeting time and next session, pulled from the live OMISS schedule.</p>
   <p>It&rsquo;s built to be easy to read on air:</p>
   <ul>
