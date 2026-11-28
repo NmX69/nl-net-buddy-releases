@@ -183,7 +183,7 @@
 <div class="wrap">
 
   <h1>Net Buddy Client — Guide</h1>
-  <p class="subtitle">Version 3.6.41 · by N6WWW · what the client does, starting from what you know in NetLogger</p>
+  <p class="subtitle">Version 3.6.42 · by N6WWW · what the client does, starting from what you know in NetLogger</p>
 
   <div class="note" id="thanks"><strong>Thank you, NetLogger.</strong> Net Buddy is only possible because of AC0ZG and the team at <a href="https://www.netlogger.org/">NetLogger.org</a>, and the free service they give the amateur radio community. Please visit them and support their work.</div>
 
@@ -636,10 +636,13 @@
       <p><strong>Someone not on screen?</strong> Press <kbd>Ctrl+D</kbd> then <kbd>S</kbd> (report)
       or <kbd>H</kbd> (history), and type a line number, call sign or member number. The same two
       are in the <strong>Tools</strong> menu.</p>
-      <p><strong>Fast:</strong> every right-click menu item shows a letter in a box on its right.
-      Right-click, then press that letter. On an AIM message: <kbd>R</kbd> reply, <kbd>G</kbd> 73,
-      <kbd>S</kbd> report, <kbd>H</kbd> history, <kbd>Q</kbd> QRZ, and for a logger <kbd>I</kbd>
-      <kbd>W</kbd> <kbd>C</kbd> <kbd>A</kbd> <kbd>L</kbd>, the same letters as log mode.</p>
+      <p><strong>Fast:</strong> every right-click menu item shows its letter: in a box on the right of
+      a line, or underlined on a button. Right-click, then press that letter. On an AIM message:
+      <kbd>M</kbd> private message (Net Buddy users only), <kbd>R</kbd> reply, <kbd>G</kbd> 73,
+      <kbd>S</kbd> Station Info, and for a logger <kbd>I</kbd> <kbd>C</kbd> <kbd>A</kbd>
+      <kbd>W</kbd> <kbd>L</kbd>, the same letters as log mode.</p>
+      <p><strong>No mouse?</strong> On a check-in line, the <kbd>Menu</kbd> key or
+      <kbd>Shift+F10</kbd> opens the same menu.</p>
     </div>
   </details>
 
@@ -769,7 +772,7 @@
         <li><kbd>G</kbd> says 73 and stays for the next one. <kbd>Enter</kbd> says 73 and leaves.</li>
         <li><kbd>Escape</kbd> leaves without sending.</li>
       </ol>
-      <p><strong>Just one station?</strong> Right-click their message and choose <strong>Say 73</strong> (or press <kbd>G</kbd>). <strong>Reply to</strong> is just above it (<kbd>R</kbd>).</p>
+      <p><strong>Just one station?</strong> Right-click their message and click <strong>73</strong> (or press <kbd>G</kbd>). <strong>REPLY TO</strong> is beside it (<kbd>R</kbd>).</p>
       <p>No logger role needed.</p>
     </div>
   </details>
@@ -1394,14 +1397,16 @@
     <summary>
       <span><span class="fname">Announcements</span> <span class="badge headline">Headline</span> <span class="badge new">Not in NetLogger</span></span>
       <span><span class="lbl">In NetLogger: </span>You type or paste each one into AIM.</span>
-      <span><span class="lbl">In Net Buddy Client: </span>Ten buttons you write once. <kbd>Alt+1</kbd> to <kbd>Alt+0</kbd> send them.</span>
+      <span><span class="lbl">In Net Buddy Client: </span>Up to 30 buttons you write once. <kbd>Alt</kbd> and a button&rsquo;s number sends it.</span>
     </summary>
     <div class="howto">
       <p class="howto-head">In Net Buddy Client (NBC):</p>
       <ol>
         <li>Click <strong>announce</strong> above the check-in list, or <strong>Net Specific &rarr; Announcements</strong>.</li>
         <li>Right-click a button to write its name and its message.</li>
-        <li>Press the button, or <kbd>Alt</kbd> and its number. The number row and the number pad both work.</li>
+        <li>Press the button, or hold <kbd>Alt</kbd> and type its number on the number pad: <kbd>Alt+12</kbd> sends the twelfth.</li>
+        <li>The top number row does the first ten: <kbd>Alt+1</kbd> to <kbd>Alt+0</kbd>, and <kbd>Alt+0</kbd> is the tenth.</li>
+        <li><kbd>Alt</kbd> with a number of 100 or more still types a character, like <kbd>Alt+0241</kbd> for &ntilde;.</li>
       </ol>
       <ul>
         <li>Each button shows its number in the corner.</li>
@@ -1497,7 +1502,7 @@
     <summary>
       <span><span class="fname">Inserting, deleting and clearing lines</span> <span class="badge everyday">Everyday</span></span>
       <span><span class="lbl">In NetLogger: </span>Right-click: Insert Row, Delete Row, Clear Row.</span>
-      <span><span class="lbl">In Net Buddy Client: </span>One key each, and each one asks first.</span>
+      <span><span class="lbl">In Net Buddy Client: </span>One key or one button each, and each one asks first.</span>
     </summary>
     <div class="howto">
       <p class="howto-head">In Net Buddy Client (NBC):</p>
@@ -1506,6 +1511,7 @@
         <li><kbd>Delete</kbd> — delete the line. Everyone below moves up.</li>
         <li><kbd>Backspace</kbd> — empty the line. Every line number stays put.</li>
       </ul>
+      <p>The same three are buttons on the right-click menu: <strong>INS</strong>, <strong>DEL</strong> and <strong>CLR</strong>.</p>
       <p>The delete box offers four choices, from just this line up to clearing the whole list. The bigger the choice, the stronger its color.</p>
     </div>
   </details>
@@ -1580,8 +1586,10 @@
           </ul>
           Both announce on AIM.</li>
       </ul>
-      <p><strong>From the right-click menu:</strong> right-click any line and choose
-      <strong>TURN &rarr; #14 &hellip;</strong> The pink line moves there and it is announced on AIM.</p>
+      <p><strong>From the right-click menu:</strong> right-click any line and click
+      <strong>TURN</strong>. The pink line moves there and it is announced on AIM.
+      <strong>JUMP</strong> beside it does what <kbd>Shift+F3</kbd> does: it announces that station
+      out of order, and the next TURN comes back.</p>
       <p>In <a href="#log-mode">log mode</a>, <kbd>N</kbd> is TURN and <kbd>J</kbd> is the jump.</p>
     </div>
   </details>
